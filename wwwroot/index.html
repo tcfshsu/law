@@ -38,9 +38,9 @@
             <div class="loading-progress-text"></div>
             <noscript>您的瀏覽器未開啟JavaScript功能，可能無法使用本資料庫。</noscript>
             <div class="notsupport">
-                <span>若此頁面加載至100%後跳出錯誤訊息</span>
-                <span>表示您的裝置並不支援此網頁</span>
+                <span>您的裝置/瀏覽器並不支援此網頁（SIMD）</span>
                 <span>非常抱歉！</span>
+                <span>請<a href="https://sites.google.com/view/tcfshsu">點此</a>移動至學聯會網</span>
             </div>
         </div>
 
@@ -49,6 +49,14 @@
             <a onclick="window.location.reload()">重新整理</a>
             <span class="dismiss">🗙</span>
         </div>
+        <script type="module">
+            import { simd } from "wasm-feature-detect" ; 
+
+            if (await !simd()) 
+            {
+                $( "#app .notsupport" ).css( "display" , "flex" ) ; 
+            } 
+        </script>
         <script src="_framework/blazor.webassembly.js"></script>
     </body>
 </html>
