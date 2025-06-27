@@ -100,7 +100,7 @@ code {
 
 .notsupport 
 {
-    display : flex ; 
+    display : none ; 
     justify-content : center ; 
     align-items : center ; 
     flex-wrap : nowrap ; 
