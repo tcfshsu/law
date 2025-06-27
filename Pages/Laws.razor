@@ -226,35 +226,35 @@ else
         public A[] LawArticles { get; set; }
         public bool Contains( string a ) 
         {
-            if( LawName.ToUpper().Contains( a ) ) 
+            if( LawName.ToUpper().Contains( a.ToUpper() ) ) 
             {
                 return true ; 
             }
-            else if( LawHistories.ToUpper().Contains( a ) ) 
+            else if( LawHistories.ToUpper().Contains( a.ToUpper() ) ) 
             {
                 return true ; 
             }
-            else if( string.IsNullOrEmpty( LawForeword ) ? false : LawForeword.ToUpper().Contains( a ) ) 
+            else if( string.IsNullOrEmpty( LawForeword ) ? false : LawForeword.ToUpper().Contains( a.ToUpper() ) ) 
             {
                 return true ; 
             }
             else if( LawHasEngVersion == "Y" ) 
             {
-                if( EngLawName.ToUpper().Contains( a ) ) 
+                if( EngLawName.ToUpper().Contains( a.ToUpper() ) ) 
                 {
                     return true ; 
                 }
             }
             foreach( var art in LawArticles ) 
             {
-                if( art.ArticleType.ToUpper().Contains( a ) || ( string.IsNullOrEmpty( art.ArticleNo ) ? false : art.ArticleNo.ToUpper().Contains( a ) ) || art.ArticleContent.ToUpper().Contains( a ) ) 
+                if( art.ArticleType.ToUpper().Contains( a.ToUpper() ) || ( string.IsNullOrEmpty( art.ArticleNo ) ? false : art.ArticleNo.ToUpper().Contains( a.ToUpper() ) ) || art.ArticleContent.ToUpper().Contains( a.ToUpper() ) ) 
                 {
                     return true ; 
                 }
             }
             foreach( var att in LawAttachments ) 
             {
-                if( att.FileName.ToUpper().Contains( a ) ) 
+                if( att.FileName.ToUpper().Contains( a.ToUpper() ) ) 
                 {
                     return true ; 
                 }
@@ -267,7 +267,7 @@ else
             {
                 foreach( var art in LawArticles ) 
                 {
-                    if( art.ArticleType.ToUpper().Contains( a ) || ( string.IsNullOrEmpty( art.ArticleNo ) ? false : art.ArticleNo.ToUpper().Contains( a ) ) || art.ArticleContent.ToUpper().Contains( a ) ) 
+                    if( art.ArticleType.ToUpper().Contains( a.ToUpper() ) || ( string.IsNullOrEmpty( art.ArticleNo ) ? false : art.ArticleNo.ToUpper().Contains( a.ToUpper() ) ) || art.ArticleContent.ToUpper().Contains( a.ToUpper() ) ) 
                     {
                         return true ; 
                     }
@@ -277,7 +277,7 @@ else
             {
                 foreach( var att in LawAttachments ) 
                 {
-                    if( att.FileName.ToUpper().Contains( a ) ) 
+                    if( att.FileName.ToUpper().Contains( a.ToUpper() ) ) 
                     {
                         return true ; 
                     }
@@ -287,14 +287,14 @@ else
             {
                 foreach( var art in LawArticles ) 
                 {
-                    if( art.ArticleType.ToUpper().Contains( a ) || ( string.IsNullOrEmpty( art.ArticleNo ) ? false : art.ArticleNo.ToUpper().Contains( a ) ) || art.ArticleContent.ToUpper().Contains( a ) ) 
+                    if( art.ArticleType.ToUpper().Contains( a.ToUpper() ) || ( string.IsNullOrEmpty( art.ArticleNo ) ? false : art.ArticleNo.ToUpper().Contains( a.ToUpper() ) ) || art.ArticleContent.ToUpper().Contains( a.ToUpper() ) ) 
                     {
                         return true ; 
                     }
                 }
                 foreach( var att in LawAttachments ) 
                 {
-                    if( att.FileName.ToUpper().Contains( a ) ) 
+                    if( att.FileName.ToUpper().Contains( a.ToUpper() ) ) 
                     {
                         return true ; 
                     }
@@ -302,21 +302,21 @@ else
             }
             else if( b == "nme" ) 
             {
-                if( LawName.ToUpper().Contains( a ) ) 
+                if( LawName.ToUpper().Contains( a.ToUpper() ) ) 
                 {
                     return true ; 
                 }
             }
             else if( b == "his" ) 
             {
-                if( LawHistories.ToUpper().Contains( a ) ) 
+                if( LawHistories.ToUpper().Contains( a.ToUpper() ) ) 
                 {
                     return true ; 
                 }
             }
             else if( b == "fwd" ) 
             {
-                if( string.IsNullOrEmpty( LawForeword ) ? false : LawForeword.ToUpper().Contains( a ) ) 
+                if( string.IsNullOrEmpty( LawForeword ) ? false : LawForeword.ToUpper().Contains( a.ToUpper() ) ) 
                 {
                     return true ; 
                 }
@@ -325,7 +325,7 @@ else
             {
                 if( LawHasEngVersion == "Y" ) 
                 {
-                    if( EngLawName.ToUpper().Contains( a ) ) 
+                    if( EngLawName.ToUpper().Contains( a.ToUpper() ) ) 
                     {
                         return true ; 
                     }
@@ -397,25 +397,25 @@ else
                     {
                         if( Contains( a , "his" ) ) 
                         {
-                            for( int i = 0 ; ( i + 1 ) < LawHistories.Split( a ).Length ; i ++ ) 
+                            for( int i = 0 ; ( i + 1 ) < LawHistories.ToUpper().Split( a.ToUpper() ).Length ; i ++ ) 
                             {
-                                aaa += LawHistories.Split( a )[i] + "<\\>" + a + "<\\>" + LawHistories.Split( a )[ i + 1 ] + "…" ; 
+                                aaa += LawHistories.ToUpper().Split( a.ToUpper() )[i] + "<\\>" + a + "<\\>" + LawHistories.Split( a.ToUpper() )[ i + 1 ] + "…" ; 
                             }
                         }
                         if( Contains( a , "fwd" ) ) 
                         {
-                            for( int i = 0 ; ( i + 1 ) < LawForeword.Split( a ).Length ; i ++ ) 
+                            for( int i = 0 ; ( i + 1 ) < LawForeword.ToUpper().Split( a.ToUpper() ).Length ; i ++ ) 
                             {
-                                aaa += LawForeword.Split( a )[i] + "<\\>" + a + "<\\>" + LawForeword.Split( a )[ i + 1 ] + "…" ; 
+                                aaa += LawForeword.ToUpper().Split( a.ToUpper() )[i] + "<\\>" + a + "<\\>" + LawForeword.ToUpper().Split( a.ToUpper() )[ i + 1 ] + "…" ; 
                             }
                         }
                         if( Contains( a , "att" ) ) 
                         {
-                            foreach( var att in LawAttachments.Where( l => l.Contains( a )).ToArray() ) 
+                            foreach( var att in LawAttachments.Where( l => l.Contains( a ) ).ToArray() ) 
                             {
-                                for( int i = 0 ; ( i + 1 ) < att.FileName.Split( a ).Length ; i ++ ) 
+                                for( int i = 0 ; ( i + 1 ) < att.FileName.ToUpper().Split( a.ToUpper() ).Length ; i ++ ) 
                                 {
-                                    aaa += att.FileName.Split( a )[i] + "<\\>" + a + "<\\>" + att.FileName.Split( a )[ i + 1 ] + "…" ; 
+                                    aaa += att.FileName.ToUpper().Split( a.ToUpper() )[i] + "<\\>" + a + "<\\>" + att.FileName.ToUpper().Split( a.ToUpper() )[ i + 1 ] + "…" ; 
                                 }
                             }
                         }
@@ -423,18 +423,18 @@ else
                         {
                             foreach( var art in LawArticles.Where( l => l.Contains( a ) ).ToArray() ) 
                             {
-                                if( art.ArticleNo.Contains( a ) ) 
+                                if( art.ArticleNo.ToUpper().Contains( a.ToUpper() ) ) 
                                 {
-                                    for( int i = 0 ; ( i + 1 ) < art.ArticleNo.Split( a ).Length ; i ++ ) 
+                                    for( int i = 0 ; ( i + 1 ) < art.ArticleNo.ToUpper().Split( a.ToUpper() ).Length ; i ++ ) 
                                     {
-                                        aaa += art.ArticleNo.Split( a )[i] + "<\\>" + a + "<\\>" + art.ArticleNo.Split( a )[ i + 1 ] + "…" ; 
+                                        aaa += art.ArticleNo.ToUpper().Split( a.ToUpper() )[i] + "<\\>" + a + "<\\>" + art.ArticleNo.ToUpper().Split( a.ToUpper() )[ i + 1 ] + "…" ; 
                                     }
                                 }
                                 if( art.ArticleNo.Contains( a ) ) 
                                 {
-                                    for( int i = 0 ; ( i + 1 ) < art.ArticleContent.Split( a ).Length ; i ++ ) 
+                                    for( int i = 0 ; ( i + 1 ) < art.ArticleContent.ToUpper().Split( a.ToUpper() ).Length ; i ++ ) 
                                     {
-                                        aaa += art.ArticleContent.Split( a )[i] + "<\\>" + a + "<\\>" + art.ArticleContent.Split( a )[ i + 1 ] + "…" ; 
+                                        aaa += art.ArticleContent.ToUpper().Split( a.ToUpper() )[i] + "<\\>" + a + "<\\>" + art.ArticleContent.ToUpper().Split( a.ToUpper() )[ i + 1 ] + "…" ; 
                                     }
                                 }
                             }
@@ -480,11 +480,11 @@ else
             {
                 foreach( var aa in Regex.Split( a , @"\s" ) ) 
                 {
-                    if( ( !string.IsNullOrEmpty( ArticleNo ) && ArticleNo.Contains( "【" ) ) ? ArticleNo.Split( "【" )[1].Replace( "】" , "" ).ToUpper().Contains( a ) : false ) 
+                    if( ( !string.IsNullOrEmpty( ArticleNo ) && ArticleNo.Contains( "【" ) ) ? ArticleNo.Split( "【" )[1].Replace( "】" , "" ).ToUpper().Contains( a.ToUpper() ) : false ) 
                     {
                         return true ; 
                     }
-                    else if( ArticleContent.ToUpper().Contains( a ) ) 
+                    else if( ArticleContent.ToUpper().Contains( a.ToUpper() ) ) 
                     {
                         return true ; 
                     }
@@ -492,7 +492,7 @@ else
             }
             else 
             {
-                return ( ArticleContent.ToUpper().Contains( a ) || ( ( !string.IsNullOrEmpty( ArticleNo ) && ArticleNo.Contains( "【" ) ) ? ArticleNo.Split( "【" )[1].Replace( "】" , "" ).ToUpper().Contains( a ) : false ) ) ; 
+                return ( ArticleContent.ToUpper().Contains( a.ToUpper() ) || ( ( !string.IsNullOrEmpty( ArticleNo ) && ArticleNo.Contains( "【" ) ) ? ArticleNo.Split( "【" )[1].Replace( "】" , "" ).ToUpper().Contains( a.ToUpper() ) : false ) ) ; 
             }
             return false ; 
         }
@@ -509,7 +509,7 @@ else
             {
                 foreach( var aa in Regex.Split( a , @"\s" ) ) 
                 {
-                    if( FileName.ToUpper().Contains( a ) ) 
+                    if( FileName.ToUpper().Contains( a.ToUpper() ) ) 
                     {
                         return true ; 
                     }
@@ -517,7 +517,7 @@ else
             }
             else 
             {
-                return FileName.Contains( a ) ; 
+                return FileName.ToUpper().Contains( a.ToUpper() ) ; 
             }
             return false ; 
         }
