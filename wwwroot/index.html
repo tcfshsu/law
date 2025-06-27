@@ -28,6 +28,14 @@
         <link rel="stylesheet" href="css/darkmode.css" />
         <link rel="icon" type="image/png" href="favicon.png" />
         <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script type="module">
+            import { simd } from "wasm-feature-detect" ; 
+
+            if( !( await simd() ) ) 
+            {
+                $( "#app .notsupport" ).css( "display" , "flex" ) ; 
+            } 
+        </script>
     </head>
     <body>
         <div id="app">
@@ -38,7 +46,7 @@
             <div class="loading-progress-text"></div>
             <noscript>您的瀏覽器未開啟JavaScript功能，可能無法使用本資料庫。</noscript>
             <div class="notsupport">
-                <span>您的裝置/瀏覽器並不支援此網頁（SIMD）</span>
+                <span>您的裝置/瀏覽器並不支援此網頁</span>
                 <span>非常抱歉！</span>
                 <span>請<a href="https://sites.google.com/view/tcfshsu">點此</a>移動至學聯會網</span>
             </div>
@@ -49,14 +57,6 @@
             <a onclick="window.location.reload()">重新整理</a>
             <span class="dismiss">🗙</span>
         </div>
-        <script type="module">
-            import { simd } from "wasm-feature-detect" ; 
-
-            if (await !simd()) 
-            {
-                $( "#app .notsupport" ).css( "display" , "flex" ) ; 
-            } 
-        </script>
         <script src="_framework/blazor.webassembly.js"></script>
     </body>
 </html>
