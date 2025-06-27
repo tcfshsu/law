@@ -1,0 +1,207 @@
+@page "/cases/detail"
+@inject HttpClient Http
+@inject NavigationManager NavManager
+
+<PageTitle>@a - 臺中市立臺中第一高級中等學校學生自治聯合會法規資料庫</PageTitle>
+<div class="bread">
+    <span>現在位置：</span>
+    <ul>
+        <li><a href="">首頁</a></li>
+        <li><a href="cases">判例查詢</a></li>
+        <li>判例詳細資料</li>
+    </ul>
+</div>
+@if( a == "" || a == null ) 
+{
+    <span>沒有這個東西啦！</span>
+}
+<h1>@a</h1>
+@if (cases == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="cd">
+        <dl>
+            <dt><h4>判決字號</h4></dt>
+            <dd><h5>@cases[0].Cases[i].No</h5></dd>
+            <dt><h4>類別</h4></dt>
+            <dd><h5>@cases[0].Cases[i].Category</h5></dd>
+            @if( @cases[0].Cases[i].DeliberationDate != "" ) 
+            {
+                <dt><h4>判決日期</h4></dt>
+                <dd><h5>@cases[0].Cases[i].DeliberationDate</h5></dd>
+            }
+            @if( @cases[0].Cases[i].Petitioner != "" ) 
+            {
+                <dt><h4>聲請人</h4></dt>
+                <dd><h5>@cases[0].Cases[i].Petitioner</h5></dd>
+            }
+            @if( @cases[0].Cases[i].Plaintiff != "" ) 
+            {
+                <dt><h4>原告</h4></dt>
+                <dd><h5>@cases[0].Cases[i].Plaintiff</h5></dd>
+            }
+            @if( @cases[0].Cases[i].Defendant != "" ) 
+            {
+                <dt><h4>被告</h4></dt>
+                <dd><h5>@cases[0].Cases[i].Defendant</h5></dd>
+            }
+            @if( @cases[0].Cases[i].Title != "" ) 
+            {
+                <dt><h4>標題</h4></dt>
+                <dd><h5>@cases[0].Cases[i].Title</h5></dd>
+            }
+            @if( @cases[0].Cases[i].Cause != "" ) 
+            {
+                <dt><h4>案由</h4></dt>
+                <dd><h5>@cases[0].Cases[i].Cause</h5></dd>
+            }
+            @if( @cases[0].Cases[i].Syllabus != "" ) 
+            {
+                <dt><h4>主文</h4></dt>
+                <dd><h5>@cases[0].Cases[i].Syllabus</h5></dd>
+            }
+            @if( @cases[0].Cases[i].State != "" ) 
+            {
+                <dt><h4>狀態</h4></dt>
+                <dd><h5>@cases[0].Cases[i].State</h5></dd>
+            }
+            @if( @cases[0].Cases[i].FullJudgement != "" ) 
+            {
+                <dt>
+                    <h4>
+                        <a href="@cases[0].Cases[i].FullJudgement" target="_blank">
+                            <span>判決全文</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ex-link">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                        </a>
+                    </h4>
+                </dt>
+            }
+            @if (@cases[0].Cases[i].Rulings.Length != 0)
+            {
+                <dt><h4>裁定</h4></dt>
+                <div class="cd r">
+                    @foreach (var cassr in @cases[0].Cases[i].Rulings)
+                    {
+                        <dl>
+                            <dt><h5>裁定字號</h5></dt>
+                            <dd><h6>@cassr.RulingNo</h6></dd>
+                            <dt>
+                                <h5>
+                                    <a href="@cassr.FullRulingURL" target="_blank">
+                                        <span>裁定全文</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ex-link">
+                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                            <polyline points="15 3 21 3 21 9"></polyline>
+                                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                                        </svg>
+                                    </a>
+                                </h5>
+                            </dt>
+                        </dl>
+                    }
+                </div>
+            }
+            @if (@cases[0].Cases[i].Opinions.Length != 0)
+            {
+                <dt><h4>意見書</h4></dt>
+                <div class="cd o">
+                    @foreach (var casso in @cases[0].Cases[i].Opinions)
+                    {
+                        <dl>
+                            <dt><h5>類型</h5></dt>
+                            <dd><h6>@casso.Type</h6></dd> 
+                            <dt><h5>委員</h5></dt>
+                            <dd><h6>@casso.Member</h6></dd> 
+                            <dt>
+                                <h6>
+                                    <a href="@casso.URL" target="_blank">
+                                        <span>意見書全文</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ex-link">
+                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                            <polyline points="15 3 21 3 21 9"></polyline>
+                                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                                        </svg>
+                                    </a>
+                                </h6>
+                            </dt>
+                        </dl>
+                    }
+                </div>
+            }
+        </dl>
+    </div>
+}
+<a href="cases?q=@b">回上一頁</a>
+
+@code {
+    private Casess[]? cases;
+    private string a;
+    int i ; 
+    private string b ; 
+    protected override void OnInitialized()
+    {
+        var uri = NavManager.ToAbsoluteUri(NavManager.Uri);
+        var queryStrings = QueryHelpers.ParseQuery(uri.Query);
+        if(queryStrings.TryGetValue("case", out var aaa))
+        {
+            a = aaa;
+        }
+        if(queryStrings.TryGetValue("q", out var bbb))
+        {
+            b = bbb;
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        cases = await Http.GetFromJsonAsync<Casess[]>("json/cases.json");
+        for (int iii = 0; iii < cases[0].Cases.Length; iii++)
+        {
+            if (a == cases[0].Cases[iii].No)
+            {
+                i = iii;
+                break;
+            }
+        }
+    }
+
+    public class Casess
+    {
+        public string UpdateDate { get; set; }
+        public Case[] Cases { get; set; }
+    }
+    public class Case 
+    {
+        public string No { get; set; }
+        public string Category { get; set; }
+        public string? DeliberationDate { get; set; }
+        public string? Petitioner { get; set; }
+        public string? Plaintiff { get; set; }
+        public string? Defendant { get; set; }
+        public string? Title { get; set; }
+        public string? Cause { get; set; }
+        public string? Syllabus { get; set; }
+        public string? State { get; set; }
+        public string? FullJudgement { get; set; }
+        public R[]? Rulings { get; set; }
+        public O[]? Opinions { get; set; } 
+    }
+    public class R 
+    {
+        public string RulingNo { get; set; }
+        public string FullRulingURL { get; set; }
+    }
+    public class O 
+    {
+        public string Type { get; set; }
+        public string Member { get; set; }
+        public string URL { get; set; }
+    }
+}

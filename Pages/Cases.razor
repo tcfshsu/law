@@ -1,0 +1,349 @@
+@page "/cases"
+@inject HttpClient Http
+@inject NavigationManager N
+
+<PageTitle>判例查詢 - 臺中市立臺中第一高級中等學校學生自治聯合會法規資料庫</PageTitle>
+
+<div class="bread">
+    <span>現在位置：</span>
+    <ul>
+        <li><a href="">首頁</a></li>
+        <li>判例查詢</li>
+    </ul>
+</div>
+<form action="cases" method="get" class="cq printNoDisplay">
+    <label for="c">狀態：</label>
+    <select name="c" id="c">
+        <option value="">不限</option>
+        <option value="章程訴訟">章程訴訟</option>
+        <option value="一般訴訟">一般訴訟</option>
+    </select>
+    <p>
+        <input type="search" placeholder="輸入關鍵字以搜尋判例" name="q" />
+        <input type="submit" style="background-image:url(i/icon/search.svg);width:24px;height:24px;background-color:#0000;border:0;cursor:pointer;" value="" alt="搜尋！" />
+    </p>
+</form>
+@if (cases == null)
+{
+    <p><em>Loading...</em></p>
+}
+else if( a == "" || a == null )
+{
+    <table class="c">
+        <thead>
+            <tr>
+                <th>判決字號</th>
+                <th>類別</th>
+                @* <th>判決日期</th>
+                <th>聲請人</th>
+                <th>原告</th>
+                <th>被告</th> *@
+                <th>標題或案由</th>
+                @* <th>主文</th>
+                <th>狀態</th>
+                <th>判決全文（URL）</th> *@
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var cas in cq)
+        {
+            <tr>
+                <td><a href="cases/detail?case=@cas.No&q=@a" target="_self">@cas.No</a></td>
+                <td>@cas.Category</td>
+                @* <td>@cas.DeliberationDate</td>
+                <td>@cas.Petitioner</td>
+                <td>@cas.Plaintiff</td>
+                <td>@cas.Defendant</td> *@
+                @if( cas.Title != "" ) 
+                {
+                    <td>@cas.Title</td>
+                }
+                else 
+                {
+                    <td>@cas.Cause</td>
+                }@*
+                <td>@cas.Syllabus</td>
+                <td>@cas.State</td>
+                <td>@cas.FullJudgement</td> *@
+            </tr>
+            @* @foreach (var casr in @cas.Rulings)
+            {
+                <tr>
+                    <td>@casr.RulingNo</td>
+                    <td>@casr.FullRulingURL</td>
+                </tr>
+            }
+            @foreach (var caso in @cas.Opinions)
+            {
+                <tr>
+                    <td>@caso.Type</td> 
+                    <td>@caso.Member</td> 
+                    <td>@caso.URL</td> 
+                </tr>
+            } *@
+        }
+        </tbody>
+    </table>
+}
+else 
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>判決字號</th>
+                <th>類別</th>
+                <th>標題或案由</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach( var cas in cq )
+            {
+                @if( cas.Rulings.Length != 0 ) 
+                {
+                    @foreach (var rul in cas.Rulings)
+                    {
+                        @foreach( var a in Regex.Replace( a , @"\s" , "\r\n" ).Split( "\r\n" ) ) 
+                        {
+                            @if ( rul.RulingNo.ToUpper().Contains(a) )
+                            {
+                                <tr>
+                                    <td><a href="cases/detail?case=@cas.No&q=@a" target="_self">@cas.No</a></td>
+                                    <td>@cas.Category</td>
+                                    @if (cas.Title != "")
+                                    {
+                                        <td>@cas.Title</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@cas.Cause</td>
+                                    }
+                                </tr>
+                                break;
+                            }
+                        }
+                    }
+                }
+                @if( cas.Opinions.Length != 0 ) 
+                {
+                    @foreach (var o in cas.Opinions)
+                    { 
+                        @foreach( var a in Regex.Replace( a , @"\s" , "\r\n" ).Split( "\r\n" ) ) 
+                        {
+                            @if ( o.Type.ToUpper().Contains(a) || o.Member.ToUpper().Contains(a) )
+                            {
+                                <tr>
+                                    <td><a href="cases/detail?case=@cas.No&q=@a" target="_self">@cas.No</a></td>
+                                    <td>@cas.Category</td>
+                                    @if (cas.Title != "")
+                                    {
+                                        <td>@cas.Title</td>
+                                    }
+                                    else
+                                    {
+                                        <td>@cas.Cause</td>
+                                    }
+                                </tr>
+                                break;
+                            }
+                        }
+                    }
+                }
+                @foreach( var a in Regex.Replace( a , @"\s" , "\r\n" ).Split( "\r\n" ) ) 
+                {
+                    @if ( cas.No.ToUpper().Contains(a) || cas.Category.ToUpper().Contains(a) )
+                    {
+                        <tr>
+                            <td><a href="cases/detail?case=@cas.No&q=@a" target="_self">@cas.No</a></td>
+                            <td>@cas.Category</td>
+                            @if (cas.Title != "")
+                            {
+                                <td>@cas.Title</td>
+                            }
+                            else
+                            {
+                                <td>@cas.Cause</td>
+                            }
+                        </tr>
+                    }
+                    else if (cas.DeliberationDate != null && cas.DeliberationDate.ToUpper().Contains(a))
+                    {
+                        <tr>
+                            <td><a href="cases/detail?case=@cas.No&q=@a" target="_self">@cas.No</a></td>
+                            <td>@cas.Category</td>
+                            @if (cas.Title != "")
+                            {
+                                <td>@cas.Title</td>
+                            }
+                            else
+                            {
+                                <td>@cas.Cause</td>
+                            }
+                        </tr>
+                    }
+                    else if (cas.Petitioner != null && cas.Petitioner.ToUpper().Contains(a))
+                    {
+                        <tr>
+                            <td><a href="cases/detail?case=@cas.No&q=@a" target="_self">@cas.No</a></td>
+                            <td>@cas.Category</td>
+                            @if (cas.Title != "")
+                            {
+                                <td>@cas.Title</td>
+                            }
+                            else
+                            {
+                                <td>@cas.Cause</td>
+                            }
+                        </tr>
+                    }
+                    else if (cas.Plaintiff != null && cas.Plaintiff.ToUpper().Contains(a))
+                    {
+                        <tr>
+                            <td><a href="cases/detail?case=@cas.No&q=@a" target="_self">@cas.No</a></td>
+                            <td>@cas.Category</td>
+                            @if (cas.Title != "")
+                            {
+                                <td>@cas.Title</td>
+                            }
+                            else
+                            {
+                                <td>@cas.Cause</td>
+                            }
+                        </tr>
+                    }
+                    else if (cas.Defendant != null && cas.Defendant.ToUpper().Contains(a))
+                    {
+                        <tr>
+                            <td><a href="cases/detail?case=@cas.No&q=@a" target="_self">@cas.No</a></td>
+                            <td>@cas.Category</td>
+                            @if (cas.Title != "")
+                            {
+                                <td>@cas.Title</td>
+                            }
+                            else
+                            {
+                                <td>@cas.Cause</td>
+                            }
+                        </tr>
+                    }
+                    else if (cas.Title != null && cas.Title.ToUpper().Contains(a))
+                    {
+                        <tr>
+                            <td><a href="cases/detail?case=@cas.No&q=@a" target="_self">@cas.No</a></td>
+                            <td>@cas.Category</td>
+                            <td>@cas.Title</td>
+                        </tr>
+                    }
+                    else if (cas.Cause != null && cas.Cause.ToUpper().Contains(a))
+                    {
+                        <tr>
+                            <td><a href="cases/detail?case=@cas.No&q=@a" target="_self">@cas.No</a></td>
+                            <td>@cas.Category</td>
+                            <td>@cas.Cause</td>
+                        </tr>
+                    }
+                    else if (cas.Syllabus != null && cas.Syllabus.ToUpper().Contains(a))
+                    {
+                        <tr>
+                            <td><a href="cases/detail?case=@cas.No&q=@a" target="_self">@cas.No</a></td>
+                            <td>@cas.Category</td>
+                            @if (cas.Title != "")
+                            {
+                                <td>@cas.Title</td>
+                            }
+                            else
+                            {
+                                <td>@cas.Cause</td>
+                            }
+                        </tr>
+                    }
+                    else if (cas.State != null && cas.State.ToUpper().Contains(a))
+                    {
+                        <tr>
+                            <td><a href="cases/detail?case=@cas.No&q=@a" target="_self">@cas.No</a></td>
+                            <td>@cas.Category</td>
+                            @if (cas.Title != "")
+                            {
+                                <td>@cas.Title</td>
+                            }
+                            else
+                            {
+                                <td>@cas.Cause</td>
+                            }
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+}
+<br />
+<a class="printNoDisplay" href="">回首頁</a>
+
+@code {
+    private Casess[]? cases;
+    public string a; 
+    public string? b ; 
+    private List<Case> cq = new List<Case>(); 
+    protected override void OnInitialized()
+    {
+        var uri = N.ToAbsoluteUri(N.Uri);
+        var queryStrings = QueryHelpers.ParseQuery(uri.Query);
+        if (queryStrings.TryGetValue("q", out var aaa))
+        {
+            a = aaa;
+        }
+        if (queryStrings.TryGetValue("c", out var bbb))
+        {
+            b = bbb;
+        }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        cases = await Http.GetFromJsonAsync<Casess[]>("json/cases.json");
+        if( cases != null && !string.IsNullOrEmpty( b ) ) 
+        {
+            cq = cases[0].Cases.Where( c => c.Category == b ).ToList() ; 
+            if( cq.FirstOrDefault() == null ) 
+            {
+                cq = cases[0].Cases.ToList() ; 
+            }
+        }
+        else if( cases != null ) 
+        {
+            cq = cases[0].Cases.ToList() ; 
+        }
+    }
+
+    public class Casess
+    {
+        public string UpdateDate { get; set; }
+        public Case[] Cases { get; set; }
+    }
+    public class Case 
+    {
+        public string No { get; set; }
+        public string Category { get; set; }
+        public string? DeliberationDate { get; set; }
+        public string? Petitioner { get; set; }
+        public string? Plaintiff { get; set; }
+        public string? Defendant { get; set; }
+        public string? Title { get; set; }
+        public string? Cause { get; set; }
+        public string? Syllabus { get; set; }
+        public string? State { get; set; }
+        public string? FullJudgement { get; set; }
+        public R[]? Rulings { get; set; }
+        public O[]? Opinions { get; set; } 
+    }
+    public class R 
+    {
+        public string RulingNo { get; set; }
+        public string FullRulingURL { get; set; }
+    }
+    public class O 
+    {
+        public string Type { get; set; }
+        public string Member { get; set; }
+        public string URL { get; set; }
+    }
+}

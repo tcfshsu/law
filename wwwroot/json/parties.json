@@ -1,0 +1,117 @@
+[
+    {
+        "UpdateDate": "2025/05/03", 
+        "Parties": [
+            {
+                "Party": 0,
+                "PartyName": "臺中一中學生自治串連黨",
+                "PartyAbbreviation": "串連黨",
+                "Chairman": "李博洋",
+                "PartyState": "一般",
+                "PartyEstablishedDate": "",
+                "PartyRegisteredDate": "",
+                "PartyURL": "https://sites.google.com/view/tcfshcp"
+            },
+            {
+                "Party": 1,
+                "PartyName": "中一中學生維新黨",
+                "PartyAbbreviation": "維新黨",
+                "Chairman": "林采毅",
+                "PartyState": "一般",
+                "PartyEstablishedDate": "",
+                "PartyRegisteredDate": "",
+                "PartyURL": ""
+            },
+            {
+                "Party": 2,
+                "PartyName": "台中一中龍黨",
+                "PartyAbbreviation": "龍黨",
+                "Chairman": "許家鵬",
+                "PartyState": "一般",
+                "PartyEstablishedDate": "20230918",
+                "PartyRegisteredDate": "20230922",
+                "PartyURL": ""
+            },
+            {
+                "Party": 3,
+                "PartyName": "中一中學習歷程忘記存黨",
+                "PartyAbbreviation": "存黨",
+                "Chairman": "陳鈞",
+                "PartyState": "一般",
+                "PartyEstablishedDate": "20240314",
+                "PartyRegisteredDate": "",
+                "PartyURL": ""
+            },
+            {
+                "Party": 4,
+                "PartyName": "台中一中圍牆無法黨",
+                "PartyAbbreviation": "圍牆黨",
+                "Chairman": "蘇育寬",
+                "PartyState": "一般",
+                "PartyEstablishedDate": "20241220",
+                "PartyRegisteredDate": "20250120",
+                "PartyURL": ""
+            },
+            {
+                "Party": 5,
+                "PartyName": "左丞黨",
+                "PartyAbbreviation": "",
+                "Chairman": "卓祐宸",
+                "PartyState": "一般",
+                "PartyEstablishedDate": "20250314",
+                "PartyRegisteredDate": "20250319",
+                "PartyURL": "https://left-right-chancellor.github.io/"
+            },
+            {
+                "Party": 6,
+                "PartyName": "右丞黨",
+                "PartyAbbreviation": "",
+                "Chairman": "卓祐宸",
+                "PartyState": "一般",
+                "PartyEstablishedDate": "20250314",
+                "PartyRegisteredDate": "20250319",
+                "PartyURL": "https://left-right-chancellor.github.io/"
+            },
+            {
+                "Party": 7,
+                "PartyName": "（政黨名稱）",
+                "PartyAbbreviation": "",
+                "Chairman": "卓祐宸",
+                "PartyState": "一般",
+                "PartyEstablishedDate": "20250314",
+                "PartyRegisteredDate": "20250319",
+                "PartyURL": "https://left-right-chancellor.github.io/"
+            },
+            {
+                "Party": 8,
+                "PartyName": "PDF不會轉WORD黨",
+                "PartyAbbreviation": "",
+                "Chairman": "梁宸華",
+                "PartyState": "一般",
+                "PartyEstablishedDate": "20250314",
+                "PartyRegisteredDate": "20250319",
+                "PartyURL": "https://left-right-chancellor.github.io/"
+            },
+            {
+                "Party": 9,
+                "PartyName": "北區交通部",
+                "PartyAbbreviation": "",
+                "Chairman": "陳宣丞",
+                "PartyState": "一般",
+                "PartyEstablishedDate": "20250314",
+                "PartyRegisteredDate": "20250319",
+                "PartyURL": "https://left-right-chancellor.github.io/"
+            },
+            {
+                "Party": 10,
+                "PartyName": "一二三（四五）星球帝國創世宇宙戰爭黨",
+                "PartyAbbreviation": "一二三",
+                "Chairman": "林祐慶",
+                "PartyState": "一般",
+                "PartyEstablishedDate": "20250314",
+                "PartyRegisteredDate": "20250319",
+                "PartyURL": "https://left-right-chancellor.github.io/"
+            }
+        ]
+    }
+]

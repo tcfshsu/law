@@ -1,0 +1,525 @@
+@page "/laws"
+@inject HttpClient Http
+@inject NavigationManager N
+
+<div class="bread">
+    <span>現在位置：</span>
+    <ul>
+        <li><a href="">首頁</a></li>
+        <li>法規查詢</li>
+    </ul>
+</div>
+<PageTitle>法規查詢 - 臺中市立臺中第一高級中等學校學生自治聯合會法規資料庫</PageTitle>
+<form action="laws" method="get" class="lq">
+    <label for="c">類別：</label>
+    <select name="c" id="c">
+        <option value="">不限</option>
+        <option selected="@( !string.IsNullOrEmpty( a ) && a.ToLower() == "c" )" value="c">中央法規</option>
+        <option selected="@( !string.IsNullOrEmpty( a ) && a.ToLower() == "ex" )" value="ex">行政法規</option>
+        <option selected="@( !string.IsNullOrEmpty( a ) && a.ToLower() == "l" )" value="l">立法法規</option>
+        <option selected="@( !string.IsNullOrEmpty( a ) && a.ToLower() == "j" )" value="j">司法法規</option>
+        <option selected="@( !string.IsNullOrEmpty( a ) && a.ToLower() == "el" )" value="el">選舉法規</option>
+    </select>
+    <label for="ab">狀態：</label>
+    <select name="ab" id="ab">
+        <option value="">不限</option>
+        <option selected="@( !string.IsNullOrEmpty( d ) && d.ToUpper() == "FALSE" )" value="false">一般</option>
+        <option selected="@( !string.IsNullOrEmpty( d ) && d.ToUpper() == "TRUE" )" value="true">廢止</option>
+    </select>
+    <label for="lv">位階：</label>
+    <select name="l" id="lv">
+        <option value="">不限</option>
+        <option selected="@( !string.IsNullOrEmpty( c ) && c == "章程" )" value="章程">章程</option>
+        <option selected="@( !string.IsNullOrEmpty( c ) && c == "法律" )" value="法律">法律</option>
+        <option selected="@( !string.IsNullOrEmpty( c ) && c == "命令" )" value="命令">命令</option>
+    </select>
+    <p>
+        <input type="search" placeholder="輸入關鍵字以搜尋" name="q" value="@b" />
+        <input type="submit" style="background-image:url(i/icon/search.svg);width:24px;height:24px;background-color:#0000;border:0;cursor:pointer;" value="" alt="搜尋！" />
+    </p>
+</form>
+<select @onchange="Sort">
+    <option value="">預設</option>
+    <option value="latest">最後異動日期（新 > 舊）</option>
+    <option value="oldest">最後異動日期（舊 > 新）</option>
+    <option value="AtoZ">筆劃（少 > 多）</option>
+    <option value="ZtoA">筆劃（多 > 少）</option>
+    <option value="CtoO">位階（高 > 低）</option>
+    <option value="OtoC">位階（低 > 高）</option>
+</select>
+@if (laws == null)
+{
+    <p style="display:block;width:fit-content;margin:1rem auto;"><em>Loading...</em></p>
+}
+else 
+{
+    @if( lq.Count != 0 ) 
+    {
+        @foreach( var l in lq ) 
+        {
+            <a class="lawresult" href="@l.LawURL&c=@a&q=@b&l=@c&ab=@d">
+                <div>
+                    <span class="abandoned">@l.LawAbandonNote</span>
+                    @if( l.SearchResult( b , true ).Contains( "<\\>" ) )
+                    {
+                        @foreach( var r in l.SearchResult( b , true ).Split( "<\\>" ) ) 
+                        {
+                            @if( b.Contains( r ) ) 
+                            {
+                                <span class="matched">@r</span>
+                            }
+                            else 
+                            {
+                                @r
+                            }
+                        }
+                    }
+                    else 
+                    {
+                        @( l.SearchResult( b , true ) ) 
+                    }
+                </div>
+                <div class="preview">
+                    @if( l.SearchResult( b , false ).Contains( "<\\>" ) )
+                    {
+                        @foreach( var r in l.SearchResult( b , false ).Split( "<\\>" ) ) 
+                        {
+                            @if( b.Contains( r ) ) 
+                            {
+                                <span class="matched">@r</span>
+                            }
+                            else 
+                            {
+                                @r
+                            }
+                        }
+                    }
+                    else 
+                    {
+                        @( l.SearchResult( b , false ) ) 
+                    }
+                </div>
+            </a>
+        }
+    }
+    else 
+    {
+        <div id="lawnoresult">查無資料</div>
+    }
+}
+<br class="printNoDisplay" /><a class="printNoDisplay" href="">回首頁</a>
+
+@code {
+    private LawRoot[]? laws;
+    public string? a;
+    public string b;
+    public string? c ; 
+    public string? d ; 
+    public List<L> lq = new List<L>(); 
+    public List<L> lqDefault = new List<L>(); 
+    protected override void OnInitialized()
+    {
+        var uri = N.ToAbsoluteUri(N.Uri);
+        var queryStrings = QueryHelpers.ParseQuery(uri.Query);
+        if (queryStrings.TryGetValue("c", out var aaa))
+        {
+            a = aaa;
+        }
+        if (queryStrings.TryGetValue("q", out var bbb))
+        {
+            b = bbb;
+        }
+        if (queryStrings.TryGetValue("l", out var ccc))
+        {
+            c = ccc;
+        }
+        if (queryStrings.TryGetValue("ab", out var ddd))
+        {
+            d = ddd;
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        laws = await Http.GetFromJsonAsync<LawRoot[]>("json/laws.json");
+        if( laws!= null ) 
+        {
+            lq = laws[0].Laws.Where( l => string.IsNullOrEmpty( a ) ? true : ( a.ToUpper() == "EL" ? l.LawCategory.Contains( "選舉法規" ) : ( a.ToUpper() == "C" ? ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "中央法規" ) ) : ( a.ToUpper() == "EX" ? ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "行政法規" ) ) : ( a.ToUpper() == "L" ? ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "立法法規" ) ) : ( a.ToUpper() == "J" ? ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "司法法規" ) ) : true  ) ) ) ) ) ).ToList() ; 
+            if( !string.IsNullOrEmpty( d ) && d == "true" ) 
+            {
+                lq = lq.Where( l => l.LawAbandonNote == "廢" ).ToList() ; 
+            }
+            else if( !string.IsNullOrEmpty( d ) && d == "false" ) 
+            {
+                lq = lq.Where( l => l.LawAbandonNote == "" ).ToList() ; 
+            }
+            if( !string.IsNullOrEmpty( c ) && ( c == "章程" || c == "法律" || c == "命令" ) ) 
+            {
+                lq = lq.Where( l => l.LawLevel == c ).ToList() ; 
+            }
+            if( !string.IsNullOrEmpty( b ) ) 
+            {
+                var lqq = new List<L>() ; 
+                if( !Regex.IsMatch( b , @"([(].+[)])|[+\-&]" ) ) 
+                {
+                    foreach( var b in Regex.Replace( b , @"\s" , "\r\n" ).Split( "\r\n" ) ) 
+                    {
+                        lqq.AddRange( lq.Where( l => l.Contains( b ) ).Except( lqq ).ToList() ) ; 
+                    }
+                }
+                else 
+                {}
+                lq = lqq ; 
+            }
+            lq = lq.OrderBy( l => l.LawAbandonNote ).ToList() ; 
+            lqDefault = lq ; 
+        }
+    }
+    
+    public void Sort( ChangeEventArgs a ) 
+    {
+        if( a.Value != null ) 
+        {
+            if( (string)a.Value == "latest" ) 
+            {
+                lq = lq.OrderByDescending( l => l.LawModifiedDate ).ToList() ; 
+            }
+            else if( (string)a.Value == "oldest" ) 
+            {
+                lq = lq.OrderBy( l => l.LawModifiedDate ).ToList() ; 
+            }
+            else if( (string)a.Value == "AtoZ" ) 
+            {
+                lq = lq.OrderBy( l => l.LawName , StringComparer.Create( new System.Globalization.CultureInfo( "zh-TW" ) , false ) ).ToList() ; 
+            }
+            else if( (string)a.Value == "ZtoA" ) 
+            {
+                lq = lq.OrderByDescending( l => l.LawName , StringComparer.Create( new System.Globalization.CultureInfo( "zh-TW" ) , false ) ).ToList() ; 
+            }
+            else if( (string)a.Value == "" ) 
+            {
+                lq = lqDefault ; 
+            }
+        }
+    }
+
+    public class LawRoot
+    {
+        public string UpdateDate { get; set; }
+        public L[] Laws { get; set; }
+    }
+    public class L 
+    {
+        public string LawLevel { get; set; }
+        public string LawName { get; set; }
+        public string LawURL { get; set; }
+        public string LawCategory { get; set; }
+        public string LawModifiedDate { get; set; }
+        public string? LawEffectiveDate { get; set; }
+        public string? LawEffectiveNote { get; set; }
+        public string? LawAbandonNote { get; set; }
+        public string LawHasEngVersion { get; set; }
+        public string? EngLawName { get; set; }
+        public Attachments[]? LawAttachments { get; set; }
+        public string LawHistories { get; set; }
+        public string? LawForeword { get; set; }
+        public A[] LawArticles { get; set; }
+        public bool Contains( string a ) 
+        {
+            if( LawName.ToUpper().Contains( a ) ) 
+            {
+                return true ; 
+            }
+            else if( LawHistories.ToUpper().Contains( a ) ) 
+            {
+                return true ; 
+            }
+            else if( string.IsNullOrEmpty( LawForeword ) ? false : LawForeword.ToUpper().Contains( a ) ) 
+            {
+                return true ; 
+            }
+            else if( LawHasEngVersion == "Y" ) 
+            {
+                if( EngLawName.ToUpper().Contains( a ) ) 
+                {
+                    return true ; 
+                }
+            }
+            foreach( var art in LawArticles ) 
+            {
+                if( art.ArticleType.ToUpper().Contains( a ) || ( string.IsNullOrEmpty( art.ArticleNo ) ? false : art.ArticleNo.ToUpper().Contains( a ) ) || art.ArticleContent.ToUpper().Contains( a ) ) 
+                {
+                    return true ; 
+                }
+            }
+            foreach( var att in LawAttachments ) 
+            {
+                if( att.FileName.ToUpper().Contains( a ) ) 
+                {
+                    return true ; 
+                }
+            }
+            return false ; 
+        }
+        public bool Contains( string a , string b ) 
+        {
+            if( b == "art" ) 
+            {
+                foreach( var art in LawArticles ) 
+                {
+                    if( art.ArticleType.ToUpper().Contains( a ) || ( string.IsNullOrEmpty( art.ArticleNo ) ? false : art.ArticleNo.ToUpper().Contains( a ) ) || art.ArticleContent.ToUpper().Contains( a ) ) 
+                    {
+                        return true ; 
+                    }
+                }
+            }
+            else if( b == "att" ) 
+            {
+                foreach( var att in LawAttachments ) 
+                {
+                    if( att.FileName.ToUpper().Contains( a ) ) 
+                    {
+                        return true ; 
+                    }
+                }
+            }
+            else if( b == "aa" ) 
+            {
+                foreach( var art in LawArticles ) 
+                {
+                    if( art.ArticleType.ToUpper().Contains( a ) || ( string.IsNullOrEmpty( art.ArticleNo ) ? false : art.ArticleNo.ToUpper().Contains( a ) ) || art.ArticleContent.ToUpper().Contains( a ) ) 
+                    {
+                        return true ; 
+                    }
+                }
+                foreach( var att in LawAttachments ) 
+                {
+                    if( att.FileName.ToUpper().Contains( a ) ) 
+                    {
+                        return true ; 
+                    }
+                }
+            }
+            else if( b == "nme" ) 
+            {
+                if( LawName.ToUpper().Contains( a ) ) 
+                {
+                    return true ; 
+                }
+            }
+            else if( b == "his" ) 
+            {
+                if( LawHistories.ToUpper().Contains( a ) ) 
+                {
+                    return true ; 
+                }
+            }
+            else if( b == "fwd" ) 
+            {
+                if( string.IsNullOrEmpty( LawForeword ) ? false : LawForeword.ToUpper().Contains( a ) ) 
+                {
+                    return true ; 
+                }
+            }
+            else if( b == "eng" ) 
+            {
+                if( LawHasEngVersion == "Y" ) 
+                {
+                    if( EngLawName.ToUpper().Contains( a ) ) 
+                    {
+                        return true ; 
+                    }
+                }
+            }
+            return false ; 
+        }
+        public string SearchResult( string aa , bool b ) 
+        {
+            string aaa = "" ; 
+            if( b ) 
+            {
+                if( string.IsNullOrEmpty( aa ) ) 
+                {
+                    aaa = LawName ; 
+                }
+                else 
+                {
+                    foreach( var a in Regex.Split( aa , @"\s" ) ) 
+                    {
+                        if( Contains( a , "nme" ) ) 
+                        {
+                            for( int i = 0 ; i < LawName.Split( a ).Length ; i ++ ) 
+                            {
+                                if( i != ( LawName.Split( a ).Length - 1 ) ) 
+                                {
+                                    aaa += LawName.Split( a )[i] + "<\\>" + a + "<\\>" ; 
+                                }
+                                else 
+                                {
+                                    aaa += LawName.Split( a )[i] ; 
+                                }
+                            }
+                        }
+                    }
+                    if( string.IsNullOrEmpty( aaa ) ) 
+                    {
+                        aaa = LawName ; 
+                    }
+                }
+            }
+            else 
+            {
+                if( string.IsNullOrEmpty( aa ) ) 
+                {
+                    if( !string.IsNullOrEmpty( LawForeword ) ) 
+                    {
+                        aaa = "前言：" + Regex.Replace( LawForeword , @"\s" , "" ) ; 
+                    }
+                    else 
+                    {
+                        foreach( var art in LawArticles ) 
+                        {
+                            if( art.ArticleType == "C" ) 
+                            {
+                                aaa += Regex.Replace( art.ArticleContent , @"\s" , "" ) ; 
+                            }
+                            else 
+                            {
+                                aaa += art.ArticleNo + Regex.Replace( art.ArticleContent , @"\s" , "" ) + "…" ; 
+                                break ; 
+                            }
+                        }
+                    }        
+                }
+                else 
+                {
+                    foreach( var a in Regex.Split( aa , @"\s" ) ) 
+                    {
+                        if( Contains( a , "his" ) ) 
+                        {
+                            for( int i = 0 ; ( i + 1 ) < LawHistories.Split( a ).Length ; i ++ ) 
+                            {
+                                aaa += LawHistories.Split( a )[i] + "<\\>" + a + "<\\>" + LawHistories.Split( a )[ i + 1 ] + "…" ; 
+                            }
+                        }
+                        if( Contains( a , "fwd" ) ) 
+                        {
+                            for( int i = 0 ; ( i + 1 ) < LawForeword.Split( a ).Length ; i ++ ) 
+                            {
+                                aaa += LawForeword.Split( a )[i] + "<\\>" + a + "<\\>" + LawForeword.Split( a )[ i + 1 ] + "…" ; 
+                            }
+                        }
+                        if( Contains( a , "att" ) ) 
+                        {
+                            foreach( var att in LawAttachments.Where( l => l.Contains( a )).ToArray() ) 
+                            {
+                                for( int i = 0 ; ( i + 1 ) < att.FileName.Split( a ).Length ; i ++ ) 
+                                {
+                                    aaa += att.FileName.Split( a )[i] + "<\\>" + a + "<\\>" + att.FileName.Split( a )[ i + 1 ] + "…" ; 
+                                }
+                            }
+                        }
+                        if( Contains( a , "art" ) ) 
+                        {
+                            foreach( var art in LawArticles.Where( l => l.Contains( a ) ).ToArray() ) 
+                            {
+                                if( art.ArticleNo.Contains( a ) ) 
+                                {
+                                    for( int i = 0 ; ( i + 1 ) < art.ArticleNo.Split( a ).Length ; i ++ ) 
+                                    {
+                                        aaa += art.ArticleNo.Split( a )[i] + "<\\>" + a + "<\\>" + art.ArticleNo.Split( a )[ i + 1 ] + "…" ; 
+                                    }
+                                }
+                                if( art.ArticleNo.Contains( a ) ) 
+                                {
+                                    for( int i = 0 ; ( i + 1 ) < art.ArticleContent.Split( a ).Length ; i ++ ) 
+                                    {
+                                        aaa += art.ArticleContent.Split( a )[i] + "<\\>" + a + "<\\>" + art.ArticleContent.Split( a )[ i + 1 ] + "…" ; 
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if( string.IsNullOrEmpty( aaa ) ) 
+                    {
+                        if( !string.IsNullOrEmpty( LawForeword ) ) 
+                        {
+                            aaa = "前言：" + Regex.Replace( LawForeword , @"\s" , "" ) ; 
+                        }
+                        else 
+                        {
+                            foreach( var art in LawArticles ) 
+                            {
+                                if( art.ArticleType == "C" ) 
+                                {
+                                    aaa += Regex.Replace( art.ArticleContent , @"\s" , "" ) ; 
+                                }
+                                else 
+                                {
+                                    aaa += Regex.Replace( art.ArticleContent , @"\s" , "" ) + "…" ; 
+                                    break ; 
+                                }
+                            }
+                        }        
+                    }
+                }
+            }
+            return aaa ; 
+        }
+    }
+    public class A 
+    {
+        public string ArticleType { get; set; }
+        public string? ArticleNo { get; set; }
+        public string ArticleContent { get; set; }
+        public bool Contains( string a ) 
+        {
+            if( Regex.IsMatch( a , @"([(].+[)])|[+\-&]" ) ) 
+            {}
+            else if( Regex.IsMatch( a , @"\s" ) ) 
+            {
+                foreach( var aa in Regex.Split( a , @"\s" ) ) 
+                {
+                    if( ( !string.IsNullOrEmpty( ArticleNo ) && ArticleNo.Contains( "【" ) ) ? ArticleNo.Split( "【" )[1].Replace( "】" , "" ).ToUpper().Contains( a ) : false ) 
+                    {
+                        return true ; 
+                    }
+                    else if( ArticleContent.ToUpper().Contains( a ) ) 
+                    {
+                        return true ; 
+                    }
+                }
+            }
+            else 
+            {
+                return ( ArticleContent.ToUpper().Contains( a ) || ( ( !string.IsNullOrEmpty( ArticleNo ) && ArticleNo.Contains( "【" ) ) ? ArticleNo.Split( "【" )[1].Replace( "】" , "" ).ToUpper().Contains( a ) : false ) ) ; 
+            }
+            return false ; 
+        }
+    }
+    public class Attachments 
+    {
+        public string FileName { get; set; }
+        public string FileURL { get; set; }
+        public bool Contains( string a ) 
+        {
+            if( Regex.IsMatch( a , @"([(].+[)])|[+\-&]" ) ) 
+            {}
+            else if( Regex.IsMatch( a , @"\s" ) ) 
+            {
+                foreach( var aa in Regex.Split( a , @"\s" ) ) 
+                {
+                    if( FileName.ToUpper().Contains( a ) ) 
+                    {
+                        return true ; 
+                    }
+                }
+            }
+            else 
+            {
+                return FileName.Contains( a ) ; 
+            }
+            return false ; 
+        }
+    }
+}

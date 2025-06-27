@@ -1,0 +1,314 @@
+@page /* pageNum */
+{
+    size : A4 portrait ; 
+    @bottom-center 
+    {
+        content : counter(page) ; 
+        font-family : "OCR A Std" , "Noto Sans" , sans-serif ; 
+    }
+}
+@media print 
+{
+    @page a 
+    {
+        margin : 0 ; 
+        margin-bottom : .4in ; 
+    }
+    #COVER button , header , footer , .printBtn 
+    {
+        display : none ; 
+    }
+    #COVER-BACK 
+    {
+        display : block !important ; 
+    }
+    div[ahhhhaaaahaha] > div , div[ahhhhaaaahaha] > span , div[ahhhhaaaahaha] > span > .title 
+    {
+        padding : 0 !important ; 
+    }
+}
+*
+{
+    padding : 0 ; 
+    margin : 0 ; 
+    box-sizing : border-box ; 
+}
+div[ahhhhaaaahaha] 
+{
+    font-family : DFKai-SB /*Windows內建*/ , BiauKaiTC /*Mac*/ , "標楷體-繁" , "標楷體" , TW-Kai /*全字庫正楷書*/ , TW-Kai-Plus , TW-Kai-Ext-B , TW-MOE-Std-Kai , TW-Sung , TW-Sung-Ext-B , TW-Sung-Plus , 標宋 , "Noto Sans TC" , sans-serif ; 
+    line-height : 1 ; 
+    font-size : 12pt ; 
+    color : #000 ; 
+}
+div[ahhhhaaaahaha] pre 
+{
+    font-family : "Noto Sans Mono" , DFKai-SB , BiauKaiTC , "標楷體-繁" , "標楷體" , TW-Kai , TW-Kai-Plus , TW-Kai-Ext-B , TW-MOE-Std-Kai , TW-Sung , TW-Sung-Ext-B , TW-Sung-Plus , 標宋 , "Noto Sans TC" , sans-serif ; 
+}
+div[ahhhhaaaahaha] > div , div[ahhhhaaaahaha] > span , div[ahhhhaaaahaha] > span > .title 
+{
+    width : 100% ; 
+    display : block ; 
+    padding : 0 1rem ; 
+    padding-left : 3.5rem ; 
+    break-after : page ; 
+}
+div[ahhhhaaaahaha] > div 
+{
+    page : pageNum ; 
+}
+div[ahhhhaaaahaha] > span > .title , .break , #COVER 
+{
+    break-after : auto ; 
+}
+div[ahhhhaaaahaha] > span > div > h1 
+{
+    margin-left : -1.5rem ; 
+}
+div[ahhhhaaaahaha] a , div[ahhhhaaaahaha] a:visited , div[ahhhhaaaahaha] a:hover , div[ahhhhaaaahaha] a:focus 
+{
+    color : #000 ; 
+    text-decoration : none ; 
+    display : block ; 
+}
+div[ahhhhaaaahaha] .cases a , div[ahhhhaaaahaha] .rel a , div[ahhhhaaaahaha] .ref a 
+{
+    display : inline-block ; 
+}
+.break[ class = "break" ] , #COVER 
+{
+    font-size : 50pt ; 
+    font-weight : 900 ; 
+    display : flex ; 
+    flex-direction : column ; 
+    justify-content : center ; 
+    align-items : center ; 
+    height : calc(297mm - .4in) ; 
+    page : a ; 
+}
+#COVER 
+{
+    height : calc(297mm - .8in) ; 
+}
+#COVER div 
+{
+    font-weight : 900 ; 
+    font-size : 20pt ; 
+    padding : 2rem 0 ; 
+    text-align : center ; 
+    letter-spacing : 2px ; 
+    line-height : 1 ; 
+}
+#COVER h1 
+{
+    font-size: 50pt;
+    font-weight: 900;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height : fit-content ; 
+}
+#COVER span 
+{
+    font-weight : 500 ; 
+}
+#COVER button , .printBtn 
+{
+    font-family : 'Noto Sans TC' ; 
+    color : #fff ; 
+    background : #000 ; 
+    border : 0 ; 
+    outline : 0 ; 
+    padding : 1px 2px ; 
+    border-radius : 2.5px ; 
+    cursor : pointer ; 
+}
+#COVER button:hover , #COVER button:focus , .printBtn:hover , .printBtn:focus 
+{
+    color : #0ff ; 
+    background : #f00 ; 
+    text-decoration : underline ; 
+}
+#COVER button:focus , .printBtn:focus 
+{
+    outline : 5px #fc0 solid ; 
+}
+.Foreword 
+{
+    display : flex ; 
+    flex-direction : column ; 
+    align-items : center ; 
+}
+.Foreword > span 
+{
+    font-size : 22pt ; 
+    font-weight : normal ; 
+}
+.title 
+{
+    font-weight : 900 ; 
+    font-size : 20pt ; 
+    padding : 2rem 0 ; 
+    text-align : center ; 
+    letter-spacing : 2px ; 
+    line-height : 1 ; 
+}
+.abandoned 
+{
+    color : #f00 ; 
+}
+div[ahhhhaaaahaha] li 
+{
+    list-style : none ; 
+}
+div[ahhhhaaaahaha] li , div[ahhhhaaaahaha] article > li 
+{
+    display : flex ; 
+}
+div[ahhhhaaaahaha] h1 , div[ahhhhaaaahaha] h2 , div[ahhhhaaaahaha] h3 , div[ahhhhaaaahaha] h4 , div[ahhhhaaaahaha] h5 , div[ahhhhaaaahaha] h6 
+{
+    display : flex ; 
+}
+div[ahhhhaaaahaha] h1 , div[ahhhhaaaahaha] h2 , div[ahhhhaaaahaha] h3 , div[ahhhhaaaahaha] h4 , div[ahhhhaaaahaha] h5 
+{
+    margin-left : -3.5rem ; 
+}
+div[ahhhhaaaahaha] h1 
+{
+    font-size : 20pt ; 
+    font-weight : normal ; 
+}
+div[ahhhhaaaahaha] h2 
+{
+    font-size : 18pt ; 
+    font-weight : normal ; 
+}
+div[ahhhhaaaahaha] h3 
+{
+    font-size : 16pt ; 
+    font-weight : normal ; 
+}
+div[ahhhhaaaahaha] h4 
+{
+    font-size : 14pt ; 
+    font-weight : bold ; 
+}
+div[ahhhhaaaahaha] h5 
+{
+    font-size : 14pt ; 
+    font-weight : normal ; 
+}
+div[ahhhhaaaahaha] h6 
+{
+    font-weight : bold ; 
+    font-size : 12pt ; 
+}
+div[ahhhhaaaahaha] h1 :first-child , div[ahhhhaaaahaha] h2 :first-child , div[ahhhhaaaahaha] h3 :first-child , div[ahhhhaaaahaha] h4 :first-child , div[ahhhhaaaahaha] h5 :first-child , div[ahhhhaaaahaha] h6 :first-child , div[ahhhhaaaahaha] article > li :first-child , div[ahhhhaaaahaha] #COVER-BACK li > span:first-child 
+{
+    flex-shrink : 0 ; 
+}
+.showNum > .p 
+{
+    counter-increment : paragraph-count ; 
+    position : relative ; 
+}
+.showNum > .p::before 
+{
+    content : counter( paragraph-count ) ; 
+    position : absolute ; 
+    color : #666 ; 
+    font-family : "Noto Sans TC" ; 
+    font-style : italic ; 
+    font-size : 1.05em ; 
+    left : -1em ; 
+}
+.legislativeHistory 
+{
+    font-size : 8pt ; 
+    font-weight : normal ; 
+    list-style : none ; 
+    text-align : right ; 
+    padding-bottom : 2rem ; 
+}
+.legislativeHistory li 
+{
+    display : block !important ; 
+}
+.legislativeHistory::before 
+{
+    content : "\7ACB\6CD5\6CBF\9769\FF1A " ; 
+    text-align : right ; 
+    font-weight : bold ; 
+}
+
+#COVER-BACK 
+{
+    width : 100% ; 
+    display : none ; 
+    break-before : always ; 
+}
+#COVER-BACK h1 
+{
+    display : flex ; 
+    font-weight : 900 ; 
+    width : 100% ; 
+    margin : 1rem 0 ; 
+    font-size : 16pt ; 
+    justify-content : center ; 
+    align-items : center ; 
+}
+@media print 
+{
+    .printNoDisplay 
+    {
+        display : none !important ; 
+    }
+}
+
+
+#printFooter 
+{
+    display : none ; 
+}
+@media print 
+{
+    #printFooter 
+    {
+        display : block ; 
+        /* position : fixed ; 
+        left : -.2in ; 
+        bottom : -.3in ;  */
+        border-top : #ccc solid 2px ; 
+        width : 100% ; 
+        break-after : auto ; 
+        break-before : auto ; 
+    }
+    div[ahhhhaaaahaha] #printFooter span 
+    {
+        display : inline-block ; 
+        padding : 0 ; 
+        padding-left : .5rem ; 
+        padding-top : .15rem ; 
+        font-family : "Noto Sans" , "Noto Serif TC" , "Noto Serif JP" , "Noto Serif SC" , sans-serif ; 
+        color : #0005 ; 
+    }
+    div[ahhhhaaaahaha] #printFooter a 
+    {
+        display : inline-block ; 
+        color : #057b7b99 ; 
+        text-decoration : none ; 
+        font-family : "Noto Sans" , "Noto Sans TC" , "Noto Sans JP" , "Noto Sans SC" , sans-serif ; 
+    }
+    #lawHeader , #mainC 
+    {
+        break-after : auto ; 
+    }
+    #mainC , #mainC > :nth-child( n ) 
+    {
+        padding-left : 3.5rem ; 
+    }
+    #lawHeader form 
+    {
+        display : none ; 
+    }
+}

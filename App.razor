@@ -1,0 +1,22 @@
+﻿<Router AppAssembly="@typeof(App).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+    </Found>
+    <NotFound>
+        <PageTitle>找不到啦</PageTitle>
+        <LayoutView Layout="@typeof(MainLayout)">
+            <div class="notfound">
+                <p>這難道就是──傳說中的「404 Not Found」？</p><br />
+                <p>確實</p><br /><br />
+                <p>總之你似乎在這個網站中迷失了自我</p>
+                <ul>
+                    <li><a href="">點這裡可以回到首頁</a></li>
+                    <li><a href="laws">點這可以去法規列表</a></li>
+                    <li><a href="rel">按這邊可以去看看相關連結</a></li>
+                    <li><a href="open">也可以到這看一下我們的資料開放宣告</a></li>
+                </ul>
+            </div>
+        </LayoutView>
+    </NotFound>
+</Router>

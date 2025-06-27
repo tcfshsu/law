@@ -1,0 +1,315 @@
+﻿@inherits LayoutComponentBase
+@inject HttpClient Http
+@inject NavigationManager N
+<style>
+    :root 
+    {
+        zoom: @z ; 
+    }
+    #lqc 
+    {
+        color : var( --header-bg ) ; 
+        background: #de6db9;
+        border : 0 ; 
+        border-radius : 8.5px ; 
+    }
+    label[for="lqc"] 
+    {
+        display : none ; 
+        color : #fffad0 ; 
+    }
+    #lql , label[for="lql"] 
+    {
+        color : #ffc8d2 ; 
+        display : none ; 
+    }
+    #lql 
+    {
+        background : #613b9a ; 
+        border : 0 ; 
+        border-radius : 8.5px ; 
+    }
+    label[for="lql"] , label[for="lqc"] 
+    {
+        font-size : .8rem ; 
+        flex-shrink : 0 ; 
+    }
+    @@media ( min-width : 768px ) 
+    {
+        #lql , label[for="lql"] , label[for="lqc"] 
+        {
+            display : inline-block ; 
+        }
+    }
+</style>
+<div class="@dark">
+    <header>
+        <div class="top-guide">
+            <ul>
+                <li><a href="guide" tabindex="1">網站導覽</a></li>
+                <li id="zoom">
+                    <span class="@sIsYellow" style="font-size:13.6px;" @onclick="@(() => Zoom('s'))" @onclick:preventDefault tabindex="1">A</span><span tabindex="2" class="@mIsYellow" style="font-size:16px;" @onclick="@(() => Zoom('m'))" @onclick:preventDefault>A</span><span tabindex="3" class="@lIsYellow" style="font-size:18.4px;" @onclick="@(() => Zoom('l'))" @onclick:preventDefault>A</span>
+                </li>
+                @* <li>
+                    <div class="toggleD" @onclick="darkToggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22" />
+                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                        </svg>
+                    </div>
+                </li> *@
+            </ul>
+        </div>
+        <div class="top">
+            <a tabindex="4" class=""href=""><img src="i/icon/logo.png" alt="首頁" /></a>
+            <form action="laws" method="get">
+                <label for="lqc">類別：</label>
+                <select tabindex="5" name="c" id="lqc">
+                    <option value="">不限</option>
+                    <option selected="@( N.Uri.Contains( "laws?" ) && !string.IsNullOrEmpty( a ) && a.ToLower() == "c" )" value="c">中央法規</option>
+                    <option selected="@( N.Uri.Contains( "laws?" ) && !string.IsNullOrEmpty( a ) && a.ToLower() == "ex" )" value="ex">行政法規</option>
+                    <option selected="@( N.Uri.Contains( "laws?" ) && !string.IsNullOrEmpty( a ) && a.ToLower() == "l" )" value="l">立法法規</option>
+                    <option selected="@( N.Uri.Contains( "laws?" ) && !string.IsNullOrEmpty( a ) && a.ToLower() == "j" )" value="j">司法法規</option>
+                    <option selected="@( N.Uri.Contains( "laws?" ) && !string.IsNullOrEmpty( a ) && a.ToLower() == "el" )" value="el">選舉法規</option>
+                </select>
+                <label for="lql">位階：</label>
+                <select name="l" id="lql">
+                    <option value="">不限</option>
+                    <option selected="@( N.Uri.Contains( "laws?" ) && !string.IsNullOrEmpty( b ) && b.ToUpper() == "章程" )" value="章程">章程</option>
+                    <option selected="@( N.Uri.Contains( "laws?" ) && !string.IsNullOrEmpty( b ) && b.ToUpper() == "法律" )" value="法律">法律</option>
+                    <option selected="@( N.Uri.Contains( "laws?" ) && !string.IsNullOrEmpty( b ) && b.ToUpper() == "命令" )" value="命令">命令</option>
+                </select>
+                <p>
+                    <input tabindex="6" type="search" placeholder="輸入關鍵字以搜尋" name="q" value="@q">
+                    <input tabindex="7" type="submit" style="background-image:url(i/icon/search_w.svg);width:24px;height:24px;background-color:#0000;border:0;cursor:pointer;" value="" alt="搜尋！" />
+                </p>
+            </form>
+            <div tabindex="8" @onclick="ToggleNavMenu">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="@menuBar" /></svg>
+            </div>
+        </div>
+        <nav @onclick="ToggleNavMenu" class="@NavMenuCssClass">
+            <ul>
+                <li><a href="laws?c=c" tabindex="9" @onclick="ToLC" @onclick:preventDefault>中央法規</a></li>
+                <li><a href="laws?c=ex" tabindex="9" @onclick="ToLEx" @onclick:preventDefault>行政法規</a></li>
+                <li><a href="laws?c=l" tabindex="9" @onclick="ToLL" @onclick:preventDefault>立法法規</a></li>
+                <li><a href="laws?c=j" tabindex="9" @onclick="ToLJ" @onclick:preventDefault>司法法規</a></li>
+                <li><a href="laws?c=el" tabindex="9" @onclick="ToLEl" @onclick:preventDefault>選舉法規</a></li>
+                <li><a href="cases" tabindex="9" @onclick="ToC" @onclick:preventDefault>判例查詢</a></li>
+                <li><a href="parties" tabindex="9" @onclick="ToP" @onclick:preventDefault>政黨查詢</a></li>
+                <li><a href="rel" tabindex="9" @onclick="ToRel" @onclick:preventDefault>相關連結</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div>
+        <div id="top"></div>
+        <main class="main">
+            @Body
+        </main>
+        <div class="toTop" tabindex="0" onclick="document.getElementById('top').scrollIntoView({behavior:'smooth'})"><span>回最</span><span>上方</span></div>
+    </div>
+    <footer>
+        <div class="footer-upper">
+            <ul>
+                <li><a href="laws?c=c" tabindex="9" @onclick="ToLC" @onclick:preventDefault>中央法規</a></li>
+                <li><a href="laws?c=ex" tabindex="9" @onclick="ToLEx" @onclick:preventDefault>行政法規</a></li>
+                <li><a href="laws?c=l" tabindex="9" @onclick="ToLL" @onclick:preventDefault>立法法規</a></li>
+                <li><a href="laws?c=j" tabindex="9" @onclick="ToLJ" @onclick:preventDefault>司法法規</a></li>
+                <li><a href="laws?c=el" tabindex="9" @onclick="ToLEl" @onclick:preventDefault>選舉法規</a></li>
+                <li><a href="cases" tabindex="9" @onclick="ToC" @onclick:preventDefault>判例查詢</a></li>
+                <li><a href="parties" tabindex="9" @onclick="ToP" @onclick:preventDefault>政黨查詢</a></li>
+                <li><a href="rel" tabindex="9" @onclick="ToRel" @onclick:preventDefault>相關連結</a></li>
+            </ul>
+        </div>
+        <div class="footer-note">
+            <ul>
+                <li>本網站係提供法規之最新動態資訊及資料檢索，並不提供法規及法律諮詢之服務。</li>
+                <li>若有任何法律上的疑義，建議您可逕向發布法規之主管機關洽詢。</li>
+                <li>本網站法規資料係由政府各機關提供之電子檔或書面文字登打製作，若與各法規主管機關之公布文字有所不同，仍以各法規主管機關之公布資料為準。</li>
+                <li>部分資料內容，使用特殊文字或符號，如欲詳閱內容，請連結至<a tabindex="0" href="https://www.cns11643.gov.tw/downloadList.jsp?ID=1" target="_blank">全字庫</a>下載造字檔或<a tabindex="0" href="https://data.gov.tw/dataset/5961" target="_blank">政府資料開放平臺</a>下載全字庫字形檔。</li>
+                <li>法規整編資料截止日：民國 @lty 年 @ltm 月 @ltd 日</li>
+                <li>政黨整編資料截止日：民國 @pty 年 @ptm 月 @ptd 日</li>
+                <li>判例整編資料截止日：民國 @cty 年 @ctm 月 @ctd 日</li>
+            </ul>
+        </div>
+        <div class="footer-bottom">
+            <ul>
+                <li><a tabindex="0" href="open">資料開放宣告</a></li>
+                <li><a tabindex="0" href="print">法規彙編列印</a></li>
+            </ul>
+            <span>本網站由臺中市立臺中第一高級中等學校學生自治聯合會學生會自治部及評議委員會共同維運管理</span><br/>
+            <span><span>臺中市立臺中第一高級中等學校學生自治聯合會辦公室地址：</span><span>404臺中市北區育才街2號 敬業樓3樓</span></span><br/>
+            <span>信箱：
+                <ul>
+                    <li><span>學生會：</span><a tabindex="0" href="mailto:tcfshsa290801@gmail.com">tcfshsa290801@gmail.com</a></li>
+                    <li><span>學生議會：</span><a tabindex="0" href="mailto:tcfshsc101@gmail.com">tcfshsc101@gmail.com</a></li>
+                    <li><span>評議委員會：</span><a tabindex="0" href="mailto:tcfshstudentcourt@std.tcfsh.tc.edu.tw">tcfshstudentcourt@std.tcfsh.tc.edu.tw</a></li>
+                </ul>
+            </span>
+        </div>
+    </footer>
+</div>
+
+@code {
+    private L[]? l;
+    private P[]? p;
+    private C[]? c;
+    public string? a , b , q ; 
+    public string lty ;
+    public string ltm ;
+    public string ltd ;
+    public string pty ;
+    public string ptm ;
+    public string ptd ;
+    public string cty ;
+    public string ctm ;
+    public string ctd ;
+    private string? dark ; 
+    private string menuBar = "M3 12L21 12M3 6L21 6M3 18L21 18" ; 
+    private bool barOrX = true ; 
+    
+    protected override void OnInitialized()
+    {
+        var uri = N.ToAbsoluteUri(N.Uri);
+        var queryStrings = QueryHelpers.ParseQuery(uri.Query);
+        if (queryStrings.TryGetValue("c", out var aaa))
+        {
+            a = aaa;
+        }
+        if (queryStrings.TryGetValue("l", out var bbb))
+        {
+            b = bbb;
+        }
+        if (queryStrings.TryGetValue("q", out var ccc))
+        {
+            q = ccc;
+        }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        l = await Http.GetFromJsonAsync<L[]>("json/laws.json");
+        p = await Http.GetFromJsonAsync<P[]>("json/parties.json");
+        c = await Http.GetFromJsonAsync<C[]>("json/cases.json");
+        lty = ( Int32.Parse(l[0].UpdateDate.Split('/')[0]) - 1911 ).ToString();
+        pty = ( Int32.Parse(p[0].UpdateDate.Split('/')[0]) - 1911 ).ToString();
+        cty = ( Int32.Parse(c[0].UpdateDate.Split('/')[0]) - 1911 ).ToString();
+        ltm = l[0].UpdateDate.Split('/')[1];
+        ptm = p[0].UpdateDate.Split('/')[1];
+        ctm = c[0].UpdateDate.Split('/')[1];
+        ltd = l[0].UpdateDate.Split('/')[2];
+        ptd = p[0].UpdateDate.Split('/')[2];
+        ctd = c[0].UpdateDate.Split('/')[2];
+    }
+    void darkToggle() 
+    {
+        dark = string.IsNullOrEmpty( dark ) ? "dark" : null ; 
+    }
+    void ToLC()
+    { 
+        N.NavigateTo("laws?c=c",true);
+    }
+    void ToLEx()
+    {
+        N.NavigateTo("laws?c=ex", true);
+    }
+    void ToLL()
+    {
+        N.NavigateTo("laws?c=l", true);
+    }
+    void ToLJ()
+    {
+        N.NavigateTo("laws?c=j", true);
+    }
+    void ToLEl()
+    {
+        N.NavigateTo("laws?c=el", true);
+    }
+    void ToC()
+    {
+        N.NavigateTo("cases", true);
+    }
+    void ToP()
+    {
+        N.NavigateTo("parties", true);
+    }
+    void ToRel()
+    {
+        N.NavigateTo("rel", true);
+    }
+    void ToPrint()
+    {
+        N.NavigateTo("print", true);
+    }
+    void ToO()
+    {
+        N.NavigateTo("open", true);
+    }
+    void ToPriv()
+    {
+        N.NavigateTo("privacy", true);
+    }
+    private string z;
+    private bool sIsActivated = false; 
+    private bool mIsActivated = true; 
+    private bool lIsActivated = false; 
+    private string? sIsYellow => sIsActivated ? "Y" : null;
+    private string? mIsYellow => mIsActivated ? "Y" : null;
+    private string? lIsYellow => lIsActivated ? "Y" : null;
+    void Zoom(char a) 
+    {
+        if (a == 's')
+        {
+            z = "85%";
+            sIsActivated = true;
+            mIsActivated = false;
+            lIsActivated = false;
+        }
+        else if (a == 'm')
+        {
+            z = "100%";
+            sIsActivated = false;
+            mIsActivated = true;
+            lIsActivated = false;
+        }
+        else if (a == 'l')
+        {
+            z = "115%";
+            sIsActivated = false;
+            mIsActivated = false;
+            lIsActivated = true;
+        }
+    }
+    public class L
+    {
+        public string UpdateDate { get; set; }
+    }
+    public class P
+    {
+        public string UpdateDate { get; set; }
+    }
+
+    public class C
+    {
+        public string UpdateDate { get; set; }
+    }
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+        if( barOrX ) 
+        {
+            menuBar = "M3 3L21 21M3 21L21 3" ; 
+        }
+        else 
+        {
+            menuBar = "M3 12L21 12M3 6L21 6M3 18L21 18" ; 
+        }
+        barOrX = !barOrX ; 
+    }
+}

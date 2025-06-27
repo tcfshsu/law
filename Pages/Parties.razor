@@ -1,0 +1,118 @@
+@page "/parties"
+@inject HttpClient Http
+@inject NavigationManager N
+
+<PageTitle>政黨查詢 - 臺中市立臺中第一高級中等學校學生自治聯合會法規資料庫</PageTitle>
+
+<div class="bread">
+    <span>現在位置：</span>
+    <ul>
+        <li><a href="">首頁</a></li>
+        <li>政黨查詢</li>
+    </ul>
+</div>
+<form action="parties" method="get" class="pq printNoDisplay">
+    <label for="s">狀態：</label>
+    <select name="s" id="s">
+        <option value="">不限</option>
+        <option value="一般">一般</option>
+    </select>
+    <p>
+        <input type="search" placeholder="輸入關鍵字以搜尋政黨" name="q" />
+        <input type="submit" style="background-image:url(i/icon/search.svg);width:24px;height:24px;background-color:#0000;border:0;cursor:pointer;" value="" alt="搜尋！" />
+    </p>
+</form>
+@if (p == null)
+{
+    <p><em>Loading...</em></p>
+}
+else 
+{
+    <table class="p">
+        <thead>
+            <tr>
+                <th>編號</th>
+                <th>政黨名稱</th>
+                <th>負責人</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var partiess in pq)
+            {
+                <tr>
+                    <td><a href="parties/detail?party=@partiess.Party&q=@a&s=@b">@partiess.Party</a></td>
+                    <td><a href="parties/detail?party=@partiess.Party&q=@a&s=@b">@partiess.PartyName</a></td>
+                    <td>@partiess.Chairman</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<br class="printNoDisplay" />
+<a class="printNoDisplay" href="">回首頁</a>
+
+@code {
+    private Py[]? p;
+    private string a;
+    private string? b;
+    private bool ifbvalid = false ; 
+    public List<P> pq = new List<P>() ; 
+    protected override void OnInitialized()
+    {
+        var uri = N.ToAbsoluteUri(N.Uri);
+        var queryStrings = QueryHelpers.ParseQuery(uri.Query);
+        if (queryStrings.TryGetValue("q", out var aaa))
+        {
+            a = aaa;
+        }
+        if (queryStrings.TryGetValue("s", out var bbb))
+        {
+            b = bbb;
+            ifbvalid = ( b == "一般" ) ; 
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        p = await Http.GetFromJsonAsync<Py[]>("json/parties.json");
+        if( p != null && !string.IsNullOrEmpty( a ) && ifbvalid ) 
+        {
+            foreach( var a in Regex.Replace( a , @"\s" , "\r\n" ).Split( "\r\n" ) ) 
+            {
+                pq.AddRange( p[0].Parties.Where( p => p.PartyState == b ).Where( p => ( p.PartyName.ToUpper().Contains( a ) || ( string.IsNullOrEmpty( p.PartyAbbreviation ) ? false : p.PartyAbbreviation.ToUpper().Contains( a ) ) || p.Chairman.ToUpper().Contains( a ) ) ).ToList() ) ; 
+            }
+        }
+        else if( p != null && !string.IsNullOrEmpty( a ) ) 
+        {
+            foreach( var a in Regex.Replace( a , @"\s" , "\r\n" ).Split( "\r\n" ) ) 
+            {
+                pq.AddRange( p[0].Parties.Where( p => ( p.PartyName.ToUpper().Contains( a ) || ( string.IsNullOrEmpty( p.PartyAbbreviation ) ? false : p.PartyAbbreviation.ToUpper().Contains( a ) ) || p.Chairman.ToUpper().Contains( a ) ) ).ToList() ) ; 
+            }
+        }
+        else if( p!= null && ifbvalid ) 
+        {
+            pq = p[0].Parties.Where( p => p.PartyState == b ).ToList() ; 
+        }
+        else if( p != null ) 
+        {
+            pq = p[0].Parties.ToList() ; 
+        }
+    }
+
+    public class Py
+    {
+        public string UpdateDate { get; set; }
+        public P[]? Parties { get; set; }
+    }
+    public class P 
+    {
+        public int Party { get; set; }
+        public string PartyName { get; set; }
+        public string? PartyAbbreviation { get; set; }
+        public string Chairman { get; set; }
+        public string PartyState { get; set; }
+        public string? PartyEstablishedDate { get; set; }
+        public string? PartyRegisteredDate { get; set; }
+        public string? PartyURL { get; set; }
+    }
+}

@@ -1,0 +1,293 @@
+table 
+{
+    text-align : center ; 
+    width : 100% ; 
+    border-collapse : collapse ; 
+}
+table a , table a:visited 
+{
+    color : #000 ; 
+}
+tr 
+{
+    margin : .2rem ; 
+}
+td 
+{
+    margin : .25rem .5rem ; 
+}
+.pq form 
+{
+  height : 2rem ; 
+  display : flex ; 
+  justify-content : center ; 
+  align-items : center ; 
+}
+.pq form input:first-child 
+{
+  height : 2rem ; 
+  border-radius : 1rem ; 
+  border : 1px solid #000 ; 
+  outline : 0 ; 
+}
+.pq form input:first-child::placeholder 
+{
+  font-family : "Noto Sans TC" ; 
+  font-weight : 500 ; 
+  opacity : .65 ; 
+  text-indent : .5rem ; 
+}
+.p:not( div[ahhhhaaaahaha] .p ) thead th 
+{
+    padding-bottom : .25rem ; 
+}
+.p:not( div[ahhhhaaaahaha] .p ) h1 
+{
+    font-family : "Noto Sans Display" , "Noto Serif TC" ; 
+}
+.p:not( div[ahhhhaaaahaha] .p ) tr:has( td ) 
+{
+    border-top : 1px solid #000 ; 
+}
+.p:not( div[ahhhhaaaahaha] .p ) tr td:first-child 
+{
+    width : 2em ; 
+}
+.p:not( div[ahhhhaaaahaha] .p ) tr td:nth-child(2) 
+{
+    text-align : left ; 
+    padding-left : .5rem ; 
+}
+@media ( min-width : 768px ) 
+{
+    .p:not( div[ahhhhaaaahaha] .p ) , .pq  
+    {
+        width : calc(21cm - .8in) ; 
+        margin : 0 auto ; 
+    }
+    .p:not( div[ahhhhaaaahaha] .p ) ~ a.printNoDisplay 
+    {
+        display : block ; 
+        width : 100% ; 
+        text-align : center ; 
+        margin-top : 1rem ; 
+    }
+    .p:not( div[ahhhhaaaahaha] .p ) tr td:nth-child( 2 ) 
+    {
+        text-align : center ; 
+        padding : 0 ; 
+    }
+}
+.p:not( div[ahhhhaaaahaha] .p ) tr td:last-child 
+{
+    width : 4em ; 
+}
+dt 
+{
+    font-weight : 700 ; 
+    font-size : 1.15rem ; 
+}
+/* dd 
+{
+    font-size : 1.25rem ; 
+} */
+.ex-link 
+{
+    width : 1em ; 
+    height : 1em ; 
+    flex-shrink : 0 ; 
+}
+.c tr td:first-child 
+{
+    width : 4em ; 
+    height : 3em ; 
+}
+.c tr td:nth-child(2) 
+{
+    width : 5em ; 
+}
+.c tr td:last-child 
+{
+    width : 4em ; 
+}
+.cd h4 
+{
+    font-size : 20px ; 
+}
+.cd h5 
+{
+    font-size : 16px ; 
+    font-weight : 500 ; 
+}
+.cd h6 
+{
+    font-size : 14px ; 
+    font-weight : 300 ; 
+}
+.cd > dl > dd , .cd.r , .cd.o 
+{
+    display : flex ; 
+    align-items : center ; 
+}
+.cd.r , .cd.o 
+{
+    flex-wrap : wrap ; 
+}
+.cd.r > :nth-child(n) , .cd.o > :nth-child(n) 
+{
+    padding-left : 1em ; 
+}
+.cd.r > dl , .cd.o > dl 
+{
+    padding-bottom : 1rem ; 
+}
+.cd > dl > dd::before 
+{
+    content : '　' ; 
+    flex-shrink : 0 ; 
+}
+
+form 
+{
+    height: 2rem;
+}
+.pq , .cq 
+{
+    margin : 1.5rem auto ; 
+}
+@media ( min-width : 768px ) 
+{
+    .pq , .cq 
+    {
+        margin-bottom : 2.5rem ; 
+    }
+}
+.pq input:first-child , .cq input:first-child 
+{
+    width: calc(100% - 28px);
+    height: 2rem;
+    border-radius: 1rem;
+    border: 1px solid #000 ; 
+    outline: 0;
+}
+.pq input:first-child::placeholder , .cq input:first-child::placeholder 
+{
+    font-family: "Noto Sans TC";
+    font-weight: 500;
+    opacity: .65;
+    text-indent: .5rem;
+}
+.pq p , .cq p 
+{
+    position : relative ; 
+}
+.pq input:last-child , .cq input:last-child 
+{
+    position : absolute ; 
+    top : calc(1rem - 12px) ; 
+    right : 5px ; 
+}
+a:has( .ex-link ) 
+{
+    display : flex ; 
+    flex-wrap : nowrap ; 
+    align-items : center ; 
+}
+a:has( .ex-link ) :first-child 
+{
+    flex-shrink : 0 ; 
+}
+
+.lawresult 
+{
+    display : block ; 
+}
+.l tbody , .l tbody tr 
+{
+    display : inline-flex ; 
+    flex-direction : column ; 
+}
+.l tbody > a 
+{
+    display : flex ; 
+    flex-direction : column ; 
+    justify-content : center ; 
+    align-content : center ; 
+}
+@media ( min-width : 768px ) 
+{
+    .table 
+    {
+        width : 700px ; 
+        margin : 0 auto ; 
+        text-align : left ; 
+    }
+}
+.table h1 
+{
+    text-align : center ; 
+}
+
+/* latest */
+.la dd:not( .la dd dd ) , .la dd dl 
+{
+    margin-bottom : 1rem ; 
+}
+.la dd dt 
+{
+    font-size : 1rem ; 
+    font-weight : 600 ; 
+}
+.la dd dd 
+{
+    font-size : .95rem ; 
+    font-weight : 550 ; 
+}
+.la table 
+{
+    border-collapse : collapse ; 
+    border : 1px solid #000 ; 
+}
+.la table thead 
+{
+    border-bottom : #000 2px solid ; 
+}
+.la table tbody 
+{
+    text-align: left;
+}
+.la table td 
+{
+    border-bottom : 1px solid #000 ; 
+}
+.la table tbody tr td:first-child , .la table thead tr th:first-child 
+{
+    width : calc(3em + 2px); 
+}
+.la table tbody tr td:nth-child( 2 ) , .la table thead tr th:nth-child( 2 ) , .la table tbody tr td:nth-child( 3 ) , .la table thead tr th:nth-child( 3 ) 
+{
+    border : 1px solid #000 ; 
+}
+.la td:nth-child( 2 ) , .la td:nth-child( 3 ) , .la th:nth-child( 2 ) , .la th:nth-child( 3 ) 
+{
+    min-width : 3.5em ; 
+}
+.la table tbody tr td:last-child , .la table thead tr th:last-child 
+{
+    width : calc(5em + 2px) ; 
+}
+@media ( min-width : 768px ) 
+{
+    .la table tbody tr td:last-child , .la table thead tr th:last-child 
+    {
+        width : calc(10em + 2px) ; 
+    }
+}
+.la table ul li 
+{
+    display : flex ; 
+}
+.la table ul li :first-child 
+{
+    flex-shrink : 0 ; 
+}

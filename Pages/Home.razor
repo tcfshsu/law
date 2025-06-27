@@ -1,0 +1,54 @@
+﻿@page "/"
+@inject HttpClient Http
+
+<div class="bread">
+    <span>現在位置：</span>
+    <ul>
+        <li>首頁</li>
+    </ul>
+</div>
+<div class="latest">
+    <h1>最新消息</h1>
+    <ul>
+        @if( l == null ) 
+        {
+            <PageTitle>Loading - 臺中市立臺中第一高級中等學校學生自治聯合會法規資料庫</PageTitle>
+            <li>Loading...</li>
+        }
+        else if( lIsNull ) 
+        {
+            <PageTitle>首頁 - 臺中市立臺中第一高級中等學校學生自治聯合會法規資料庫</PageTitle>
+            <li>沒東西</li>
+        }
+        else 
+        {
+            <PageTitle>首頁 - 臺中市立臺中第一高級中等學校學生自治聯合會法規資料庫</PageTitle>
+            @for( int i = l.Length - 1 ; i >= 0 ; i -- ) 
+            {
+                <li><a href="latest?no=@( i + 1 )">@l[i].Title</a></li>
+            }
+        }
+    </ul>
+</div>
+
+@code
+{
+    private Latest[]? l ; 
+    private bool lIsNull = true ; 
+
+    protected override async Task OnInitializedAsync()
+    {
+        l = await Http.GetFromJsonAsync<Latest[]>( "json/latest.json" ) ; 
+        if( l != null ) 
+        {
+            lIsNull = false ; 
+        }
+    }
+    
+    
+    public class Latest 
+    {
+        public string Date { get; set; } 
+        public string Title { get; set; } 
+    }
+}

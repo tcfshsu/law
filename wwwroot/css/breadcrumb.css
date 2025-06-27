@@ -1,0 +1,37 @@
+@media only screen 
+{
+    .bread ul 
+    {
+        display : inline-flex ; 
+        font-family : "Noto Serif" , "Noto Serif TC" , "Noto Serif JP" , "Noto Serif SC" , sans-serif ; 
+        font-weight : 500 ; 
+        flex-wrap : wrap ; 
+    }
+    .bread ul li 
+    {
+        flex-shrink : 0 ; 
+        max-width : 100% ; 
+    }
+    .bread ul li a 
+    {
+        color : #000 ; 
+        text-decoration : none ; 
+    }
+    .bread ul li a:hover , .bread ul li a:focus 
+    {
+        color : #c03 ; 
+        text-decoration : underline ; 
+    }
+    .bread ul li:not(:last-child)::after 
+    {
+        content : '>' ; 
+        margin : 0 1rem ; 
+    }
+}
+@media only print 
+{
+    .bread 
+    {
+        display : none ; 
+    }
+}
