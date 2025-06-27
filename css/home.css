@@ -1,0 +1,101 @@
+/* guide */
+.guide 
+{}
+
+
+/* open */
+.open 
+{}
+
+
+/* privacy */
+.priv 
+{}
+
+
+/* relatives */
+.rel a 
+{
+    color : #000a ; 
+}
+.rel a:hover 
+{
+    color : #c7a001 ; 
+    text-decoration : underline ; 
+}
+.rel div > ul > li:first-child:not( .lawall ul li ) 
+{
+    font-size : 1.5rem ; 
+    font-weight : 700 ; 
+}
+.lawall li:first-child 
+{
+    font-size : 1.15rem ; 
+    font-weight : 500 ; 
+    text-indent : .5em ; 
+}
+.rel div > ul > li:not(:first-child) , div > ul > ul li 
+{
+    text-indent : 1em ; 
+}
+@media ( min-width : 768px ) 
+{
+    .rel .tcfshsu 
+    {
+        display : flex ; 
+        justify-content : center ; 
+        align-items : flex-start ; 
+        flex-wrap : wrap ; 
+    }
+}
+
+/* home page */
+.latest h1 
+{
+    font-family : "Noto Sans TC" , sans-serif ; 
+    font-weight : 600 ; 
+    font-size : 2rem ; 
+}
+@media (min-width : 768px)
+{
+  .latest h1 
+  {
+    font-size : 3rem ; 
+    font-weight : 700 ; 
+  }
+}
+.latest ul 
+{
+    font-weight : 500 ; 
+}
+.latest ul li 
+{
+  display : flex ; 
+}
+.latest ul li::before 
+{
+  content : ">" ; 
+  font-family : 'Noto Sans Mono' ; 
+  width : .5em ; 
+  margin-right : .5em ; 
+  flex-shrink : 0 ; 
+}
+.latest a 
+{
+    display : block ; 
+}
+.latest a , .latest a:visited 
+{
+    color : #000 ; 
+    text-decoration : none ; 
+}
+.latest a:hover , .latest a:focus 
+{
+    color : #c03 ; 
+    text-decoration : underline ; 
+}
+.latest a:focus 
+{
+    outline : .5px #fc0 solid ; 
+    border-radius : 5% ; 
+}

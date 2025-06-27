@@ -1,0 +1,102 @@
+#lawHeader 
+{
+    font-family : "Songti TC" , "Noto Sans" , "Noto Serif TC" , "Noto Serif JP" , "Noto Serif SC" , sans-serif ; 
+    background : #0001 ; 
+    margin-top : 1rem ; 
+    padding-top : 1rem ; 
+    padding-left : .15rem ; 
+    padding-bottom : 2rem ; 
+    font-size : 1.15rem ; 
+    border-top-right-radius : 8px ; 
+    border-top-left-radius : 8px ; 
+    line-height : 1.5 ; 
+}
+#lawHeader li 
+{
+    display : flex ; 
+}
+#lawHeader li span:first-child 
+{
+    flex-shrink : 0 ; 
+    text-align : right ; 
+    width : 7rem ; 
+}
+#lawHeader li span:last-child 
+{
+    text-align : left ; 
+}
+#lawHeader li span ul 
+{
+    margin-left : 1rem ; 
+    list-style-type : disc ; 
+}
+#lawHeader li span li 
+{
+    display : list-item ; 
+    list-style : disc ; 
+}
+#mainC 
+{
+    background : #00000005 ; 
+    border-bottom-right-radius : 8px ; 
+    border-bottom-left-radius : 8px ; 
+}
+#lawHeader .legislativeHistory 
+{
+    text-align : left ; 
+    font-size : 1.15rem ; 
+    padding-bottom : 0 ; 
+}
+#lawHeader .legislativeHistory::before 
+{
+    content : '' ; 
+}
+#lawHeader .legislativeHistory li 
+{
+    display : flex !important ; 
+}
+#lawHeader .legislativeHistory li span:first-child 
+{
+    flex-shrink : 0 ; 
+    width : fit-content ; 
+}
+#TableofC li 
+{
+    cursor : pointer ; 
+}
+#TableofC li:hover 
+{
+    color : #c03 ; 
+}
+div[ahhhhaaaahaha] #TableofC h1 , div[ahhhhaaaahaha] #TableofC h1 , div[ahhhhaaaahaha] #TableofC h2 , div[ahhhhaaaahaha] #TableofC h3 , div[ahhhhaaaahaha] #TableofC h4 , div[ahhhhaaaahaha] #TableofC h5 
+{
+    font-family : "Noto Sans Mono" , "Songti TC" , "Noto Serif TC" , "Noto Serif JP" , "Noto Serif SC" , sans-serif ; 
+    font-weight : 300 ; 
+    margin-left : 0 ; 
+    text-indent : -5em ; 
+    margin-left : 5em ; 
+}
+#TableofC span:has( ol ) 
+{
+    zoom : 85% ; 
+}
+#TableofC span ol , #TableofC span ol li 
+{
+    list-style-type : none ; 
+}
+#TableofC li:has( h1 ) ~ li:has( h2 ) , #TableofC li:has( h2 ):not( li:has( h1 ) ~ li:has( h2 ) ) ~ li:has( h3 ) , #TableofC li:has( h3 ):not( li:has( h2 ) ~ li:has( h3 ) ) ~ li:has( h4 ) , #TableofC li:has( h4 ):not( li:has( h3 ) ~ li:has( h4 ) ) ~ li:has( h5 ) 
+{
+    padding-left : 1rem ; 
+}
+#TableofC li:has( h1 ) ~ li:has( h2 ) ~ li:has( h3 ) , #TableofC li:has( h2 ):not( li:has( h1 ) ~ li:has( h2 ) ) ~ li:has( h3 ) ~ li:has( h4 ) , #TableofC li:has( h3 ):not( li:has( h2 ) ~ li:has( h3 ) ) ~ li:has( h4 ) ~ li:has( h5 ) 
+{
+    padding-left : 2rem ; 
+}
+#TableofC li:has( h1 ) ~ li:has( h2 ) ~ li:has( h3 ) ~ li:has( h4 ) , #TableofC li:has( h2 ):not( li:has( h1 ) ~ li:has( h2 ) ) ~ li:has( h3 ) ~ li:has( h4 ) ~ li:has( h5 ) 
+{
+    padding-left : 3rem ; 
+}
+#TableofC li:has( h1 ) ~ li:has( h2 ) ~ li:has( h3 ) ~ li:has( h4 ) ~ li:has( h5 ) 
+{
+    padding-left : 4rem ; 
+}
