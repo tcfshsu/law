@@ -1,0 +1,12 @@
+-O0
+-g
+-v
+-fwasm-exceptions
+-DDISABLE_PERFTRACING_LISTEN_PORTS=1
+-DLINK_ICALLS=1
+-DGEN_PINVOKE=1
+-emit-llvm
+"-I/Users/louischo303/Downloads/untitled folder/law/obj/Debug/net9.0/wasm/for-build"
+"-I/usr/local/share/dotnet/packs/Microsoft.NETCore.App.Runtime.Mono.browser-wasm/9.0.6/runtimes/browser-wasm/native/include/mono-2.0"
+"-I/usr/local/share/dotnet/packs/Microsoft.NETCore.App.Runtime.Mono.browser-wasm/9.0.6/runtimes/browser-wasm/native/include/wasm"
+-g
