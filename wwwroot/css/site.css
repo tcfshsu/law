@@ -35,6 +35,10 @@ html
   color : var( --selection-color ) ; 
   background : var( --selection-bg ) ; 
 }
+select 
+{
+  font-family : "Noto Sans" , "Noto Sans TC" , "Noto Sans JP" , "Noto Sans SC" , sans-serif ; 
+}
 ::placeholder 
 {
   font-family : "Noto Sans" , "Noto Sans TC" , "Noto Sans JP" , "Noto Sans SC" , sans-serif ; 
@@ -342,6 +346,13 @@ header a:focus
 {
   display : block ; 
   margin : 1rem auto ; 
+}
+.lq + select 
+{
+  border : 1px solid #000 ; 
+  border-radius : 1em ; 
+  color : #cde8ff ; 
+  background : #731c1c ; 
 }
 .matched 
 {
