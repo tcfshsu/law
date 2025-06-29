@@ -5,6 +5,7 @@
     {
         content : counter(page) ; 
         font-family : "OCR A Std" , "Noto Sans" , sans-serif ; 
+        margin : .4in ; 
     }
 }
 @media print 
@@ -171,7 +172,7 @@ div[ahhhhaaaahaha] h1 , div[ahhhhaaaahaha] h2 , div[ahhhhaaaahaha] h3 , div[ahhh
 }
 div[ahhhhaaaahaha] h1 , div[ahhhhaaaahaha] h2 , div[ahhhhaaaahaha] h3 , div[ahhhhaaaahaha] h4 , div[ahhhhaaaahaha] h5 
 {
-    margin-left : -3.5rem ; 
+    margin-left : -3rem ; 
 }
 div[ahhhhaaaahaha] h1 
 {
