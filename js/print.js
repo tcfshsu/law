@@ -3,6 +3,7 @@ fetch(new Request('json/laws.json')).then( (response) => {return response.json()
     var j = jj[0] ; 
     var lawCount = j.Laws.length ; 
     document.querySelector( "main" ).appendChild( document.createElement( "div" ) ) ; 
+    document.querySelector( "main" ).setAttribute( "class" , "main" ) ; 
     var main = document.querySelector( "main div" ) ; 
     var cover = document.createElement( "span" ) ; 
     main.setAttribute( "ahhhhaaaahaha" , "" ) ; 
@@ -87,7 +88,7 @@ fetch(new Request('json/laws.json')).then( (response) => {return response.json()
         {
             let aa = document.createElement( "a" ) ; 
             aa.setAttribute( "href" , "#" + i ) ; 
-            aa.innerText = j.Laws[i].LawName ; 
+            aa.innerHTML = "<span class=\"abandoned\">廢</span>" + j.Laws[i].LawName ; 
             F.appendChild( aa ) ; 
         }
     }
@@ -217,84 +218,83 @@ fetch(new Request('json/laws.json')).then( (response) => {return response.json()
 
         // 內文
         const articleLength = j.Laws[i].LawArticles.length ; 
-        var main = document.createElement("div") ; 
-        law[i].appendChild( main ) ; 
+        var mian = document.createElement("div") ; 
+        law[i].appendChild( mian ) ; 
         for( ii = 0 ; ii < articleLength ; ii++ )
         {
-            var articleContent = j.Laws[i].LawArticles[ii].ArticleContent.replace(/(?:\r\n)/g, "</span></li><li><span>") ; 
+            var articleContent = j.Laws[i].LawArticles[ii].ArticleContent ; 
             var articleTitle ; 
-            j.Laws[i].LawArticles[ii].ArticleNo == "" ? articleTitle = j.Laws[i].LawArticles[ii].ArticleNo : articleTitle = j.Laws[i].LawArticles[ii].ArticleNo + "&nbsp;" ; 
-            main.innerHTML += "<h6>" + articleTitle + "</h6>" ; 
+            j.Laws[i].LawArticles[ii].ArticleNo == "" ? articleTitle = j.Laws[i].LawArticles[ii].ArticleNo : articleTitle = j.Laws[i].LawArticles[ii].ArticleNo ; 
+            mian.innerHTML += /條(?=【)/.test( articleTitle ) ? "<h6><span>" + articleTitle.split( /條(?=【)/ )[0] + "條</span><span>" + articleTitle.split( /條(?=【)/ )[1] + "</span></h6>" : "<h6><span>" + articleTitle + "</span></h6>" ; 
             function aaa() 
             {
                 if( j.Laws[i].LawArticles[ii].ArticleContent[0] == "第" ) 
                 {
-                    main.innerHTML += "<h1><span>" + articleContent.replace( / /g , "&#x00A0;" ) + "</span></h1><br/>" ; 
+                    mian.innerHTML += "<h1><pre>" + articleContent.split( "編" )[0] + "編 </pre><span>" + articleContent.split( "編" )[1] + "</span></h1><br/>" ; 
                 }
                 else if( j.Laws[i].LawArticles[ii].ArticleContent[3] == "第" ) 
                 {
-                    main.innerHTML += "<h2><span>" + articleContent.replace( / /g , "&#x00A0;" ) + "</span></h2><br/>" ; 
+                    mian.innerHTML += "<h2><pre>" + articleContent.split( "章" )[0] + "章 </pre><span>" + articleContent.split( "章" )[1] + "</span></h2><br/>" ; 
                 }
                 else if( j.Laws[i].LawArticles[ii].ArticleContent[6] == "第" ) 
                 {
-                    main.innerHTML += "<h3><span>" + articleContent.replace( / /g , "&#x00A0;" ) + "</span></h3><br/>" ; 
+                    mian.innerHTML += "<h3><pre>" + articleContent.split( "節" )[0] + "節 </pre><span>" + articleContent.split( "節" )[1] + "</span></h3><br/>" ; 
                 }
                 else if( j.Laws[i].LawArticles[ii].ArticleContent[9] == "第" ) 
                 {
-                    main.innerHTML += "<h4><span>" + articleContent.replace( / /g , "&#x00A0;" ) + "</span></h4><br/>" ; 
+                    mian.innerHTML += "<h4><pre>" + articleContent.split( "款" )[0] + "款 </pre><span>" + articleContent.split( "款" )[1] + "</span></h4><br/>" ; 
                 }
                 else if( j.Laws[i].LawArticles[ii].ArticleContent[12] == "第" ) 
                 {
-                    main.innerHTML += "<h5><span>" + articleContent.replace( / /g , "&#x00A0;" ) + "</span></h5><br/>" ; 
+                    mian.innerHTML += "<h5><pre>" + articleContent.split( "目" )[0] + "目 </pre><span>" + articleContent.split( "目" )[1] + "</span></h5><br/>" ; 
                 }
             }
             function aaaaaa() 
             {
                 function aaaaaaaaa(aC) 
                 {
-                    var articleBR = articleContent.split( "</span></li><li><span>" ) ; 
+                    var articleBR = articleContent.split( "\r\n" ) ; 
                     if( articleBR.length != 1 ) 
                     {
-                        aC += "<ol class=\"paragraph\">" ; 
                         for( iii = 0 ; iii < articleBR.length ; iii++ ) 
                         {
-                            if( articleBR[iii].match( /[一二三四五六七八九十]+\u3001/ ) != null && articleBR[iii].split( /[一二三四五六七八九十]+\u3001/ ).length == 2 ) 
+                            if( /[一二三四五六七八九十]+\u3001/.test( articleBR[iii] ) ) 
                             {
-                                aC += "<span><span>" + articleBR[iii].split( /\u3001/ )[0] + "\u{3001}</span>" ; 
-                                aC += articleBR[iii].split( /[一二三四五六七八九十]+\u3001/ )[1].replace( /^/ , "<span>" ) + "</span></span>" ; 
+                                aC += "<li><span>" + articleBR[iii].split( /\u3001/ )[0] + "\u{3001}</span>" ; 
+                                aC += articleBR[iii].split( /[一二三四五六七八九十]+\u3001/ )[1].replace( /^/ , "<span>" ) + "</span></li>" ; 
                             }
-                            if( articleBR[iii].match( /\uFF08[一二三四五六七八九十]+\uFF09|\uFF08[\uFF10-\uFF19]+\uFF09|\uFF08[0-9]+\uFF09/ ) != null && articleBR[iii].split( /\uFF08[一二三四五六七八九十]+\uFF09|\uFF08[\uFF10-\uFF19]+\uFF09|\uFF08[0-9]+\uFF09/ ).length == 2 ) 
+                            if( /\uFF08[一二三四五六七八九十]+\uFF09|\uFF08[\uFF10-\uFF19]+\uFF09|\uFF08[0-9]+\uFF09/.test( articleBR[iii] ) ) 
                             {
-                                aC += "<span><span>" + articleBR[iii].split( /\uFF09/ )[0] + "\u{FF09}</span>" ; 
-                                aC += articleBR[iii].split( /\uFF08[一二三四五六七八九十]+\uFF09|\uFF08[\uFF10-\uFF19]+\uFF09|\uFF08[0-9]+\uFF09/ )[1].replace( /^/ , "<span>" ) + "</span></span>" ; 
+                                aC += "<li><span>" + articleBR[iii].split( /\uFF09/ )[0] + "\u{FF09}</span>" ; 
+                                aC += articleBR[iii].split( /\uFF08[一二三四五六七八九十]+\uFF09|\uFF08[\uFF10-\uFF19]+\uFF09|\uFF08[0-9]+\uFF09/ )[1].replace( /^/ , "<span>" ) + "</span></li>" ; 
                             }
-                            if( articleBR[iii].match( /[\uFF10-\uFF19]+\u3001|[0-9]+\u3001/ ) != null && articleBR[iii].split( /[\uFF10-\uFF19]+\u3001|[0-9]+\u3001/ ).length == 2 ) 
+                            if( /[\uFF10-\uFF19]+\u3001|[0-9]+\u3001/.test( articleBR[iii] ) ) 
                             {
-                                aC += "<span class=\"of\"><span>" + articleBR[iii].split( /\u3001/ )[0] + "\u{3001}</span>" ; 
-                                aC += articleBR[iii].split( /[\uFF10-\uFF19]+\u3001|[0-9]+\u3001/ )[1].replace( /^/ , "<span>" ) + "</span></span>" ; 
+                                aC += "<li><span>" + articleBR[iii].split( /\u3001/ )[0] + "\u{3001}</span>" ; 
+                                aC += articleBR[iii].split( /[\uFF10-\uFF19]+\u3001|[0-9]+\u3001/ )[1].replace( /^/ , "<span>" ) + "</span></li>" ; 
                             }
-                            if( articleBR[iii].match( /[0-9]+\u002E|[\uFF10-\uFF19]+\u002E/) != null && articleBR[iii].split( /[\uFF10-\uFF19]+\u002E|[0-9]+\u002E/ ).length == 2 ) 
+                            if( /[0-9]+\u002E|[\uFF10-\uFF19]+\u002E/.test( articleBR[iii] ) ) 
                             {
-                                aC += "<span class=\"of\"><span>" + articleBR[iii].split( /\u002E/ )[0] + "\u{002E}</span>" ; 
-                                aC += articleBR[iii].split( /[\uFF10-\uFF19]+\u002E|[0-9]+\u002E/ )[1].replace( /^/ , "<span>" ) + "</span></span>" ; 
+                                aC += "<li><span>" + articleBR[iii].split( /\u002E/ )[0] + "\u{002E}</span>" ; 
+                                aC += articleBR[iii].split( /[\uFF10-\uFF19]+\u002E|[0-9]+\u002E/ )[1].replace( /^/ , "<span>" ) + "</span></li>" ; 
                             }
                             if( ( articleBR[iii].match( /[一二三四五六七八九十]+\u3001/ ) == null || articleBR[iii].split( /[一二三四五六七八九十]+\u3001/ ).length != 2 ) && ( articleBR[iii].match( /\uFF08[一二三四五六七八九十]+\uFF09|\uFF08[\uFF10-\uFF19]+\uFF09|\uFF08[0-9]+\uFF09/ ) == null || articleBR[iii].split( /\uFF08[一二三四五六七八九十]+\uFF09|\uFF08[\uFF10-\uFF19]+\uFF09|\uFF08[0-9]+\uFF09/ ).length != 2 ) && ( articleBR[iii].match( /[\uFF10-\uFF19]+\u3001|[0-9]+\u3001/ ) == null || articleBR[iii].split( /[\uFF10-\uFF19]+\u3001|[0-9]+\u3001/ ).length != 2 ) && ( articleBR[iii].match( /[0-9]+\u002E|[\uFF10-\uFF19]+\u002E/) == null && articleBR[iii].split( /[\uFF10-\uFF19]+\u002E|[0-9]+\u002E/ ).length != 2 ) ) 
                             {
-                                aC += "<li>" + articleBR[iii] + "</li>" ; 
+                                aC += "<li class=\"p\">" + articleBR[iii] + "</li>" ; 
                             }
                         }
-                        if( aC.split( /<li>/ ).length > 2 ) 
+                        if( aC.split( /<li class="p">/ ).length > 2 ) 
                         {
-                            aC = aC.replace( /class="paragraph"/ , "class=\"paragraph showNum\"" ) ; 
+                            aC = aC.replace( /^/ , " class=\"showNum\">" ) ; 
                         }
                     }
                     else 
                     {
-                        aC += "<ol class=\"paragraph\"><li><span>" + articleContent + "</span></li>" ; 
+                        aC += "><li class=\"p\">" + articleContent + "</li>" ; 
                     }
                     return aC 
                 }
-                main.innerHTML += "<article>" + aaaaaaaaa("") + "</ol></article><br/>" ; 
+                mian.innerHTML += "<article" + aaaaaaaaa("") + "</article><br/>" ; 
             }
             j.Laws[i].LawArticles[ii].ArticleNo == "" ? aaa() : aaaaaa() ; 
         }
@@ -303,12 +303,13 @@ fetch(new Request('json/laws.json')).then( (response) => {return response.json()
 
     // cover 
     var spn = document.createElement( "span" ) ; 
-    var contributes = "" ; 
+    var contributes = "卓祐宸" ; //編輯
+    var publish = "卓祐宸" ; //發行人
     var publishDate = "中華民國" + ( j.UpdateDate.split( "/" )[0] - 1911 ) + "年" + j.UpdateDate.split( "/" )[1] + "月" + j.UpdateDate.split( "/" )[2] + "日" ; //出版日期
     main.appendChild( spn ) ; 
     spn.setAttribute( "id" , "COVER-BACK" ) ; 
     spn.setAttribute( "style" , "line-height:1.3;" ) ; 
-    spn.innerHTML = "<h1><span>臺中市立臺中第一高級中等學校學生自治聯合會&nbsp;法規彙編<span></h1><ul><li><span>出版者：</span><span>臺中市立臺中第一高級中等學校學生自治聯合會第三十屆學生會自治部</span></li><li><span>發行人：</span><span>卓祐宸</span></li><li><span>編輯：</span><span>卓祐宸" + contributes + "</span></li><li><span>網站：</span><a href=\"https://sites.google.com/view/tcfshsu\" style=\"color:#00f;font-family:\'Noto Sans\',sans-serif;\">https://sites.google.com/view/tcfshsu</a></li><li><span>定價：</span><span>免費供大眾下載使用</span></li><li><span>出版日期：</span><span>" + publishDate + "</span></li></ul>"
+    spn.innerHTML = "<h1><span>臺中市立臺中第一高級中等學校學生自治聯合會&nbsp;法規彙編<span></h1><ul><li><span>出版者：</span><span>臺中市立臺中第一高級中等學校學生自治聯合會第三十屆學生會自治部</span></li><li><span>發行人：</span><span>" + publish + "</span></li><li><span>編輯：</span><span>" + contributes + "</span></li><li><span>網站：</span><a href=\"https://sites.google.com/view/tcfshsu\" style=\"color:#00f;font-family:\'Noto Sans\',sans-serif;\">https://sites.google.com/view/tcfshsu</a></li><li><span>定價：</span><span>免費供大眾下載使用</span></li><li><span>出版日期：</span><span>" + publishDate + "</span></li></ul>"
     window.print() ; 
 }).catch( (err) => 
 { 
