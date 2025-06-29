@@ -5,7 +5,6 @@
     {
         content : counter(page) ; 
         font-family : "OCR A Std" , "Noto Sans" , sans-serif ; 
-        margin : .4in ; 
     }
 }
 @media print 
