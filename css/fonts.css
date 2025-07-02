@@ -1,6 +1,14 @@
-@font-face {
+@font-face 
+{
     font-family: 標宋;
     src: url("https://tcfshsu.github.io/law/fonts/TW-Sung-98_1.ttf") format("truetype")
     , url("https://tcfshsu.github.io/law/fonts/TW-Sung-Ext-B-98_1.ttf") format("truetype")
     , url("https://tcfshsu.github.io/law/fonts/TW-Sung-Plus-98_1.ttf") format("truetype");
+}
+@font-face 
+{
+    font-family: '標kai';
+    src: url("https://tcfshsu.github.io/law/fonts/TW-Kai-98_1.ttf") format("truetype")
+    , url("https://tcfshsu.github.io/law/fonts/TW-Kai-Ext-B-98_1.ttf") format("truetype")
+    , url("https://tcfshsu.github.io/law/fonts/TW-Kai-Plus-98_1.ttf") format("truetype");
 }
