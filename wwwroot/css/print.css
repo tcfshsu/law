@@ -35,10 +35,17 @@
 }
 div[ahhhhaaaahaha] 
 {
-    font-family : DFKai-SB /*Windows內建*/ , BiauKaiTC /*Mac*/ , "標楷體-繁" , "標楷體" , TW-Kai /*全字庫正楷書*/ , TW-Kai-Plus , TW-Kai-Ext-B , TW-MOE-Std-Kai , TW-Sung , TW-Sung-Ext-B , TW-Sung-Plus , 標宋 , "Noto Sans TC" , sans-serif ; 
+    font-family : DFKai-SB /*Windows內建*/ , BiauKaiTC /*Mac*/ , "標楷體-繁" , "標楷體" , TW-Kai /*全字庫正楷書*/ , TW-Kai-Plus , TW-Kai-Ext-B , TW-MOE-Std-Kai , '標kai' , "Noto Sans TC" , sans-serif ; 
     line-height : 1 ; 
     font-size : 12pt ; 
     color : #000 ; 
+}
+@media only screen and ( max-resolution : 1dppx ) 
+{
+    div[ahhhhaaaahaha] 
+    {
+        font-family : TW-Sung , TW-Sung-Ext-B , TW-Sung-Plus , 標宋 , "Noto Sans TC" , sans-serif ; 
+    }
 }
 div[ahhhhaaaahaha] pre 
 {
