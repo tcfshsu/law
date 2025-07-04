@@ -47,6 +47,10 @@ div[ahhhhaaaahaha] , div[ahhhhaaaahaha] pre
         font-family : TW-Sung , TW-Sung-Ext-B , TW-Sung-Plus , 標宋 , "Noto Sans TC" , sans-serif ; 
     }
 }
+div[ahhhhaaaahaha] pre 
+{
+    font-size : inherit ; 
+}
 div[ahhhhaaaahaha] > div , div[ahhhhaaaahaha] > span , div[ahhhhaaaahaha] > span > .title 
 {
     width : 100% ; 
