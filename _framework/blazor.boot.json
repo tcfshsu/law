@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "law",
   "resources": {
-    "hash": "sha256-/CT9JXudmuUvxxAHmutW057MCk9OmimSqvf4lCv+C9g=",
+    "hash": "sha256-t11hGcmA7+wYyRSPDNdLLF2Cxl5PuIdeA6ASDU0lUn0=",
     "fingerprinting": {
       "Azure.Core.92q6rqqhly.wasm": "Azure.Core.wasm",
       "Azure.Identity.b6ekoqlu3w.wasm": "Azure.Identity.wasm",
@@ -205,7 +205,7 @@
       "mscorlib.ucx6g0qqud.wasm": "mscorlib.wasm",
       "netstandard.xl04otckob.wasm": "netstandard.wasm",
       "System.Private.CoreLib.j3je00hx9f.wasm": "System.Private.CoreLib.wasm",
-      "law.v0kqr7mo04.wasm": "law.wasm",
+      "law.dms9oup81y.wasm": "law.wasm",
       "Humanizer.resources.ywrwvesg23.wasm": "Humanizer.resources.wasm",
       "Humanizer.resources.08lwhm08x4.wasm": "Humanizer.resources.wasm",
       "Humanizer.resources.5zb07tir5k.wasm": "Humanizer.resources.wasm",
@@ -572,7 +572,7 @@
       "System.qym59vuz4s.wasm": "sha256-gij/jdEMf1xzVOb2Lusq3HYuCxA3h50Raoupe/7Q4P4=",
       "mscorlib.ucx6g0qqud.wasm": "sha256-Xh5r/QOiGaA2dMLdbJAnGVLya/hUFo6Nk2ol789ig9Q=",
       "netstandard.xl04otckob.wasm": "sha256-67fb9/lGnp6lLYXdTuu74tLwpb5HBw89Oc/ZuHLrfP0=",
-      "law.v0kqr7mo04.wasm": "sha256-377yejJlEX10qyNpJYDLJZqsHjombYnAYqZ2BXd3PmI="
+      "law.dms9oup81y.wasm": "sha256-JdlwJ4eURGBwnDFB1BJjaM911a1U+cx9DsQz1mPnvX8="
     },
     "satelliteResources": {
       "af": {
