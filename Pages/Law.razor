@@ -72,7 +72,7 @@ else if ( string.IsNullOrEmpty( a ) )
 {
     <Laws></Laws>
 }
-else if( !Regex.IsMatch( a.ToUpper() , @"[CXLJE]{1}[0-9]{9}" ) || Int32.Parse( Regex.Replace( a.ToUpper() , @"[CXLJE]"  , "" ) ) <= 0 || Int32.Parse( a.ToUpper().Contains( 'C' ) ? a.ToUpper().Replace( "C"  , "" ) : "-1" ) > ic || Int32.Parse( a.ToUpper().Contains( 'X' ) ? a.ToUpper().Replace( "X"  , "" ) : "-1" ) > iex || Int32.Parse( a.ToUpper().Contains( 'L' ) ? a.ToUpper().Replace( "L"  , "" ) : "-1" ) > il || Int32.Parse( a.ToUpper().Contains( 'J' ) ? a.ToUpper().Replace( "J"  , "" ) : "-1" ) > ij || Int32.Parse( a.ToUpper().Contains( 'E' ) ? a.ToUpper().Replace( "E"  , "" ) : "-1" ) > iel ) 
+else if( !Regex.IsMatch( a.ToUpper() , @"[CXLJE]{1}[0-9]{9}" ) || int.Parse( Regex.Replace( a.ToUpper() , @"[CXLJE]"  , "" ) ) <= 0 || int.Parse( a.ToUpper().Contains( 'C' ) ? a.ToUpper().Replace( "C"  , "" ) : "-1" ) > ic || int.Parse( a.ToUpper().Contains( 'X' ) ? a.ToUpper().Replace( "X"  , "" ) : "-1" ) > iex || int.Parse( a.ToUpper().Contains( 'L' ) ? a.ToUpper().Replace( "L"  , "" ) : "-1" ) > il || int.Parse( a.ToUpper().Contains( 'J' ) ? a.ToUpper().Replace( "J"  , "" ) : "-1" ) > ij || int.Parse( a.ToUpper().Contains( 'E' ) ? a.ToUpper().Replace( "E"  , "" ) : "-1" ) > iel ) 
 {
     <PageTitle>錯誤 - 臺中市立臺中第一高級中等學校學生自治聯合會法規資料庫</PageTitle>
     <h1 style="color:red;font-weight:900;font-family:'Noto Sans Mono','Noto Sans TC';">!!!錯誤!!!<br />請重試！</h1>
@@ -93,7 +93,7 @@ else if( !string.IsNullOrEmpty( b ) )
                     </li>
                     <li>
                         <span>修正日期：</span>
-                        <span>@( "民國 " + ( ( Int32.Parse( lc[aa].LawModifiedDate ) / 10000 ) - 1911 ) + " 年 " + ( ( Int32.Parse( lc[aa].LawModifiedDate ) % 10000 ) / 100 ).ToString("D2") + " 月 " + ( Int32.Parse( lc[aa].LawModifiedDate ) % 100 ).ToString("D2") + " 日" )</span>
+                        <span>@( "民國 " + ( ( int.Parse( lc[aa].LawModifiedDate ) / 10000 ) - 1911 ) + " 年 " + ( ( int.Parse( lc[aa].LawModifiedDate ) % 10000 ) / 100 ).ToString("D2") + " 月 " + ( int.Parse( lc[aa].LawModifiedDate ) % 100 ).ToString("D2") + " 日" )</span>
                     </li>
                     <li>
                         <span>法規類別：</span>
@@ -339,7 +339,7 @@ else if( !string.IsNullOrEmpty( b ) )
                     </li>
                     <li>
                         <span>修正日期：</span>
-                        <span>@( "民國 " + ( ( Int32.Parse( lex[aa].LawModifiedDate ) / 10000 ) - 1911 ) + " 年 " + ( ( Int32.Parse( lex[aa].LawModifiedDate ) % 10000 ) / 100 ).ToString("D2") + " 月 " + ( Int32.Parse( lex[aa].LawModifiedDate ) % 100 ).ToString("D2") + " 日" )</span>
+                        <span>@( "民國 " + ( ( int.Parse( lex[aa].LawModifiedDate ) / 10000 ) - 1911 ) + " 年 " + ( ( int.Parse( lex[aa].LawModifiedDate ) % 10000 ) / 100 ).ToString("D2") + " 月 " + ( int.Parse( lex[aa].LawModifiedDate ) % 100 ).ToString("D2") + " 日" )</span>
                     </li>
                     <li>
                         <span>法規類別：</span>
@@ -581,7 +581,7 @@ else if( !string.IsNullOrEmpty( b ) )
                     </li>
                     <li>
                         <span>修正日期：</span>
-                        <span>@( "民國 " + ( ( Int32.Parse( ll[aa].LawModifiedDate ) / 10000 ) - 1911 )+ " 年 " + ( ( Int32.Parse( ll[aa].LawModifiedDate ) % 10000 ) / 100 ).ToString("D2") + " 月 " + ( Int32.Parse( ll[aa].LawModifiedDate ) % 100 ).ToString("D2") + " 日" )</span>
+                        <span>@( "民國 " + ( ( int.Parse( ll[aa].LawModifiedDate ) / 10000 ) - 1911 )+ " 年 " + ( ( int.Parse( ll[aa].LawModifiedDate ) % 10000 ) / 100 ).ToString("D2") + " 月 " + ( int.Parse( ll[aa].LawModifiedDate ) % 100 ).ToString("D2") + " 日" )</span>
                     </li>
                     <li>
                         <span>法規類別：</span>
@@ -823,7 +823,7 @@ else if( !string.IsNullOrEmpty( b ) )
                     </li>
                     <li>
                         <span>修正日期：</span>
-                        <span>@( "民國 " + ( ( Int32.Parse( lj[aa].LawModifiedDate ) / 10000 ) - 1911 )+ " 年 " + ( ( Int32.Parse( lj[aa].LawModifiedDate ) % 10000 ) / 100 ).ToString("D2") + " 月 " + ( Int32.Parse( lj[aa].LawModifiedDate ) % 100 ).ToString("D2") + " 日" )</span>
+                        <span>@( "民國 " + ( ( int.Parse( lj[aa].LawModifiedDate ) / 10000 ) - 1911 )+ " 年 " + ( ( int.Parse( lj[aa].LawModifiedDate ) % 10000 ) / 100 ).ToString("D2") + " 月 " + ( int.Parse( lj[aa].LawModifiedDate ) % 100 ).ToString("D2") + " 日" )</span>
                     </li>
                     <li>
                         <span>法規類別：</span>
@@ -1065,7 +1065,7 @@ else if( !string.IsNullOrEmpty( b ) )
                     </li>
                     <li>
                         <span>修正日期：</span>
-                        <span>@( "民國 " + ( ( Int32.Parse( lel[aa].LawModifiedDate ) / 10000 ) - 1911 ) + " 年 " + ( ( Int32.Parse( lel[aa].LawModifiedDate ) % 10000 ) / 100 ).ToString("D2") + " 月 " + ( Int32.Parse( lel[aa].LawModifiedDate ) % 100 ).ToString("D2") + " 日" )</span>
+                        <span>@( "民國 " + ( ( int.Parse( lel[aa].LawModifiedDate ) / 10000 ) - 1911 ) + " 年 " + ( ( int.Parse( lel[aa].LawModifiedDate ) % 10000 ) / 100 ).ToString("D2") + " 月 " + ( int.Parse( lel[aa].LawModifiedDate ) % 100 ).ToString("D2") + " 日" )</span>
                     </li>
                     <li>
                         <span>法規類別：</span>
@@ -1313,7 +1313,7 @@ else
                     </li>
                     <li>
                         <span>修正日期：</span>
-                        <span>@( "民國 " + ( ( Int32.Parse( lc[aa].LawModifiedDate ) / 10000 ) - 1911 )+ " 年 " + ( ( Int32.Parse( lc[aa].LawModifiedDate ) % 10000 ) / 100 ).ToString("D2") + " 月 " + ( Int32.Parse( lc[aa].LawModifiedDate ) % 100 ).ToString("D2") + " 日" )</span>
+                        <span>@( "民國 " + ( ( int.Parse( lc[aa].LawModifiedDate ) / 10000 ) - 1911 )+ " 年 " + ( ( int.Parse( lc[aa].LawModifiedDate ) % 10000 ) / 100 ).ToString("D2") + " 月 " + ( int.Parse( lc[aa].LawModifiedDate ) % 100 ).ToString("D2") + " 日" )</span>
                     </li>
                     <li>
                         <span>法規類別：</span>
@@ -1559,7 +1559,7 @@ else
                     </li>
                     <li>
                         <span>修正日期：</span>
-                        <span>@( "民國 " + ( ( Int32.Parse( lex[aa].LawModifiedDate ) / 10000 ) - 1911 ) + " 年 " + ( ( Int32.Parse( lex[aa].LawModifiedDate ) % 10000 ) / 100 ).ToString("D2") + " 月 " + ( Int32.Parse( lex[aa].LawModifiedDate ) % 100 ).ToString("D2") + " 日" )</span>
+                        <span>@( "民國 " + ( ( int.Parse( lex[aa].LawModifiedDate ) / 10000 ) - 1911 ) + " 年 " + ( ( int.Parse( lex[aa].LawModifiedDate ) % 10000 ) / 100 ).ToString("D2") + " 月 " + ( int.Parse( lex[aa].LawModifiedDate ) % 100 ).ToString("D2") + " 日" )</span>
                     </li>
                     <li>
                         <span>法規類別：</span>
@@ -1801,7 +1801,7 @@ else
                     </li>
                     <li>
                         <span>修正日期：</span>
-                        <span>@( "民國 " + ( ( Int32.Parse( ll[aa].LawModifiedDate ) / 10000 ) - 1911 )+ " 年 " + ( ( Int32.Parse( ll[aa].LawModifiedDate ) % 10000 ) / 100 ).ToString("D2") + " 月 " + ( Int32.Parse( ll[aa].LawModifiedDate ) % 100 ).ToString("D2") + " 日" )</span>
+                        <span>@( "民國 " + ( ( int.Parse( ll[aa].LawModifiedDate ) / 10000 ) - 1911 )+ " 年 " + ( ( int.Parse( ll[aa].LawModifiedDate ) % 10000 ) / 100 ).ToString("D2") + " 月 " + ( int.Parse( ll[aa].LawModifiedDate ) % 100 ).ToString("D2") + " 日" )</span>
                     </li>
                     <li>
                         <span>法規類別：</span>
@@ -2043,7 +2043,7 @@ else
                     </li>
                     <li>
                         <span>修正日期：</span>
-                        <span>@( "民國 " + ( ( Int32.Parse( lj[aa].LawModifiedDate ) / 10000 ) - 1911 )+ " 年 " + ( ( Int32.Parse( lj[aa].LawModifiedDate ) % 10000 ) / 100 ).ToString("D2") + " 月 " + ( Int32.Parse( lj[aa].LawModifiedDate ) % 100 ).ToString("D2") + " 日" )</span>
+                        <span>@( "民國 " + ( ( int.Parse( lj[aa].LawModifiedDate ) / 10000 ) - 1911 )+ " 年 " + ( ( int.Parse( lj[aa].LawModifiedDate ) % 10000 ) / 100 ).ToString("D2") + " 月 " + ( int.Parse( lj[aa].LawModifiedDate ) % 100 ).ToString("D2") + " 日" )</span>
                     </li>
                     <li>
                         <span>法規類別：</span>
@@ -2285,7 +2285,7 @@ else
                     </li>
                     <li>
                         <span>修正日期：</span>
-                        <span>@( "民國 " + ( ( Int32.Parse( lel[aa].LawModifiedDate ) / 10000 ) - 1911 ) + " 年 " + ( ( Int32.Parse( lel[aa].LawModifiedDate ) % 10000 ) / 100 ).ToString("D2") + " 月 " + ( Int32.Parse( lel[aa].LawModifiedDate ) % 100 ).ToString("D2") + " 日" )</span>
+                        <span>@( "民國 " + ( ( int.Parse( lel[aa].LawModifiedDate ) / 10000 ) - 1911 ) + " 年 " + ( ( int.Parse( lel[aa].LawModifiedDate ) % 10000 ) / 100 ).ToString("D2") + " 月 " + ( int.Parse( lel[aa].LawModifiedDate ) % 100 ).ToString("D2") + " 日" )</span>
                     </li>
                     <li>
                         <span>法規類別：</span>
@@ -2610,7 +2610,7 @@ else
         {
             f = fff;
         }
-        aa = ( a == "" || a == null ) ? -1 : Int32.Parse( Regex.Replace( a.ToUpper() , @"[CXLJE]"  , "" ) ) - 1 ; 
+        aa = ( a == "" || a == null ) ? -1 : int.Parse( Regex.Replace( a.ToUpper() , @"[CXLJE]"  , "" ) ) - 1 ; 
     }
 
     protected override async Task OnInitializedAsync()
