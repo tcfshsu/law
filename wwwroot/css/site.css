@@ -351,8 +351,8 @@ header a:focus
 {
   border : 1px solid #000 ; 
   border-radius : 1em ; 
-  color : #cde8ff ; 
-  background : #731c1c ; 
+  color : #cdffd0 ; 
+  background : linear-gradient(10deg,#b70000,#276ec4) ; 
 }
 .matched 
 {
