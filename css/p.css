@@ -16,6 +16,11 @@ td
 {
     margin : .25rem .5rem ; 
 }
+.p:not( div[ahhhhaaaahaha] .p ) td 
+{
+    padding : .25rem .5rem ; 
+    margin : inherit ; 
+}
 .pq form 
 {
   height : 2rem ; 
@@ -37,6 +42,10 @@ td
   opacity : .65 ; 
   text-indent : .5rem ; 
 }
+.p:not( div[ahhhhaaaahaha] .p ) 
+{
+    margin-top : 3rem ; 
+}
 .p:not( div[ahhhhaaaahaha] .p ) thead th 
 {
     padding-bottom : .25rem ; 
@@ -51,7 +60,7 @@ td
 }
 .p:not( div[ahhhhaaaahaha] .p ) tr td:first-child 
 {
-    width : 2em ; 
+    width : calc(2em + 1rem) ; 
 }
 .p:not( div[ahhhhaaaahaha] .p ) tr td:nth-child(2) 
 {
