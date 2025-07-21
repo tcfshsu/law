@@ -1,6 +1,6 @@
 [
     {
-        "UpdateDate": "2025/06/19",
+        "UpdateDate": "2025/07/21",
         "Laws": [
             {
                 "LawLevel": "章程",
@@ -3714,7 +3714,7 @@
                 "EngLawName": "",
                 "LawAttachments": [
                     {
-                        "FileName": "附件一",
+                        "FileName": "附件一（資料遺失）",
                         "FileURL": ""
                     }
                 ],
@@ -4015,7 +4015,7 @@
             }, 
             {
                 "LawLevel": "命令",
-                "LawName": "臺中市立臺中第一高級中等學校學生自治聯合會學生會及所屬機關提供資訊收費細則",
+                "LawName": "臺中第一高級中學學生會及所屬機關提供資訊收費細則",
                 "LawURL": "https://tcfshsu.github.io/law/laws/law?a=x000000008",
                 "LawCategory": "行政法規",
                 "LawModifiedDate": "20250220",
