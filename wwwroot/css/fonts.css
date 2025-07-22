@@ -12,3 +12,9 @@
     , url("https://tcfshsu.github.io/law/fonts/TW-Kai-Ext-B-98_1.ttf") format("truetype")
     , url("https://tcfshsu.github.io/law/fonts/TW-Kai-Plus-98_1.ttf") format("truetype");
 }
+@font-face 
+{
+    font-family : num_menlo ; 
+    src : url("https://tcfshsu.github.io/law/fonts/Menlo_num.woff2") format(woff2) , url("https://tcfshsu.github.io/law/fonts/Menlo_num.ttf") format(ttf) ; 
+    unicode-range : U+0030-0039, U+0025, U+004C, U+0061, U+0064, U+0067, U+0069, U+006E, U+006F ; 
+}
