@@ -34,14 +34,7 @@ else if( a == "" || a == null )
             <tr>
                 <th>判決字號</th>
                 <th>類別</th>
-                @* <th>判決日期</th>
-                <th>聲請人</th>
-                <th>原告</th>
-                <th>被告</th> *@
                 <th>標題或案由</th>
-                @* <th>主文</th>
-                <th>狀態</th>
-                <th>判決全文（URL）</th> *@
             </tr>
         </thead>
         <tbody>
@@ -50,10 +43,6 @@ else if( a == "" || a == null )
             <tr>
                 <td><a href="cases/detail?case=@cas.No&q=@a" target="_self">@cas.No</a></td>
                 <td>@cas.Category</td>
-                @* <td>@cas.DeliberationDate</td>
-                <td>@cas.Petitioner</td>
-                <td>@cas.Plaintiff</td>
-                <td>@cas.Defendant</td> *@
                 @if( cas.Title != "" ) 
                 {
                     <td>@cas.Title</td>
@@ -61,31 +50,13 @@ else if( a == "" || a == null )
                 else 
                 {
                     <td>@cas.Cause</td>
-                }@*
-                <td>@cas.Syllabus</td>
-                <td>@cas.State</td>
-                <td>@cas.FullJudgement</td> *@
+                }
             </tr>
-            @* @foreach (var casr in @cas.Rulings)
-            {
-                <tr>
-                    <td>@casr.RulingNo</td>
-                    <td>@casr.FullRulingURL</td>
-                </tr>
-            }
-            @foreach (var caso in @cas.Opinions)
-            {
-                <tr>
-                    <td>@caso.Type</td> 
-                    <td>@caso.Member</td> 
-                    <td>@caso.URL</td> 
-                </tr>
-            } *@
         }
         </tbody>
     </table>
 }
-else 
+else if( cq.Count != 0 ) 
 {
     <table class="table">
         <thead>
@@ -275,6 +246,10 @@ else
             }
         </tbody>
     </table>
+}
+else 
+{
+    <div id="lawnoresult">查無資料</div>
 }
 <br />
 <a class="printNoDisplay" href="">回首頁</a>
