@@ -19,7 +19,7 @@
         <option value="一般訴訟">一般訴訟</option>
     </select>
     <p>
-        <input type="search" placeholder="輸入關鍵字以搜尋判例" name="q" />
+        <input type="search" placeholder="輸入關鍵字以搜尋判例" name="q" value="@a" />
         <input type="submit" style="background-image:url(i/icon/search.svg);width:24px;height:24px;background-color:#0000;border:0;cursor:pointer;" value="" alt="搜尋！" />
     </p>
 </form>
@@ -56,7 +56,7 @@ else if( a == "" || a == null )
         </tbody>
     </table>
 }
-else if( cq.Count != 0 ) 
+else 
 {
     <table class="table">
         <thead>
@@ -246,10 +246,6 @@ else if( cq.Count != 0 )
             }
         </tbody>
     </table>
-}
-else 
-{
-    <div id="lawnoresult">查無資料</div>
 }
 <br />
 <a class="printNoDisplay" href="">回首頁</a>
