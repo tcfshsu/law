@@ -20,7 +20,7 @@ jobs:
       run: dotnet publish law.csproj -c Release -o release --nologo
       
     - name: base href
-      run: sed -i 's/<base href="\/"\/>/<base href="\/law\/"\/>/g' release/wwwroot/index.html
+      run: sed -i 's/<base href="\/" \/>/<base href="\/law\/"\/>/g' release/wwwroot/index.html
     
     - name: .nojekyll
       run: touch release/wwwroot/.nojekyll
