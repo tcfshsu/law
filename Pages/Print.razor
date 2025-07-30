@@ -33,7 +33,7 @@ else
             <h1>法規彙編</h1><br/>
             <span>113-2</span><br/>
         </span>
-        <span>
+        <span class="forPrint">
             <span class="title">目錄</span>
             <div id="A">
                 <h1>中央法規</h1>
@@ -68,6 +68,44 @@ else
                 @for (int i = 0; i < iel; i++)
                 {
                     <a href="#@( i + ic + iex + il + ij )"><span class="abandoned">@lel[i].LawAbandonNote</span>@lel[i].LawName</a>
+                }
+            </div>
+        </span>
+        <span class="forView">
+            <span class="title">目錄</span>
+            <div id="A">
+                <h1>中央法規</h1>
+                @for (int i = 0 ; i < ic ; i ++ )
+                {
+                    <a href="https://tcfshsu.github.io/law/print#@i"><span class="abandoned">@lc[i].LawAbandonNote</span>@lc[i].LawName</a>
+                }
+            </div>
+            <div id="B">
+                <h1>行政法規</h1>
+                @for (int i = 0; i < iex; i++)
+                {
+                    <a href="https://tcfshsu.github.io/law/print#@( i + ic )"><span class="abandoned">@lex[i].LawAbandonNote</span>@lex[i].LawName</a>
+                }
+            </div>
+            <div id="C">
+                <h1>立法法規</h1>
+                @for (int i = 0; i < il; i++)
+                {
+                    <a href="https://tcfshsu.github.io/law/print#@( i + ic + iex )"><span class="abandoned">@ll[i].LawAbandonNote</span>@ll[i].LawName</a>
+                }
+            </div>
+            <div id="D">
+                <h1>司法法規</h1>
+                @for (int i = 0; i < ij; i++)
+                {
+                    <a href="https://tcfshsu.github.io/law/print#@( i + ic + iex + il )"><span class="abandoned">@lj[i].LawAbandonNote</span>@lj[i].LawName</a>
+                }
+            </div>
+            <div id="E">
+                <h1>選舉法規</h1>
+                @for (int i = 0; i < iel; i++)
+                {
+                    <a href="https://tcfshsu.github.io/law/print#@( i + ic + iex + il + ij )"><span class="abandoned">@lel[i].LawAbandonNote</span>@lel[i].LawName</a>
                 }
             </div>
         </span>
