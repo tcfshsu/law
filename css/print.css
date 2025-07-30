@@ -59,6 +59,25 @@ div[ahhhhaaaahaha] > div , div[ahhhhaaaahaha] > span , div[ahhhhaaaahaha] > span
     padding-left : 3.5rem ; 
     break-after : page ; 
 }
+div[ahhhhaaaahaha] .forPrint 
+{
+    display : none ; 
+}
+div[ahhhhaaaahaha] .forView 
+{
+    display : inherit ; 
+}
+@media only print 
+{
+    div[ahhhhaaaahaha] .forPrint 
+    {
+        display : inherit ; 
+    }
+    div[ahhhhaaaahaha] .forView 
+    {
+        display : none ; 
+    }
+}
 div[ahhhhaaaahaha] > div 
 {
     page : pageNum ; 
