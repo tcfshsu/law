@@ -169,7 +169,19 @@ else
                                                         }
                                                     </ul>
                                                 </td>
-                                                <td>@a.Reason</td>
+                                                <td>
+                                                    @if( a.Reason.Contains( "\r\n" ) ) 
+                                                    {
+                                                        foreach( var r in a.Reason.Split( "\r\n" ) )
+                                                        {
+                                                            @r<br />
+                                                        }
+                                                    }
+                                                    else 
+                                                    {
+                                                        @a.Reason
+                                                    }
+                                                </td>
                                             </tr>
                                         }
                                         </tbody>
