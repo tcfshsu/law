@@ -1276,5 +1276,43 @@
                 "FileURL": "https://drive.google.com/file/d/1GHqGaXvdyLDkh0fCywx3qqjrUB57lHCr/view?usp=sharing"
             }
         ]
+    }, 
+    {
+        "No": 6, 
+        "Date": "中華民國 114 年 07 月 31 日", 
+        "Title": "中華民國 114 年 07 月 31 日第三十屆學生會", 
+        "Content": [
+            {
+                "LawLevel": "命令",
+                "LawName": "臺中第一高級中學政黨成立及管理辦法",
+                "LawURL": "https://tcfshsu.github.io/law/laws/law?a=x000000010",
+                "LawCategory": "行政法規",
+                "LawModifiedDate": "20250220",
+                "LawEffectiveDate": "",
+                "LawEffectiveNote": "",
+                "LawAbandonNote": "",
+                "LawHasEngVersion": "N",
+                "EngLawName": "",
+                "LawAttachments": [],
+                "LawHistories": "1.中華民國114年02月20日第三十屆學生會會長公布制定全文二十五條。\r\n2.中華民國114年07月31日第三十屆學生會會長公布增列第 9 條第 1 項第 6 款及第 3 項。",
+                "LawForeword": "",
+                "LawArticles": [ 
+                    {
+                        "ArticleType": "A",
+                        "ArticleNo": "第九條",
+                        "ArticleContent": "政黨名稱或簡稱不得有下列情形：\r\n一、與已設立之學生政黨名稱或簡稱相同或類似者。\r\n二、與我國現存政黨名稱或簡稱相同或類似者。\r\n三、於已設立之學生政黨名稱或簡稱附加文字者。\r\n四、有歧視性或仇恨性者。 \r\n五、足以使人與具高度爭議之組織做聯想者。\r\n政黨之名稱或簡稱違反前項各款規定之一者，主管機關應通知其限期補正；屆期未補正者或經補正後仍不符規定者，不予備案。", 
+                        "Amendment": "政黨名稱或簡稱不得有下列情形：\r\n一、與已設立之學生政黨名稱或簡稱相同或類似者。\r\n二、與我國現存政黨名稱或簡稱相同或類似者。\r\n三、於已設立之學生政黨名稱或簡稱附加文字者。\r\n四、有歧視性或仇恨性者。 \r\n五、足以使人與具高度爭議之組織做聯想者。\r\n六、包含 CNS11643 中文標準交換碼或教育部異體字字典收錄字以外之字元。\r\n政黨之名稱或簡稱違反前項各款規定之一者，主管機關應通知其限期補正；屆期未補正者或經補正後仍不符規定者，不予備案。\r\n政黨名稱包含教育部異體字字典收錄字而該字未包含於 CNS11643 中文標準交換碼者，該政黨申請人或負責人應提供該字元標準字體圖檔。", 
+                        "Reason": "以免非文字之政黨名稱。\r\n以免無法於電腦顯示該字。"
+                    }
+                ]
+            }
+        ], 
+        "Orders": [
+            {
+                "FileName": "中一中學生會字第 11300129 號", 
+                "Main": "茲修正臺中第一高級中學政黨成立及管理辦法部分條文，公布之。", 
+                "FileURL": "https://drive.google.com/file/d/1p19x_uscDWKg_oF7ZfNJFzlJBEVk-1ZW/view?usp=sharing"
+            }
+        ]
     }
 ]
