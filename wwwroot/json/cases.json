@@ -1,6 +1,6 @@
 [
     {
-        "UpdateDate": "2025/07/31",
+        "UpdateDate": "2025/08/08",
         "Cases": [
             {
                 "No": "110學年中一中釋裁字第1號",
@@ -85,7 +85,7 @@
                 "Title": "",
                 "Cause": "確認行政處分無效合併請求損害賠償之訴",
                 "Syllabus": "",
-                "State": "準備程序終結。",
+                "State": "最終判決",
                 "FullJudgement": "",
                 "Rulings": [
                     {
@@ -167,6 +167,10 @@
                     {
                         "RulingNo": "中一中評委第二庭訴字第3號裁定-20",
                         "FullRulingURL": "https://drive.google.com/file/d/1EY7SPdYSqA9wBqQFAakN_mclMovSmVfx/view?usp=sharing"
+                    }, 
+                    {
+                        "RulingNo": "中一中評委第二庭訴字第3號裁定-21", 
+                        "FullRulingURL": "https://drive.google.com/file/d/1oJWqegLYouFphmPG8Kqo1rJT1hFvtE_m/view?usp=sharing"
                     }
                 ],
                 "Opinions": []
