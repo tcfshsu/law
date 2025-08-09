@@ -42,6 +42,10 @@
     <option value="">預設</option>
     <option value="latest">最後異動日期（新 > 舊）</option>
     <option value="oldest">最後異動日期（舊 > 新）</option>
+    <option value="long">全名長度（長 > 短）</option>
+    <option value="short">全名長度（短 > 長）</option>
+    <option value="longPure">名稱長度（長 > 短）</option>
+    <option value="shortPure">名稱長度（短 > 長）</option>
     @* <option value="AtoZ">筆劃（少 > 多）</option>
     <option value="ZtoA">筆劃（多 > 少）</option>
     <option value="CtoO">位階（高 > 低）</option>
@@ -187,6 +191,22 @@ else
             else if( (string)a.Value == "oldest" ) 
             {
                 lq = lq.OrderBy( l => l.LawModifiedDate ).ToList() ; 
+            }
+            else if( (string)a.Value == "long" ) 
+            {
+                lq = lq.OrderByDescending( l => l.LawName.Length ).ToList() ; 
+            }
+            else if( (string)a.Value == "short" ) 
+            {
+                lq = lq.OrderBy( l => l.LawName.Length ).ToList() ; 
+            }
+            else if( (string)a.Value == "longPure" ) 
+            {
+                lq = lq.OrderByDescending( l => l.LawName.Replace( "臺中市立臺中第一高級中等學校學生自治聯合會" , "" ).Replace( "臺中第一高級中學" , "" ).Length ).ToList() ; 
+            }
+            else if( (string)a.Value == "shortPure" ) 
+            {
+                lq = lq.OrderBy( l => l.LawName.Replace( "臺中市立臺中第一高級中等學校學生自治聯合會" , "" ).Replace( "臺中第一高級中學" , "" ).Length ).ToList() ; 
             }
             else if( (string)a.Value == "AtoZ" ) 
             {
