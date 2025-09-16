@@ -31,7 +31,7 @@ else
             @* <button onclick="Pprint()">列印（開新視窗）</button> *@
             <div>臺中市立臺中第一高級中等學校<br>學生自治聯合會</div>
             <h1>法規彙編</h1><br/>
-            <span>113-2</span><br/>
+            <span>114-1</span><br/>
         </span>
         <span class="forPrint">
             <span class="title">目錄</span>
@@ -682,8 +682,8 @@ else
     public List<L> ll = new List<L>();
     public List<L> lj = new List<L>();
     public List<L> lel = new List<L>();
-    private string 發行人 = "卓祐宸" ; 
-    private string[] 編輯 = { "卓祐宸" , "梁睿頤" } ; 
+    private string 發行人 = "黃宣方" ; 
+    private string[] 編輯 = { "黃宣方" , "卓祐宸" } ; 
     protected override async Task OnInitializedAsync()
     {
         laws = await Http.GetFromJsonAsync<LawRoot[]>("json/laws.json");
