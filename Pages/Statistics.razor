@@ -1,0 +1,130 @@
+@page "/s"
+@inject HttpClient Http
+
+<div class="bread">
+    <span>現在位置：</span>
+    <ul>
+        <li><a href="">首頁</a></li>
+        <li>統計</li>
+    </ul>
+</div>
+
+<h1>統計</h1>
+<h3>法規</h3>
+<table>
+    <thead>
+        <tr>
+            <th>字</th>
+            <th>unicode</th>
+            <th>出現次數</th>
+            <th>占比( % )</th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach (var x in r.OrderByDescending(r => r.C).ThenBy(r => r.A))
+            {
+                int xa = x.A;
+                double xc = x.C * 100;
+                
+                <tr>
+                    <td>@x.A</td>
+                    <td>@("U+" + xa.ToString("X4"))</td>
+                    <td>@x.C</td>
+                    <td>@(xc / wc)</td>
+                </tr>
+            }
+    </tbody>
+</table>
+<br />
+<br />
+<h3>判例</h3>
+<table>
+    <thead>
+        <tr>
+            <th>字</th>
+            <th>unicode</th>
+            <th>出現次數</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in rc.OrderByDescending(r => r.C).ThenBy(r => r.A))
+        {
+            int xa = x.A;
+
+            <tr>
+                <td>@x.A</td>
+                <td>@("U+" + xa.ToString("X4"))</td>
+                <td>@x.C</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code 
+{
+    public class Result
+    {
+        public char A { get; set; }
+        public int C { get; set; }
+    }
+    List<Result> r = new();
+    List<Result> rc = new();
+    List<Result> rl = new();
+    int wc;
+    string l = "", ljson = "", cjson = "";
+    protected override async Task OnInitializedAsync()
+    {
+        l = await Http.GetStringAsync("json/laws.json");
+        ljson = await Http.GetStringAsync("json/laws.json");
+        cjson = await Http.GetStringAsync("json/cases.json");
+        l = Regex.Replace(l,@"[^!-⬍⿰-㏿ﬓ-�]","");
+        for (int i = 0; i < l.Length; i++)
+        {
+            int ii = l.Where(j => j == l[0]).ToArray().Length;
+            rl.Add(new Result
+            {
+                A = l[0],
+                C = ii
+            });
+            l = l.Replace(l[0].ToString(), "");
+            if (string.IsNullOrEmpty(l))
+            {
+                break;
+            }
+        }
+        ljson = Regex.Replace(ljson, @"[!-⬍⿰-㏿ﬓ-�\s]", "");
+        cjson = Regex.Replace(cjson, @"[!-⬍⿰-㏿ﬓ-�\s]", "");
+        for (int i = 0; i < ljson.Length; i++)
+        {
+            int ii = ljson.Where(j => j == ljson[0]).ToArray().Length;
+            r.Add(new Result
+            {
+                A = ljson[0],
+                C = ii
+            });
+            ljson = ljson.Replace(ljson[0].ToString(), "");
+            if (string.IsNullOrEmpty(ljson))
+            {
+                break;
+            }
+        }
+        foreach (var x in r)
+        {
+            wc += x.C;
+        }
+        for (int i = 0; i < cjson.Length; i++)
+        {
+            int ii = cjson.Where(j => j == cjson[0]).ToArray().Length;
+            rc.Add(new Result
+            {
+                A = cjson[0],
+                C = ii
+            });
+            cjson = cjson.Replace(cjson[0].ToString(), "");
+            if (string.IsNullOrEmpty(cjson))
+            {
+                break;
+            }
+        }
+    }
+}
