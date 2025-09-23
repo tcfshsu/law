@@ -1,4 +1,5 @@
 @page "/s"
+@using Microsoft.IdentityModel.Tokens
 @inject HttpClient Http
 
 <div class="bread">
@@ -21,6 +22,8 @@
         </tr>
     </thead>
     <tbody>
+        @if(!r.IsNullOrEmpty())
+        {
             @foreach (var x in r.OrderByDescending(r => r.C).ThenBy(r => r.A))
             {
                 int xa = x.A;
@@ -33,6 +36,11 @@
                     <td>@(xc / wc)</td>
                 </tr>
             }
+        }
+        else 
+        {
+            <span>Loading...</span>
+        }
     </tbody>
 </table>
 <br />
@@ -47,15 +55,22 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var x in rc.OrderByDescending(r => r.C).ThenBy(r => r.A))
+        @if(!rc.IsNullOrEmpty())
         {
-            int xa = x.A;
+            @foreach (var x in rc.OrderByDescending(r => r.C).ThenBy(r => r.A))
+            {
+                int xa = x.A;
 
-            <tr>
-                <td>@x.A</td>
-                <td>@("U+" + xa.ToString("X4"))</td>
-                <td>@x.C</td>
-            </tr>
+                <tr>
+                    <td>@x.A</td>
+                    <td>@("U+" + xa.ToString("X4"))</td>
+                    <td>@x.C</td>
+                </tr>
+            }
+        }
+        else 
+        {
+            <span>Loading...</span>
         }
     </tbody>
 </table>
