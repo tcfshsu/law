@@ -18,7 +18,7 @@
             <th>字</th>
             <th>unicode</th>
             <th>出現次數</th>
-            <th>占比( % )</th>
+            <th>占比( ‰ )</th>
         </tr>
     </thead>
     <tbody>
@@ -27,7 +27,7 @@
             @foreach (var x in r.OrderByDescending(r => r.C).ThenBy(r => r.A))
             {
                 int xa = x.A;
-                double xc = x.C * 100;
+                double xc = x.C * 1000;
                 
                 <tr>
                     <td>@x.A</td>
@@ -84,15 +84,15 @@
     }
     List<Result> r = new();
     List<Result> rc = new();
-    List<Result> rl = new();
+    @* List<Result> rl = new(); *@
     int wc;
     string l = "", ljson = "", cjson = "";
     protected override async Task OnInitializedAsync()
     {
-        l = await Http.GetStringAsync("json/laws.json");
+        @* l = await Http.GetStringAsync("json/laws.json"); *@
         ljson = await Http.GetStringAsync("json/laws.json");
         cjson = await Http.GetStringAsync("json/cases.json");
-        l = Regex.Replace(l,@"[^!-⬍⿰-㏿ﬓ-�]","");
+        @* l = Regex.Replace(l,@"[^!-⬍⿰-㏿ﬓ-�]","");
         for (int i = 0; i < l.Length; i++)
         {
             int ii = l.Where(j => j == l[0]).ToArray().Length;
@@ -106,7 +106,7 @@
             {
                 break;
             }
-        }
+        } *@
         ljson = Regex.Replace(ljson, @"[!-⬍⿰-㏿ﬓ-�\s]", "");
         cjson = Regex.Replace(cjson, @"[!-⬍⿰-㏿ﬓ-�\s]", "");
         for (int i = 0; i < ljson.Length; i++)
