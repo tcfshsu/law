@@ -22,45 +22,54 @@ else
 {
     <PageTitle>@p[0].Parties[Int32.Parse(a)].PartyName - 臺中市立臺中第一高級中等學校學生自治聯合會法規資料庫</PageTitle>
     <h1>@p[0].Parties[Int32.Parse(a)].PartyName</h1>
-    <div class="pd">
-        <dl>
-            <dt class="printNoDisplay">政黨名稱</dt>
-            <dd class="printNoDisplay">@p[0].Parties[i].PartyName</dd>
-            @if (@p[0].Parties[i].PartyAbbreviation != "")
+    <div id="pd">
+        <div class="pl">
+            <img src="@("i/parties/" + p[0].Parties[int.Parse(a)].Logo[0])" alt="@(p[0].Parties[int.Parse(a)].PartyName + " 標章")" />
+            @if(p[0].Parties[int.Parse(a)].Logo.Length == 2)
             {
-                <dt>政黨簡稱</dt>
-                <dd>@p[0].Parties[i].PartyAbbreviation</dd>
+                <audio controls src="@("i/parties/" + p[0].Parties[int.Parse(a)].Logo[1])"></audio>
             }
-            <dt>政黨負責人</dt>
-            <dd>@p[0].Parties[i].Chairman</dd>
-            <dt>狀態</dt>
-            <dd>@p[0].Parties[i].PartyState</dd>
-            @if (@p[0].Parties[i].PartyRegisteredDate != "")
-            {
-                <dt>註冊日期</dt>
-                <dd>@p[0].Parties[i].PartyRegisteredDate</dd>
-            }
-            @if (@p[0].Parties[i].PartyEstablishedDate != "")
-            {
-                <dt>成立日期</dt>
-                <dd>@p[0].Parties[i].PartyEstablishedDate</dd>
-            }
-            @if (@p[0].Parties[i].PartyURL != "")
-            {
-                <dt>政黨官網</dt>
-                <dd>
-                    <a href="@p[0].Parties[i].PartyURL" target="_blank">
-                        <span>@p[0].Parties[i].PartyURL</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ex-link">
-                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                            <polyline points="15 3 21 3 21 9"></polyline>
-                            <line x1="10" y1="14" x2="21" y2="3"></line>
-                        </svg>
-                    </a>
-                </dd>
-            }
-        </dl>
+        </div>
+        <div class="pt">
+            <dl>
+                <dt class="printNoDisplay">政黨名稱</dt>
+                <dd class="printNoDisplay">@p[0].Parties[i].PartyName</dd>
+                @if (@p[0].Parties[i].PartyAbbreviation != "")
+                {
+                    <dt>政黨簡稱</dt>
+                    <dd>@p[0].Parties[i].PartyAbbreviation</dd>
+                }
+                <dt>政黨負責人</dt>
+                <dd>@p[0].Parties[i].Chairman</dd>
+                <dt>狀態</dt>
+                <dd>@p[0].Parties[i].PartyState</dd>
+                @if (@p[0].Parties[i].PartyRegisteredDate != "")
+                {
+                    <dt>註冊日期</dt>
+                    <dd>@p[0].Parties[i].PartyRegisteredDate</dd>
+                }
+                @if (@p[0].Parties[i].PartyEstablishedDate != "")
+                {
+                    <dt>成立日期</dt>
+                    <dd>@p[0].Parties[i].PartyEstablishedDate</dd>
+                }
+                @if (@p[0].Parties[i].PartyURL != "")
+                {
+                    <dt>政黨官網</dt>
+                    <dd>
+                        <a href="@p[0].Parties[i].PartyURL" target="_blank">
+                            <span>@p[0].Parties[i].PartyURL</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ex-link">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                        </a>
+                    </dd>
+                }
+            </dl>
+        </div>
     </div>
 }
 <br class="printNoDisplay" />
@@ -113,6 +122,7 @@ else
         public int Party { get; set; }
         public string PartyName { get; set; }
         public string? PartyAbbreviation { get; set; }
+        public string[] Logo { get; set; }
         public string Chairman { get; set; }
         public string PartyState { get; set; }
         public string? PartyEstablishedDate { get; set; }
