@@ -27,7 +27,7 @@ else
             <img src="@("i/parties/" + p[0].Parties[int.Parse(a)].Logo[0])" alt="@(p[0].Parties[int.Parse(a)].PartyName + " 標章")" />
             @if(p[0].Parties[int.Parse(a)].Logo.Length == 2)
             {
-                <audio controls src="@("i/parties/" + p[0].Parties[int.Parse(a)].Logo[1])"></audio>
+                <audio controls src="@("a/parties/" + p[0].Parties[int.Parse(a)].Logo[1])"></audio>
             }
         </div>
         <div class="pt">
