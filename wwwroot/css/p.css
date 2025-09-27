@@ -312,7 +312,7 @@ a:has( .ex-link ) :first-child
 {
     width : 90% ; 
 }
-@media ( min-width : 768px ) 
+@media screen and ( min-width : 768px ) 
 {
     #pd 
     {
@@ -325,5 +325,32 @@ a:has( .ex-link ) :first-child
         flex-direction : column ; 
         justify-content : center ; 
         align-items : center ; 
+    }
+}
+#pd .pl .onlyPrint
+{
+    display : none; 
+}
+@media print 
+{
+    #pd 
+    {
+        flex-direction : row ; 
+    }
+    #pd .pl 
+    {
+        width : 40% ; 
+        display : flex ; 
+        flex-direction : column ; 
+        justify-content : center ; 
+        align-items : center ; 
+    }
+    #pd .pl img 
+    {
+        max-width : 40% ; 
+    }
+    #pd .pl .onlyPrint
+    {
+        display : block !important; 
     }
 }

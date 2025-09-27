@@ -27,13 +27,14 @@ else
             <img src="@("i/parties/" + p[0].Parties[int.Parse(a)].Logo[0])" alt="@(p[0].Parties[int.Parse(a)].PartyName + " 標章")" />
             @if(p[0].Parties[int.Parse(a)].Logo.Length == 2)
             {
-                <audio controls src="@("a/parties/" + p[0].Parties[int.Parse(a)].Logo[1])"></audio>
+                <audio class="printNoDisplay" controls src="@("a/parties/" + p[0].Parties[int.Parse(a)].Logo[1])"></audio>
+                <a class="onlyPrint" href="@("a/parties/" + p[0].Parties[int.Parse(a)].Logo[1])">@("https://tcfshsu.github.io/law/a/parties/" + p[0].Parties[int.Parse(a)].Logo[1])</a>
             }
         </div>
         <div class="pt">
             <dl>
-                <dt class="printNoDisplay">政黨名稱</dt>
-                <dd class="printNoDisplay">@p[0].Parties[i].PartyName</dd>
+                <dt>政黨名稱</dt>
+                <dd>@p[0].Parties[i].PartyName</dd>
                 @if (@p[0].Parties[i].PartyAbbreviation != "")
                 {
                     <dt>政黨簡稱</dt>
