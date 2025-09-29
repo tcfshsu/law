@@ -329,7 +329,7 @@ a:has( .ex-link ) :first-child
 }
 #pd .pl .onlyPrint
 {
-    display : none; 
+    display : none ; 
 }
 @media print 
 {
