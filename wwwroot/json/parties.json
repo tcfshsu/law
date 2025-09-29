@@ -1,6 +1,6 @@
 [
     {
-        "UpdateDate": "2025/07/18", 
+        "UpdateDate": "2025/09/30", 
         "Parties": [
             {
                 "Party": 0,
@@ -18,7 +18,7 @@
                 "PartyName": "中一中學生維新黨",
                 "PartyAbbreviation": "維新黨",
                 "Logo": ["1.jpg"], 
-                "Chairman": "林采毅",
+                "Chairman": "林昌霖",
                 "PartyState": "一般",
                 "PartyEstablishedDate": "",
                 "PartyRegisteredDate": "",
@@ -40,7 +40,7 @@
                 "PartyName": "中一中學習歷程忘記存黨",
                 "PartyAbbreviation": "存黨",
                 "Logo": ["3.jpg"], 
-                "Chairman": "陳鈞",
+                "Chairman": "陳致仁",
                 "PartyState": "一般",
                 "PartyEstablishedDate": "20240314",
                 "PartyRegisteredDate": "",
@@ -51,7 +51,7 @@
                 "PartyName": "台中一中圍牆無法黨",
                 "PartyAbbreviation": "圍牆黨",
                 "Logo": ["4.png"], 
-                "Chairman": "蘇育寬",
+                "Chairman": "尤鯨富",
                 "PartyState": "一般",
                 "PartyEstablishedDate": "20241220",
                 "PartyRegisteredDate": "20250120",
@@ -122,7 +122,18 @@
                 "PartyEstablishedDate": "20250314",
                 "PartyRegisteredDate": "20250319",
                 "PartyURL": "https://left-right-chancellor.github.io/"
-            }
+            },
+            {
+                "Party": 11,
+                "PartyName": "臺中一中學生未入黨",
+                "PartyAbbreviation": "未入黨",
+                "Logo": ["1.jpg"], 
+                "Chairman": "李牧澄",
+                "PartyState": "一般",
+                "PartyEstablishedDate": "20250930",
+                "PartyRegisteredDate": "20250917",
+                "PartyURL": ""
+            },
         ]
     }
 ]
