@@ -76,7 +76,7 @@
                     <option selected="@( N.Uri.Contains( "laws?" ) && !string.IsNullOrEmpty( a ) && a.ToLower() == "el" )" value="el">選舉法規</option>
                 </select>
                 <label for="lql">位階：</label>
-                <select name="l" id="lql">
+                <select tabindex="5" name="l" id="lql">
                     <option value="">不限</option>
                     <option selected="@( N.Uri.Contains( "laws?" ) && !string.IsNullOrEmpty( b ) && b.ToUpper() == "章程" )" value="章程">章程</option>
                     <option selected="@( N.Uri.Contains( "laws?" ) && !string.IsNullOrEmpty( b ) && b.ToUpper() == "法律" )" value="法律">法律</option>
