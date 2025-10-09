@@ -1,6 +1,6 @@
 [ 
     {
-        "UpdateDate": "2025/07/30",
+        "UpdateDate": "2025/10/10",
         "Laws": [
             {
                 "LawLevel": "章程",
@@ -1343,14 +1343,14 @@
                 "LawName": "臺中市立臺中第一高級中等學校學生自治聯合會決算法",
                 "LawURL": "https://tcfshsu.github.io/law/laws/law?a=c000000004",
                 "LawCategory": "中央法規",
-                "LawModifiedDate": "20250305",
+                "LawModifiedDate": "20251001",
                 "LawEffectiveDate": "20240101",
                 "LawEffectiveNote": "",
                 "LawAbandonNote": "",
                 "LawHasEngVersion": "N",
                 "EngLawName": "",
                 "LawAttachments": [],
-                "LawHistories": "1.中華民國112年12月11日第十四屆學生議會第一會期第一次臨時會二讀通過制定全文29條條文。\r\n2.中華民國114年03月05日第十五屆學生議會第二會期第一次常會二讀通過修正部分條文。",
+                "LawHistories": "1.中華民國112年12月11日第十四屆學生議會第一會期第一次臨時會二讀通過制定全文29條條文。\r\n2.中華民國114年03月05日第十五屆學生議會第二會期第一次常會二讀通過修正部分條文。\r\n3.中華民國114年10月01日第十六屆學生議會第一會期第一次常會二讀通過修正第二十六條。",
                 "LawForeword": "",
                 "LawArticles": [ 
                     {
@@ -1576,7 +1576,7 @@
                     {
                         "ArticleType": "A",
                         "ArticleNo": "第二十六條【參考資料】",
-                        "ArticleContent": "學聯會總決算書應附下列之參考資料文件：\r\n一、各部門之預計工作計劃書及實際工作計劃書。\r\n二、各活動執行評估報告書。\r\n三、該年度學聯會資產清單。\r\n四、學聯會上一屆同一年度之法定決算書。", 
+                        "ArticleContent": "學聯會總決算書應附下列之參考資料文件：\r\n一、該期間學聯會資產清冊。\r\n二、學聯會上一年度同一期間之法定決算書。\r\n三、學聯會同一期間之預算書。", 
                         "Cases": [], 
                         "Rel": [], 
                         "Ref": []
@@ -3416,14 +3416,14 @@
                 "LawName": "臺中市立臺中第一高級中等學校學生自治聯合會正副會長交接條例",
                 "LawURL": "https://tcfshsu.github.io/law/laws/law?a=x000000002",
                 "LawCategory": "行政法規",
-                "LawModifiedDate": "20231024",
+                "LawModifiedDate": "20251001",
                 "LawEffectiveDate": "",
                 "LawEffectiveNote": "",
                 "LawAbandonNote": "",
                 "LawHasEngVersion": "N",
                 "EngLawName": "",
                 "LawAttachments": [],
-                "LawHistories": "1.中華民國112年10月24日第十四屆學生議會第一會期第二次常會二讀通制定全文十條。",
+                "LawHistories": "1.中華民國112年10月24日第十四屆學生議會第一會期第二次常會二讀通制定全文十條。\r\n2.中華民國114年10月01日第十六屆學生議會第一會期第一次常會二讀通過修正第 7 條。",
                 "LawForeword": "",
                 "LawArticles": [ 
                     {
@@ -3477,7 +3477,7 @@
                     {
                         "ArticleType": "A",
                         "ArticleNo": "第七條【暑假期間之預算案之擬訂】",
-                        "ArticleContent": "交接期間，會長應與會長、副會長當選人共同擬訂暑假期間之預算案。", 
+                        "ArticleContent": "交接期間，會長、副會長、財政部長應與會長、副會長當選人共同擬訂下一學年第一會期之預算案。", 
                         "Cases": [], 
                         "Rel": [], 
                         "Ref": []
