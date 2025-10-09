@@ -1390,5 +1390,112 @@
                 "FileURL": "https://drive.google.com/file/d/1z9ggya4uparsPld9EpDvBoKJtnYuiDiZ/view?usp=drive_link"
             }
         ]
+    },
+    {
+        "No": "9  我還在修", 
+        "Date": "中華民國 114 年 10 月 08 日", 
+        "Title": "中華民國 114 年 10 月 01 日第十六屆學生議會第一會期第一次常會通過《臺中市立臺中第一高級中等學校學生自治聯合會正副會長交接條例》、《臺中市立臺中第一高級中等學校學生自治聯合會決算法》、《臺中市立臺中第一高級中等學校學生自治聯合會章程修訂委員會組織與職權行使條例》、《臺中市立臺中第一高級中等學校學生自治聯合會章程訴訟法》、《臺中市立臺中第一高級中等學校學生自治聯合會會費徵收條例》、《中市立臺中第一高級中等學校學生自治聯合會預算法》、《臺中市立臺中第一高級中等學校學生自治聯合會學生會組織法》、《臺中市立臺中第一高級中等學校學生自治聯合會學生議會各委員會組織法》、《臺中市立臺中第一高級中等學校學生自治聯合會議會職權行使法》修正案。", 
+        "Content": [
+            {
+                "LawLevel": "法律",
+                "LawName": "臺中市立臺中第一高級中等學校學生自治聯合會正副會長交接條例",
+                "LawURL": "https://tcfshsu.github.io/law/laws/law?a=x000000002",
+                "LawCategory": "行政法規",
+                "LawModifiedDate": "20251008",
+                "LawEffectiveDate": "",
+                "LawEffectiveNote": "",
+                "LawAbandonNote": "",
+                "LawHasEngVersion": "N",
+                "EngLawName": [],
+                "LawAttachments": "",
+                "LawHistories": "1.中華民國112年10月24日第十四屆學生議會第一會期第二次常會二讀通制定全文十條。\r\n2.中華民國114年10月01日第十六屆學生議會第一會期第一次常會通過修正第7條。",
+                "LawForeword": "",
+                "LawArticles": [ 
+                    {
+                        "ArticleType": "A", 
+                        "ArticleNo": "第七條【下一學年第一會期之預算案之擬訂】", 
+                        "ArticleContent": "交接期間，會長應與會長、副會長當選人共同擬訂暑假期間之預算案。", 
+                        "Amendment": "交接期間，會長、副會長、財政部長應與會長、副會長當選人共同擬訂下一學年第一會期之預算案。", 
+                        "Reason": "為符合現行預算法。"
+                    }
+                ]
+            }, 
+            {
+                "LawLevel": "法律",
+                "LawName": "臺中市立臺中第一高級中等學校學生自治聯合會決算法",
+                "LawURL": "https://tcfshsu.github.io/law/laws/law?a=c000000004",
+                "LawCategory": "中央法規",
+                "LawModifiedDate": "20251008",
+                "LawEffectiveDate": "",
+                "LawEffectiveNote": "",
+                "LawAbandonNote": "",
+                "LawHasEngVersion": "N",
+                "EngLawName": "",
+                "LawAttachments": [],
+                "LawHistories": "1.中華民國112年12月11日第十四屆學生議會第一會期第一次臨時會二讀通過制定全文29條條文。\r\n2.中華民國114年03月05日第十五屆學生議會第二會期第一次常會二讀通過修正部分條文。\r\n3.中華民國114年10月01日第十六屆學生議會第一會期第一次常會修正第二十六條通過。",
+                "LawForeword": "",
+                "LawArticles": [ 
+                    {
+                        "ArticleType": "A", 
+                        "ArticleNo": "第二十六條【參考資料】", 
+                        "ArticleContent": "學聯會總決算書應附下列之參考資料文件:\r\n一、 各部門之預計工作計劃書及實際工作計劃書。\r\n二、各活動執行評估報告書。\r\n三、該年度學聯會資產清單。/r/n四、學聯會上一屆同一年度之法定決算書。", 
+                        "Amendment": "學聯會總決算書應附下列之參考資料文件:\r\n一、該期間學聯會資產清冊。\r\n二、學聯會上一年度同一期間之法定決算書。\r\n三、學聯會同一期間之預算書。", 
+                        "Reason": ""
+                    }
+                ]
+            }, 
+            {
+                "LawLevel": "法律",
+                "LawName": "臺中市立臺中第一高級中等學校學生自治聯合會章程修訂委員會組織與職權行使條例",
+                "LawURL": "https://tcfshsu.github.io/law/laws/law?a=l000000004",
+                "LawCategory": "立法法規",
+                "LawModifiedDate": "20251008",
+                "LawEffectiveDate": "",
+                "LawEffectiveNote": "",
+                "LawAbandonNote": "",
+                "LawHasEngVersion": "N",
+                "EngLawName": "",
+                "LawAttachments": [],
+                "LawHistories": "1.中華民國111年4月6日第十二屆學生議會第二會期第二次學生議會二讀修訂通過全文9條。\r\n2.中華民國114年10月01日第十六屆學生議會第一會期第一次常會修正第一條通過。",
+                "LawForeword": "",
+                "LawArticles": [ 
+                    {
+                        "ArticleType": "A", 
+                        "ArticleNo": "第一條", 
+                        "ArticleContent": "本法依臺中市立臺中第一高級中等學校學生自治聯合會議會職權行使法第二十七條第二項規定訂定之。\r\n章程修訂委員會審查章程修正案之組織及職權行使,依本條例規定。本條例未規定者,準用《臺中市立臺中第一高級中等學校學生自治聯合會各委員會組織法》。", 
+                        "Amendment": "本法依臺中市立臺中第一高級中等學校學生自治聯合會議會職權行使法第二十七條規定訂定之。\r\n章程修訂委員會審查章程修正案之組織及職權行使,依本條例規定。本條例未規定者,準用《臺中市立臺中第一高級中等學校學生自治聯合會各委員會組織法》。", 
+                        "Reason": "應上屆議會第二會期對議職法之修正。"
+                    }
+                ]
+            } 
+            
+        ], 
+        "Orders": [
+            {
+                "FileName": "中一中學生會字第 11300104 號", 
+                "Main": "茲修正臺中市立臺中第一高級中等學校學生自治聯合會章程訴訟法施行法部分條文，公布之。", 
+                "FileURL": "https://drive.google.com/file/d/1nxZy2zWHmQhoO38CXR2aCFv83dod2gUS/view?usp=sharing"
+            }, 
+            {
+                "FileName": "中一中學生會字第 11300105 號", 
+                "Main": "茲修正臺中市立臺中第一高級中等學校學生自治聯合會班級暨政黨不分區學生議員選舉罷免法，公布之。", 
+                "FileURL": "https://drive.google.com/file/d/1gzDKCuwsX3zYrQ9GU3h9iu26CW_dm-xR/view?usp=sharing"
+            }, 
+            {
+                "FileName": "中一中學生會字第 11300106 號", 
+                "Main": "茲修正臺中市立臺中第一高級中等學校學生自治聯合會章程訴訟法，公布之。", 
+                "FileURL": "https://drive.google.com/file/d/1F50LiHPz6MEaZElf15F7f-P0Oe-vJqVg/view?usp=sharing"
+            }, 
+            {
+                "FileName": "中一中學生會字第 11300107 號", 
+                "Main": "茲修正臺中市立臺中第一高級中等學校學生自治聯合會評議委員會組織及職權行使法修正案，公布之。", 
+                "FileURL": "https://drive.google.com/file/d/1pXYcB0yOyxyMqrEd7cUnY2WPfejAg9Sy/view?usp=sharing"
+            }, 
+            {
+                "FileName": "中一中學生會字第 11300108 號", 
+                "Main": "茲修正臺中市立臺中第一高級中等學校學生自治聯合會議會職權行使法修正案，公布之。", 
+                "FileURL": "https://drive.google.com/file/d/1q11ufO8jy7TYBIyPg2sEF7dCqo6QpjMP/view?usp=sharing"
+            }
+        ]
     }
 ]
