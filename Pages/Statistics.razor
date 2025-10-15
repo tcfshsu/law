@@ -13,8 +13,7 @@
 <h1>統計</h1>
 <h3>法規</h3>
 <table>
-    <thead
-        style="font-family:'IBM Plex Mono', 'Sonti TC' , 'Noto Serif TC' , 'Noto Serif JP' , 'Noto Serif SC' , sans-serif;">
+    <thead style="font-family:'IBM Plex Mono', 'Sonti TC' , 'Noto Serif TC' , 'Noto Serif JP' , 'Noto Serif SC' , sans-serif;">
         <tr>
             <th>字</th>
             <th>unicode</th>
@@ -22,8 +21,7 @@
             <th>占比( ‰ )</th>
         </tr>
     </thead>
-    <tbody
-        style="font-family:'Fira Code', 'Sonti TC' , 'Noto Serif TC' , 'Noto Serif JP' , 'Noto Serif SC' , sans-serif;">
+    <tbody style="font-family:'Fira Code', 'Sonti TC' , 'Noto Serif TC' , 'Noto Serif JP' , 'Noto Serif SC' , sans-serif;">
         @if(!r.IsNullOrEmpty())
         {
             @foreach (var x in r.OrderByDescending(r => r.C).ThenBy(r => r.A))
@@ -56,8 +54,7 @@
             <th>出現次數</th>
         </tr>
     </thead>
-    <tbody
-        style="font-family:'Fira Code', 'Sonti TC' , 'Noto Serif TC' , 'Noto Serif JP' , 'Noto Serif SC' , sans-serif;">
+    <tbody style="font-family:'Fira Code', 'Sonti TC' , 'Noto Serif TC' , 'Noto Serif JP' , 'Noto Serif SC' , sans-serif;">
         @if(!rc.IsNullOrEmpty())
         {
             @foreach (var x in rc.OrderByDescending(r => r.C).ThenBy(r => r.A))
