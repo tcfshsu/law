@@ -133,6 +133,17 @@
                 "PartyEstablishedDate": "20250917",
                 "PartyRegisteredDate": "20250930",
                 "PartyURL": ""
+            },
+            {
+                "Party": 12,
+                "PartyName": "淤泥鏟子可以黨",
+                "PartyAbbreviation": "阮朝",
+                "Logo": ["12.png"], 
+                "Chairman": "阮宥翔",
+                "PartyState": "一般",
+                "PartyEstablishedDate": "20251015",
+                "PartyRegisteredDate": "20251026",
+                "PartyURL": ""
             }
         ]
     }
