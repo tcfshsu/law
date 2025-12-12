@@ -132,6 +132,20 @@ else
                         <li>@his</li>
                     }
                 </ol>
+                @if( lc[i].LawAttachments.Length != 0 && lc[i].LawAttachments != null ) 
+                {
+                    <li>
+                        <span>附件：</span>
+                        <span>
+                            <ul>
+                                @foreach( var att in lc[i].LawAttachments ) 
+                                {
+                                    <li><a href="@att.FileURL" style="text-decoration:underline;">@att.FileName</a></li>
+                                }
+                            </ul>
+                        </span>
+                    </li>
+                }
                 <div class="Foreword">
                     @if( i == 0 ) 
                     {
@@ -236,6 +250,20 @@ else
                         <li>@his</li>
                     }
                 </ol>
+                @if( lex[i].LawAttachments.Length != 0 && lex[i].LawAttachments != null ) 
+                {
+                    <li>
+                        <span>附件：</span>
+                        <span>
+                            <ul>
+                                @foreach( var att in lex[i].LawAttachments ) 
+                                {
+                                    <li><a href="@att.FileURL" style="text-decoration:underline;">@att.FileName</a></li>
+                                }
+                            </ul>
+                        </span>
+                    </li>
+                }
                 <div class="Foreword">
                     <p>
                         @foreach (var fw in lex[i].LawForeword.Split( "\r\n" ) )
@@ -337,6 +365,20 @@ else
                         <li>@his</li>
                     }
                 </ol>
+                @if( ll[i].LawAttachments.Length != 0 && ll[i].LawAttachments != null ) 
+                {
+                    <li>
+                        <span>附件：</span>
+                        <span>
+                            <ul>
+                                @foreach( var att in ll[i].LawAttachments ) 
+                                {
+                                    <li><a href="@att.FileURL" style="text-decoration:underline;">@att.FileName</a></li>
+                                }
+                            </ul>
+                        </span>
+                    </li>
+                }
                 <div class="Foreword">
                     <p>
                         @foreach (var fw in ll[i].LawForeword.Split( "\r\n" ) )
@@ -438,6 +480,20 @@ else
                         <li>@his</li>
                     }
                 </ol>
+                @if( lj[i].LawAttachments.Length != 0 && lj[i].LawAttachments != null ) 
+                {
+                    <li>
+                        <span>附件：</span>
+                        <span>
+                            <ul>
+                                @foreach( var att in lj[i].LawAttachments ) 
+                                {
+                                    <li><a href="@att.FileURL" style="text-decoration:underline;">@att.FileName</a></li>
+                                }
+                            </ul>
+                        </span>
+                    </li>
+                }
                 <div class="Foreword">
                     <p>
                         @foreach (var fw in lj[i].LawForeword.Split( "\r\n" ) )
@@ -539,6 +595,20 @@ else
                         <li>@his</li>
                     }
                 </ol>
+                @if( lel[i].LawAttachments.Length != 0 && lel[i].LawAttachments != null ) 
+                {
+                    <li>
+                        <span>附件：</span>
+                        <span>
+                            <ul>
+                                @foreach( var att in lel[i].LawAttachments ) 
+                                {
+                                    <li><a href="@att.FileURL" style="text-decoration:underline;">@att.FileName</a></li>
+                                }
+                            </ul>
+                        </span>
+                    </li>
+                }
                 <div class="Foreword">
                     <p>
                         @foreach (var fw in lel[i].LawForeword.Split( "\r\n" ) )
@@ -836,7 +906,7 @@ else
         public string? LawAbandonNote { get; set; }
         public string LawHasEngVersion { get; set; }
         public string? EngLawName { get; set; }
-        public Attachements[]? LawAttachements { get; set; }
+        public Attachments[]? LawAttachments { get; set; }
         public string LawHistories { get; set; }
         public string? LawForeword { get; set; }
         public A[] LawArticles { get; set; }
@@ -847,7 +917,7 @@ else
         public string? ArticleNo { get; set; }
         public string ArticleContent { get; set; }
     }
-    public class Attachements
+    public class Attachments
     {
         public string FileName { get; set; }
         public string FileURL { get; set; }
