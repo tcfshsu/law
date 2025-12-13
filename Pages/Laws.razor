@@ -244,6 +244,16 @@ else
         public string LawHistories { get; set; }
         public string? LawForeword { get; set; }
         public A[] LawArticles { get; set; }
+        public enum SearchPlace
+        {
+            art , 
+            att , 
+            aa , 
+            nme , 
+            his , 
+            fwd , 
+            eng 
+        }
         public bool Contains( string a ) 
         {
             if( LawName.ToUpper().Contains( a.ToUpper() ) ) 
@@ -281,75 +291,71 @@ else
             }
             return false ; 
         }
-        public bool Contains( string a , string b ) 
+        public bool Contains( string a , SearchPlace b ) 
         {
-            if( b == "art" ) 
+            switch (b)
             {
-                foreach( var art in LawArticles ) 
-                {
-                    if( art.ArticleType.ToUpper().Contains( a.ToUpper() ) || ( string.IsNullOrEmpty( art.ArticleNo ) ? false : art.ArticleNo.ToUpper().Contains( a.ToUpper() ) ) || art.ArticleContent.ToUpper().Contains( a.ToUpper() ) ) 
+                case SearchPlace.art:
+                    foreach( var art in LawArticles ) 
+                    {
+                        if( Regex.Replace( art.ArticleType.ToUpper(), "\\s", "" ).Contains( a.ToUpper() ) || ( string.IsNullOrEmpty( art.ArticleNo ) ? false : Regex.Replace( art.ArticleNo.ToUpper(), "\\s", "" ).Contains( a.ToUpper() ) ) || Regex.Replace( art.ArticleContent.ToUpper(), "\\s", "" ).Contains( a.ToUpper() ) ) 
+                        {
+                            return true ; 
+                        }
+                    }
+                    break; 
+                case SearchPlace.att:
+                    foreach( var att in LawAttachments ) 
+                    {
+                        if( att.FileName.ToUpper().Contains( a.ToUpper() ) ) 
+                        {
+                            return true ; 
+                        }
+                    }
+                    break;
+                case SearchPlace.aa:
+                    foreach( var art in LawArticles ) 
+                    {
+                        if( art.ArticleType.ToUpper().Contains( a.ToUpper() ) || ( string.IsNullOrEmpty( art.ArticleNo ) ? false : art.ArticleNo.ToUpper().Contains( a.ToUpper() ) ) || art.ArticleContent.ToUpper().Contains( a.ToUpper() ) ) 
+                        {
+                            return true ; 
+                        }
+                    }
+                    foreach( var att in LawAttachments ) 
+                    {
+                        if( att.FileName.ToUpper().Contains( a.ToUpper() ) ) 
+                        {
+                            return true ; 
+                        }
+                    }
+                    break;
+                case SearchPlace.nme:
+                    if( LawName.ToUpper().Contains( a.ToUpper() ) ) 
                     {
                         return true ; 
                     }
-                }
-            }
-            else if( b == "att" ) 
-            {
-                foreach( var att in LawAttachments ) 
-                {
-                    if( att.FileName.ToUpper().Contains( a.ToUpper() ) ) 
+                    break;
+                case SearchPlace.his:
+                    if( LawHistories.ToUpper().Contains( a.ToUpper() ) ) 
                     {
                         return true ; 
                     }
-                }
-            }
-            else if( b == "aa" ) 
-            {
-                foreach( var art in LawArticles ) 
-                {
-                    if( art.ArticleType.ToUpper().Contains( a.ToUpper() ) || ( string.IsNullOrEmpty( art.ArticleNo ) ? false : art.ArticleNo.ToUpper().Contains( a.ToUpper() ) ) || art.ArticleContent.ToUpper().Contains( a.ToUpper() ) ) 
+                    break;
+                case SearchPlace.fwd:
+                    if( string.IsNullOrEmpty( LawForeword ) ? false : LawForeword.ToUpper().Contains( a.ToUpper() ) ) 
                     {
                         return true ; 
                     }
-                }
-                foreach( var att in LawAttachments ) 
-                {
-                    if( att.FileName.ToUpper().Contains( a.ToUpper() ) ) 
+                    break;
+                case SearchPlace.eng:
+                    if( LawHasEngVersion == "Y" ) 
                     {
-                        return true ; 
+                        if( EngLawName.ToUpper().Contains( a.ToUpper() ) ) 
+                        {
+                            return true ; 
+                        }
                     }
-                }
-            }
-            else if( b == "nme" ) 
-            {
-                if( LawName.ToUpper().Contains( a.ToUpper() ) ) 
-                {
-                    return true ; 
-                }
-            }
-            else if( b == "his" ) 
-            {
-                if( LawHistories.ToUpper().Contains( a.ToUpper() ) ) 
-                {
-                    return true ; 
-                }
-            }
-            else if( b == "fwd" ) 
-            {
-                if( string.IsNullOrEmpty( LawForeword ) ? false : LawForeword.ToUpper().Contains( a.ToUpper() ) ) 
-                {
-                    return true ; 
-                }
-            }
-            else if( b == "eng" ) 
-            {
-                if( LawHasEngVersion == "Y" ) 
-                {
-                    if( EngLawName.ToUpper().Contains( a.ToUpper() ) ) 
-                    {
-                        return true ; 
-                    }
-                }
+                    break;
             }
             return false ; 
         }
@@ -366,7 +372,7 @@ else
                 {
                     foreach( var a in Regex.Split( aa , @"\s" ) ) 
                     {
-                        if( Contains( a , "nme" ) ) 
+                        if( Contains( a , SearchPlace.nme ) ) 
                         {
                             for( int i = 0 ; i < LawName.Split( a ).Length ; i ++ ) 
                             {
@@ -415,21 +421,21 @@ else
                 {
                     foreach( var a in Regex.Split( aa , @"\s" ) ) 
                     {
-                        if( Contains( a , "his" ) ) 
+                        if( Contains( a , SearchPlace.his ) ) 
                         {
                             for( int i = 0 ; ( i + 1 ) < LawHistories.ToUpper().Split( a.ToUpper() ).Length ; i ++ ) 
                             {
                                 aaa += LawHistories.ToUpper().Split( a.ToUpper() )[i] + "<\\>" + a + "<\\>" + LawHistories.Split( a.ToUpper() )[ i + 1 ] + "…" ; 
                             }
                         }
-                        if( Contains( a , "fwd" ) ) 
+                        if( Contains( a , SearchPlace.fwd ) ) 
                         {
                             for( int i = 0 ; ( i + 1 ) < LawForeword.ToUpper().Split( a.ToUpper() ).Length ; i ++ ) 
                             {
                                 aaa += LawForeword.ToUpper().Split( a.ToUpper() )[i] + "<\\>" + a + "<\\>" + LawForeword.ToUpper().Split( a.ToUpper() )[ i + 1 ] + "…" ; 
                             }
                         }
-                        if( Contains( a , "att" ) ) 
+                        if( Contains( a , SearchPlace.att ) ) 
                         {
                             foreach( var att in LawAttachments.Where( l => l.Contains( a ) ).ToArray() ) 
                             {
@@ -439,7 +445,7 @@ else
                                 }
                             }
                         }
-                        if( Contains( a , "art" ) ) 
+                        if( Contains( a , SearchPlace.art ) ) 
                         {
                             foreach( var art in LawArticles.Where( l => l.Contains( a ) ).ToArray() ) 
                             {
