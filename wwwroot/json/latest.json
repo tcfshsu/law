@@ -1773,55 +1773,56 @@
       }
     ]
   },
- {
-  "No": 10,
-  "Date": "中華民國 114 年 10 月 17 日",
-  "Title": "中華民國 114 年 10 月 17 日第十六屆學生議會議長公布修正《學生議會議事規則》。",
-  "Content": [
-    {
-      "LawLevel": "命令",
-      "LawName": "臺中第一高級中等學校學生議會議事規則",
-      "LawURL": "https://tcfshsu.github.io/law/laws/law?a=l000000007",
-      "LawCategory": "立法法規",
-      "LawModifiedDate": "20251017",
-      "LawEffectiveDate": "20251017",
-      "LawEffectiveNote": "",
-      "LawAbandonNote": "",
-      "LawHasEngVersion": "N",
-      "EngLawName": "",
-      "LawAttachments": [],
-      "LawHistories": "1.中華民國105年5月31日第六屆學生議會第二會期第四次常會通過制定全文14條條文。\r\n2.中華民國105年6月1日正式公告並實施。\r\n3.中華民國107年3月1日第八屆學生議會第二會期第一次常會通過修正第 1、3 至 31 條條文。\r\n4.中華民國107年3月2日公告實施。\r\n5.中華民國114年10月17日第十六屆學生議會議長公布修正法規名稱及第 8、9 條條文。",
-      "LawForeword": "",
-      "LawArticles": [
-        {
-          "ArticleType": "A",
-          "ArticleNo": "法規名稱",
-          "ArticleContent": "臺中市立臺中第一高級中等學校學生自治聯合會學生議會議事規則",
-          "Amendment": "臺中第一高級中等學校學生議會議事規則",
-          "Reason": "配合組織現況簡化法規名稱。"
-        },
-        {
-          "ArticleType": "A",
-          "ArticleNo": "第八條",
-          "ArticleContent": "議案之提出，應以書面向本會秘書處提出。如係法律案，應附具立法理由及條文。\r\n臨時動議得以口頭行之。",
-          "Amendment": "議案之提出，應以書面向本會秘書處提出。如係法律案或命令案，應附具立法理由及條文。\r\n臨時動議得以口頭行之。",
-          "Reason": "擴大議案提出之規範範圍，將「命令案」納入應附具理由及條文之項目。"
-        },
-        {
-          "ArticleType": "A",
-          "ArticleNo": "第九條",
-          "ArticleContent": "學生議員提案，應有三人以上連署或附議。\r\n學生會提案，應經會長簽署。\r\n評議委員提案，應經主任委員簽署。",
-          "Amendment": "學生議員提案，應有三人以上連署或附議。\r\n黨（政）團提案，應有總召簽署。\r\n學生會提案，應經會長簽署。\r\n評議委員提案，應經主任委員簽署。",
-          "Reason": "新增黨（政）團提案之程序規定。"
-        }
-      ]
-    }
-  ],
-  "Orders": [
-    {
-      "FileName": "中一中學生議會令字第 1140001 號",
-      "Main": "茲修正「臺中市立臺中第一高級中等學校學生自治聯合會學生議會議事規則」法規名稱及部分條文，公布之。",
-      "FileURL": "https://drive.google.com/file/d/1XgrJK0C-YFXoRIS8441GJE2sJTtlOZHR/view"
-    }
-  ]
-}
+  {
+    "No": 10,
+    "Date": "中華民國 114 年 10 月 17 日",
+    "Title": "中華民國 114 年 10 月 17 日第十六屆學生議會議長公布修正《學生議會議事規則》。",
+    "Content": [
+      {
+        "LawLevel": "命令",
+        "LawName": "臺中第一高級中等學校學生議會議事規則",
+        "LawURL": "https://tcfshsu.github.io/law/laws/law?a=l000000007",
+        "LawCategory": "立法法規",
+        "LawModifiedDate": "20251017",
+        "LawEffectiveDate": "",
+        "LawEffectiveNote": "",
+        "LawAbandonNote": "",
+        "LawHasEngVersion": "N",
+        "EngLawName": "",
+        "LawAttachments": [],
+        "LawHistories": "1.中華民國105年5月31日第六屆學生議會第二會期第四次常會通過制定全文14條條文。\r\n2.中華民國105年6月1日正式公告並實施。\r\n3.中華民國107年3月1日第八屆學生議會第二會期第一次常會通過修正第 1 、 3 ~ 31 條條文。r\n4.中華民國107年3月2日公告實施。\r\n5.中華民國114年10月17日第十六屆學生議會議長公布修正法規名稱及第8、9條條文。",
+        "LawForeword": "",
+        "LawArticles": [
+          {
+            "ArticleType": "A",
+            "ArticleNo": "法規名稱",
+            "ArticleContent": "臺中市立臺中第一高級中等學校學生自治聯合會學生議會議事規則",
+            "Amendment": "臺中第一高級中等學校學生議會議事規則",
+            "Reason": ""
+          },
+          {
+            "ArticleType": "A",
+            "ArticleNo": "第八條",
+            "ArticleContent": "議案之提出，應以書面向本會秘書處提出。如係法律案，應附具立法理由及條文。\r\n臨時動議得以口頭行之。",
+            "Amendment": "議案之提出，應以書面向本會秘書處提出。如係法律案或命令案，應附具立法理由及條文。\r\n臨時動議得以口頭行之。",
+            "Reason": ""
+          },
+          {
+            "ArticleType": "A",
+            "ArticleNo": "第九條",
+            "ArticleContent": "學生議員提案，應有三人以上連署或附議。\r\n學生會提案，應經會長簽署。\r\n評議委員提案，應經主任委員簽署。",
+            "Amendment": "學生議員提案，應有三人以上連署或附議。\r\n黨（政）團提案，應有總召簽署。\r\n學生會提案，應經會長簽署。\r\n評議委員提案，應經主任委員簽署。",
+            "Reason": ""
+          }
+        ]
+      }
+    ],
+    "Orders": [
+      {
+        "FileName": "中一中學生議會令字第 1140001 號",
+        "Main": "茲修正臺中市立臺中第一高級中等學校學生自治聯合會學生議會議事規則法規名稱及部分條文，公布之。",
+        "FileURL": "https://drive.google.com/file/d/1XgrJK0C-YFXoRIS8441GJE2sJTtlOZHR/view?fbclid=PAZXh0bgNhZW0CMTEAAadE7wg-Dj80vKofCURIpazkzeJ5nt0LH9a_86PrlOza8n5WjB_3l4QoT5wJiQ_aem_mCUTwxTh1QAxqSj7xBSJuA"
+      }
+    ]
+  }
+]
