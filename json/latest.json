@@ -2047,7 +2047,8 @@
         "Reason": "詳見連結"
       }
     ]
-  },  {    "LawLevel": "法律",
+  }, 
+ {    "LawLevel": "法律",
     "LawName": "臺中市立臺中第一高級中等學校學生自治聯合會班級暨政黨不分區學生議員選舉罷免法",
     "LawURL": "https://tcfshsu.github.io/law/laws/law?a=e000000003&c=&q=班級暨政黨不分區學生議員選舉罷免法&l=&ab=",
     "LawCategory": "立法法規/選舉法規",
@@ -2066,17 +2067,26 @@
         "ArticleContent": "",
         "Amendment": "",
          "Reason": "現行條文僅規定政見發表會及辯論會之舉辦方式，未要求錄影及保存，導致活動內容無法長期查驗。為提升透明度、確保候選人政見可追溯並便利學生查閱，增訂全程錄影與公開保存規定。公開保存二年之期間，足以涵蓋一屆任期及後續檢視需要，符合民主監督精神。"              }
-    ]
-  }
+     }
+        ]
+      }
+    ],
+    "Orders": [
+      {
+        "FileName": "中一中學生會字第 1141016 號",
+        "Main": "茲修正臺中市立臺中第一高級中等學校學生自治聯合會正副會長交接條例部分條文，公布之。",
+        "FileURL": "https://drive.google.com/file/d/1n_e_nXL3uXS72ZcwVI1dDTwyKH1XxHH6/view?usp=drive_link"
+        ]
+      }
 
 
 
 
-   ],   "Orders": [      {
-        "FileName": "",
+  
         
     
    
+
 
 
 
