@@ -144,7 +144,19 @@
                 "PartyEstablishedDate": "20251015",
                 "PartyRegisteredDate": "20251026",
                 "PartyURL": ""
+            },
+             {
+                "Party": 13,
+                "PartyName": "臺中一中共創黨",
+                "PartyAbbreviation": "共創黨",
+                "Logo": ["13.png"], 
+                "Chairman": "黃治博",
+                "PartyState": "一般",
+                "PartyEstablishedDate": "20251117",
+                "PartyRegisteredDate": "20251216",
+                "PartyURL": ""
             }
         ]
     }
 ]
+
