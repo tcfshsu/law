@@ -171,7 +171,9 @@
     public string ctd ;
     private string? dark ; 
     private string menuBar = "M3 12L21 12M3 6L21 6M3 18L21 18" ; 
-    private bool barOrX = true ; 
+    private readonly string X = "M3 3L21 21M3 21L21 3" ; 
+    private readonly string BAR = "M3 12L21 12M3 6L21 6M3 18L21 18" ; 
+    private bool barOrX = false ; 
     
     protected override void OnInitialized()
     {
@@ -304,14 +306,7 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
-        if( barOrX ) 
-        {
-            menuBar = "M3 3L21 21M3 21L21 3" ; 
-        }
-        else 
-        {
-            menuBar = "M3 12L21 12M3 6L21 6M3 18L21 18" ; 
-        }
+        menuBar = barOrX ? BAR : X ; 
         barOrX = !barOrX ; 
     }
 }
