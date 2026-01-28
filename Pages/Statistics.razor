@@ -2,6 +2,21 @@
 @using Microsoft.IdentityModel.Tokens
 @inject HttpClient Http
 
+<style>
+    .statistics_table 
+    {
+        border : 1px #000 solid ; 
+    }
+    .statistics_table tr 
+    {
+        border-bottom : 1px #000 solid ; 
+    }
+    .statistics_table th , .statistics_table td 
+    {
+        border-right : 1px #000 solid ; 
+    }
+</style>
+
 <div class="bread">
     <span>現在位置：</span>
     <ul>
@@ -12,7 +27,7 @@
 
 <h1>統計</h1>
 <h3>法規</h3>
-<table>
+<table class="statistics_table">
     <thead style="font-family:'IBM Plex Mono', 'Sonti TC' , 'Noto Serif TC' , 'Noto Serif JP' , 'Noto Serif SC' , sans-serif;">
         <tr>
             <th>字</th>
@@ -31,7 +46,7 @@
                 
                 <tr>
                     <td>@x.A</td>
-                    <td>@("U+" + xa.ToString("X4"))</td>
+                    <td style="min-width:calc(6em + 2px);">@("U+" + xa.ToString("X4"))</td>
                     <td>@x.C</td>
                     <td>@(xc / wc)</td>
                 </tr>
@@ -46,7 +61,7 @@
 <br />
 <br />
 <h3>判例</h3>
-<table>
+<table class="statistics_table">
     <thead style="font-family:'IBM Plex Mono', 'Sonti TC' , 'Noto Serif TC' , 'Noto Serif JP' , 'Noto Serif SC' , sans-serif;">
         <tr>
             <th>字</th>
@@ -63,7 +78,7 @@
 
                 <tr>
                     <td>@x.A</td>
-                    <td>@("U+" + xa.ToString("X4"))</td>
+                    <td style="min-width:calc(6em + 2px);">@("U+" + xa.ToString("X4"))</td>
                     <td>@x.C</td>
                 </tr>
             }
