@@ -115,19 +115,19 @@ else
 
     public class Py
     {
-        public string UpdateDate { get; set; }
-        public P[] Parties { get; set; }
+        public required string UpdateDate { get; set; }
+        public required P[] Parties { get; set; }
     }
     public class P
     {
         public int Party { get; set; }
-        public string PartyName { get; set; }
+        public required string PartyName { get; set; }
         public string? PartyAbbreviation { get; set; }
-        public string[] Logo { get; set; }
-        public string Chairman { get; set; }
-        public string PartyState { get; set; }
+        public required string[] Logo { get; set; }
+        public required string Chairman { get; set; }
+        public required string PartyState { get; set; }
         public string? PartyEstablishedDate { get; set; }
         public string? PartyRegisteredDate { get; set; }
-        public string? PartyURL { get; set; }
+        public required string? PartyURL { get; set; }
     }
 }

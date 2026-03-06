@@ -85,14 +85,14 @@ else
         {
             foreach( var a in Regex.Replace( a , @"\s" , "\r\n" ).Split( "\r\n" ) ) 
             {
-                pq.AddRange( p[0].Parties.Where( p => p.PartyState == b ).Where( p => ( p.PartyName.ToUpper().Contains( a ) || ( string.IsNullOrEmpty( p.PartyAbbreviation ) ? false : p.PartyAbbreviation.ToUpper().Contains( a ) ) || p.Chairman.ToUpper().Contains( a ) ) ).ToList() ) ; 
+                pq.AddRange( p[0].Parties.Where( p => p.PartyState == b ).Where( p => p.PartyName.ToUpper().Contains( a.ToUpper() ) || ( !string.IsNullOrEmpty( p.PartyAbbreviation ) && p.PartyAbbreviation.ToUpper().Contains( a.ToUpper() ) ) || p.Chairman.ToUpper().Contains( a.ToUpper() ) ).ToList() ) ; 
             }
         }
         else if( p != null && !string.IsNullOrEmpty( a ) ) 
         {
             foreach( var a in Regex.Replace( a , @"\s" , "\r\n" ).Split( "\r\n" ) ) 
             {
-                pq.AddRange( p[0].Parties.Where( p => ( p.PartyName.ToUpper().Contains( a ) || ( string.IsNullOrEmpty( p.PartyAbbreviation ) ? false : p.PartyAbbreviation.ToUpper().Contains( a ) ) || p.Chairman.ToUpper().Contains( a ) ) ).ToList() ) ; 
+                pq.AddRange( p[0].Parties.Where( p => p.PartyName.ToUpper().Contains( a.ToUpper() ) || ( !string.IsNullOrEmpty( p.PartyAbbreviation ) && p.PartyAbbreviation.ToUpper().Contains( a.ToUpper() ) ) || p.Chairman.ToUpper().Contains( a.ToUpper() ) ).ToList() ) ; 
             }
         }
         else if( p!= null && ifbvalid ) 
@@ -107,18 +107,18 @@ else
 
     public class Py
     {
-        public string UpdateDate { get; set; }
+        public required string UpdateDate { get; set; }
         public P[]? Parties { get; set; }
     }
     public class P 
     {
         public int Party { get; set; }
-        public string PartyName { get; set; }
+        public required string PartyName { get; set; }
         public string? PartyAbbreviation { get; set; }
-        public string Chairman { get; set; }
-        public string PartyState { get; set; }
+        public required string Chairman { get; set; }
+        public required string PartyState { get; set; }
         public string? PartyEstablishedDate { get; set; }
         public string? PartyRegisteredDate { get; set; }
-        public string? PartyURL { get; set; }
+        public required string? PartyURL { get; set; }
     }
 }

@@ -893,36 +893,36 @@ else
 
     public class LawRoot
     {
-        public string UpdateDate { get; set; }
-        public L[] Laws { get; set; }
+        public required string UpdateDate { get; set; }
+        public required L[] Laws { get; set; }
     }
     public class L
     {
-        public string LawLevel { get; set; }
-        public string LawName { get; set; }
-        public string LawURL { get; set; }
-        public string LawCategory { get; set; }
-        public string LawModifiedDate { get; set; }
+        public required string LawLevel { get; set; }
+        public required string LawName { get; set; }
+        public required string LawURL { get; set; }
+        public required string LawCategory { get; set; }
+        public required string LawModifiedDate { get; set; }
         public string? LawEffectiveDate { get; set; }
         public string? LawEffectiveNote { get; set; }
         public string? LawAbandonNote { get; set; }
-        public string LawHasEngVersion { get; set; }
+        public required string LawHasEngVersion { get; set; }
         public string? EngLawName { get; set; }
         public Attachments[]? LawAttachments { get; set; }
-        public string LawHistories { get; set; }
+        public required string LawHistories { get; set; }
         public string? LawForeword { get; set; }
-        public A[] LawArticles { get; set; }
+        public required A[] LawArticles { get; set; }
     }
     public class A
     {
-        public string ArticleType { get; set; }
+        public required string ArticleType { get; set; }
         public string? ArticleNo { get; set; }
-        public string ArticleContent { get; set; }
+        public required string ArticleContent { get; set; }
     }
     public class Attachments
     {
-        public string FileName { get; set; }
-        public string FileURL { get; set; }
+        public required string FileName { get; set; }
+        public required string FileURL { get; set; }
     }
 
 }
