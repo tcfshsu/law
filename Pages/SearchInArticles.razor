@@ -54,14 +54,14 @@
         {
             g = ggg;
         }
-        aa = Int32.Parse( Regex.Replace( a.ToUpper() , @"[CXLJE]"  , "" ) ) - 1 ; 
+        aa = int.Parse( Regex.Replace( a.ToUpper() , "[CXLJE]"  , "" ) ) - 1 ; 
     }
     protected override async Task OnInitializedAsync()
     {
         laws = await Http.GetFromJsonAsync<LawRoot[]>("json/laws.json");
         if( laws != null ) 
         {
-            l = laws[0].Laws.Where( l => string.IsNullOrEmpty( a ) ? false : ( Regex.Replace( a.ToUpper() , @"[^CXLJE]"  , "" ).ToUpper() == "E" ? l.LawCategory.Contains( "選舉法規" ) : ( Regex.Replace( a.ToUpper() , @"[^CXLJE]"  , "" ).ToUpper() == "C" ? ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "中央法規" ) ) : ( Regex.Replace( a.ToUpper() , @"[^CXLJE]"  , "" ).ToUpper() == "X" ? ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "行政法規" ) ) : ( Regex.Replace( a.ToUpper() , @"[^CXLJE]"  , "" ).ToUpper() == "L" ? ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "立法法規" ) ) : ( Regex.Replace( a.ToUpper() , @"[^CXLJE]"  , "" ).ToUpper() == "J" ? ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "司法法規" ) ) : false  ) ) ) ) ) ).ToArray()[aa] ; 
+            l = laws[0].Laws.Where( l => !string.IsNullOrEmpty( a ) && ( Regex.Replace( a.ToUpper() , "[^CXLJE]"  , "" ).ToUpper() == "E" ? l.LawCategory.Contains( "選舉法規" ) : Regex.Replace( a.ToUpper() , "[^CXLJE]"  , "" ).ToUpper() == "C" ? !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "中央法規" ) : Regex.Replace( a.ToUpper() , "[^CXLJE]"  , "" ).ToUpper() == "X" ? !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "行政法規" ) : Regex.Replace( a.ToUpper() , "[^CXLJE]"  , "" ).ToUpper() == "L" ? !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "立法法規" ) : Regex.Replace( a.ToUpper() , "[^CXLJE]"  , "" ).ToUpper() == "J" && !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "司法法規" ) ) ).ToArray()[aa] ; 
         }
     }
 
@@ -76,18 +76,11 @@
         public A[] LawArticles { get; set; }
         public bool Contains( string a ) 
         {
-            if( string.IsNullOrEmpty( LawForeword ) ? false : LawForeword.ToUpper().Contains( a ) ) 
+            if( !string.IsNullOrEmpty( LawForeword ) && LawForeword.ToUpper().Contains( a ) ) 
             {
                 return true ; 
             }
-            foreach( var art in LawArticles ) 
-            {
-                if( art.ArticleType.ToUpper().Contains( a ) || ( string.IsNullOrEmpty( art.ArticleNo ) ? false : art.ArticleNo.ToUpper().Contains( a ) ) || art.ArticleContent.ToUpper().Contains( a ) ) 
-                {
-                    return true ; 
-                }
-            }
-            return false ; 
+            return LawArticles.Any(art => art.ArticleType.ToUpper().Contains(a) || (!string.IsNullOrEmpty(art.ArticleNo) && art.ArticleNo.ToUpper().Contains(a)) || art.ArticleContent.ToUpper().Contains(a));
         }
     }
     public class A
@@ -97,15 +90,7 @@
         public string ArticleContent { get; set; }
         public string ShowNum() 
         {
-            int i = 0 ; 
-            foreach( var a in ArticleContent.Split( "\r\n" ) ) 
-            {
-                if( !Regex.IsMatch( a , @"^([1-9]{1}[0-9]+、|[1-9]{1}、|[１-９]{1}[０-９]+、|[１-９]{1}、|[1-9]{1}[0-9]+\u002E|[1-9]{1}\u002E|[１-９]{1}[０-９]+\u002E|[１-９]{1}\u002E|（[一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+）|（[一二三四五六七八九十]{1}）|（[1-9]{1}[0-9]+）|（[1-9]{1}）|（[１-９]{1}[０-９]+）|（[１-９]{1}）|[一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+、|[一二三四五六七八九十]{1}、)" ) ) 
-                {
-                    i ++ ; 
-                }
-            }
-            return i > 1 ? "showNum" : "" ; 
+            return ArticleContent.Split("\r\n").Count(a => !Regex.IsMatch(a, @"^([1-9]{1}[0-9]+、|[1-9]{1}、|[１-９]{1}[０-９]+、|[１-９]{1}、|[1-9]{1}[0-9]+\u002E|[1-9]{1}\u002E|[１-９]{1}[０-９]+\u002E|[１-９]{1}\u002E|（[一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+）|（[一二三四五六七八九十]{1}）|（[1-9]{1}[0-9]+）|（[1-9]{1}）|（[１-９]{1}[０-９]+）|（[１-９]{1}）|[一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+、|[一二三四五六七八九十]{1}、)")) > 1 ? "showNum" : "" ; 
         }
         public bool Contains( string a ) 
         {
@@ -115,11 +100,11 @@
             {
                 foreach( var aa in Regex.Split( a , @"\s" ) ) 
                 {
-                    if( ( !string.IsNullOrEmpty( ArticleNo ) && ArticleNo.Contains( "【" ) ) ? ArticleNo.Split( "【" )[1].Replace( "】" , "" ).ToUpper().Contains( a ) : false ) 
+                    if( !string.IsNullOrEmpty( ArticleNo ) && ArticleNo.Contains( "【" ) && ArticleNo.Split( "【" )[1].Replace( "】" , "" ).ToUpper().Contains( aa ) ) 
                     {
                         return true ; 
                     }
-                    else if( ArticleContent.ToUpper().Contains( a ) ) 
+                    if( ArticleContent.ToUpper().Contains( aa ) ) 
                     {
                         return true ; 
                     }
@@ -127,7 +112,7 @@
             }
             else 
             {
-                return ( ArticleContent.ToUpper().Contains( a ) || ( ( !string.IsNullOrEmpty( ArticleNo ) && ArticleNo.Contains( "【" ) ) ? ArticleNo.Split( "【" )[1].Replace( "】" , "" ).ToUpper().Contains( a ) : false ) ) ; 
+                return ArticleContent.ToUpper().Contains( a ) || ( !string.IsNullOrEmpty( ArticleNo ) && ArticleNo.Contains( "【" ) && ArticleNo.Split( "【" )[1].Replace( "】" , "" ).ToUpper().Contains( a ) ) ; 
             }
             return false ; 
         }

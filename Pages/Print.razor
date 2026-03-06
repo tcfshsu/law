@@ -1,4 +1,5 @@
 @page "/print"
+@using Microsoft.IdentityModel.Tokens
 @inject HttpClient Http
 @inject IJSRuntime JS
 <PageTitle>法規彙編 - 臺中市立臺中第一高級中等學校學生自治聯合會法規資料庫</PageTitle>
@@ -187,10 +188,10 @@ else
                     else 
                     {
                         <h6>
-                            @if (art.ArticleNo.Contains('【') && art.ArticleNo != "" && art.ArticleNo != null )
+                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty() )
                             {
                                 <span>@art.ArticleNo.Split('【')[0]</span>
-                                <span>@Regex.Split(art.ArticleNo, @"條(?=【)")[1]</span>
+                                <span>@Regex.Split(art.ArticleNo, "條(?=【)")[1]</span>
                             }
                             else 
                             {
@@ -417,10 +418,10 @@ else
                     else 
                     {
                         <h6>
-                            @if (art.ArticleNo.Contains('【') && art.ArticleNo != "" && art.ArticleNo != null )
+                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty() )
                             {
                                 <span>@art.ArticleNo.Split('【')[0]</span>
-                                <span>@Regex.Split(art.ArticleNo, @"條(?=【)")[1]</span>
+                                <span>@Regex.Split(art.ArticleNo, "條(?=【)")[1]</span>
                             }
                             else 
                             {
@@ -532,10 +533,10 @@ else
                     else 
                     {
                         <h6>
-                            @if (art.ArticleNo.Contains('【') && art.ArticleNo != "" && art.ArticleNo != null )
+                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty() )
                             {
                                 <span>@art.ArticleNo.Split('【')[0]</span>
-                                <span>@Regex.Split(art.ArticleNo, @"條(?=【)")[1]</span>
+                                <span>@Regex.Split(art.ArticleNo, "條(?=【)")[1]</span>
                             }
                             else 
                             {
@@ -647,10 +648,10 @@ else
                     else 
                     {
                         <h6>
-                            @if (art.ArticleNo.Contains('【') && art.ArticleNo != "" && art.ArticleNo != null )
+                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty() )
                             {
                                 <span>@art.ArticleNo.Split('【')[0]</span>
-                                <span>@Regex.Split(art.ArticleNo, @"條(?=【)")[1]</span>
+                                <span>@Regex.Split(art.ArticleNo, "條(?=【)")[1]</span>
                             }
                             else 
                             {
@@ -727,7 +728,7 @@ else
                 </li>
                 <li>
                     <span>出版日期：</span>
-                    <span>中華民國 @( Int32.Parse( laws[0].UpdateDate.Split( '/' )[0] ) - 1911 ) 年 @laws[0].UpdateDate.Split( '/' )[1] 月 @laws[0].UpdateDate.Split( '/' )[2] 日</span>
+                    <span>中華民國 @( int.Parse( laws[0].UpdateDate.Split( '/' )[0] ) - 1911 ) 年 @laws[0].UpdateDate.Split( '/' )[1] 月 @laws[0].UpdateDate.Split( '/' )[2] 日</span>
                 </li>
             </ul>
         </span>
@@ -754,7 +755,7 @@ else
     public List<L> lj = new List<L>();
     public List<L> lel = new List<L>();
     private string 發行人 = "黃宣方" ; 
-    private string[] 編輯 = { "黃宣方" , "卓祐宸" , "陳寬澂"} ; 
+    private string[] 編輯 = ["黃宣方" , "卓祐宸" , "陳寬澂"]; 
     protected override async Task OnInitializedAsync()
     {
         laws = await Http.GetFromJsonAsync<LawRoot[]>("json/laws.json");
@@ -770,31 +771,31 @@ else
         }
         pCount = new int[aCount] ; 
         showNum = new string[aCount] ; 
-        for (int i = 0; i < laws[0].Laws.Length; i++)
+        foreach (var l in laws[0].Laws)
         {
-            if (laws[0].Laws[i].LawCategory.Contains("選舉法規"))
+            if (l.LawCategory.Contains("選舉法規"))
             {
-                lel.Add(laws[0].Laws[i]);
+                lel.Add(l);
                 iel++;
             }
-            else if( laws[0].Laws[i].LawCategory.Contains( "中央法規" ) )
+            else if(l.LawCategory.Contains( "中央法規" ))
             {
-                lc.Add(laws[0].Laws[i]);
+                lc.Add(l);
                 ic++;
             }
-            else if (laws[0].Laws[i].LawCategory.Contains("行政法規"))
+            else if (l.LawCategory.Contains("行政法規"))
             {
-                lex.Add(laws[0].Laws[i]);
+                lex.Add(l);
                 iex++;
             }
-            else if (laws[0].Laws[i].LawCategory.Contains("立法法規"))
+            else if (l.LawCategory.Contains("立法法規"))
             {
-                ll.Add(laws[0].Laws[i]);
+                ll.Add(l);
                 il++;
             }
-            else if (laws[0].Laws[i].LawCategory.Contains("司法法規"))
+            else if (l.LawCategory.Contains("司法法規"))
             {
-                lj.Add(laws[0].Laws[i]);
+                lj.Add(l);
                 ij++;
             }
         }

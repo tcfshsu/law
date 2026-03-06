@@ -13,15 +13,15 @@
 {
     <p><em>Loading...</em></p>
 }
-else if (a == "" || Int32.Parse(a) > p[0].Parties.Length || Int32.Parse(a) < 0 ) 
+else if (a == "" || int.Parse(a) > p[0].Parties.Length || int.Parse(a) < 0 ) 
 {
     <PageTitle>ERR! - 臺中市立臺中第一高級中等學校學生自治聯合會法規資料庫</PageTitle>
     <span>沒有這個東西啦！</span>
 }
 else
 {
-    <PageTitle>@p[0].Parties[Int32.Parse(a)].PartyName - 臺中市立臺中第一高級中等學校學生自治聯合會法規資料庫</PageTitle>
-    <h1>@p[0].Parties[Int32.Parse(a)].PartyName</h1>
+    <PageTitle>@p[0].Parties[int.Parse(a)].PartyName - 臺中市立臺中第一高級中等學校學生自治聯合會法規資料庫</PageTitle>
+    <h1>@p[0].Parties[int.Parse(a)].PartyName</h1>
     <div id="pd">
         <div class="pl">
             <img src="@("i/parties/" + p[0].Parties[int.Parse(a)].Logo[0])" alt="@(p[0].Parties[int.Parse(a)].PartyName + " 標章")" />
@@ -35,7 +35,7 @@ else
             <dl>
                 <dt>政黨名稱</dt>
                 <dd>@p[0].Parties[i].PartyName</dd>
-                @if (@p[0].Parties[i].PartyAbbreviation != "")
+                @if (p[0].Parties[i].PartyAbbreviation != "")
                 {
                     <dt>政黨簡稱</dt>
                     <dd>@p[0].Parties[i].PartyAbbreviation</dd>
@@ -44,17 +44,17 @@ else
                 <dd>@p[0].Parties[i].Chairman</dd>
                 <dt>狀態</dt>
                 <dd>@p[0].Parties[i].PartyState</dd>
-                @if (@p[0].Parties[i].PartyRegisteredDate != "")
+                @if (p[0].Parties[i].PartyRegisteredDate != "")
                 {
                     <dt>註冊日期</dt>
                     <dd>@p[0].Parties[i].PartyRegisteredDate</dd>
                 }
-                @if (@p[0].Parties[i].PartyEstablishedDate != "")
+                @if (p[0].Parties[i].PartyEstablishedDate != "")
                 {
                     <dt>成立日期</dt>
                     <dd>@p[0].Parties[i].PartyEstablishedDate</dd>
                 }
-                @if (@p[0].Parties[i].PartyURL != "")
+                @if (p[0].Parties[i].PartyURL != "")
                 {
                     <dt>政黨官網</dt>
                     <dd>
@@ -105,7 +105,7 @@ else
         p = await Http.GetFromJsonAsync<Py[]>("json/parties.json");
         for (int iii = 0; iii < p[0].Parties.Length; iii++)
         {
-            if (Int32.Parse(a) == p[0].Parties[iii].Party)
+            if (int.Parse(a) == p[0].Parties[iii].Party)
             {
                 i = iii;
                 break;
