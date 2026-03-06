@@ -164,15 +164,16 @@ else
             if( !string.IsNullOrEmpty( b ) ) 
             {
                 var lqq = new List<L>() ; 
-                if( !Regex.IsMatch( b , @"([(].+[)])|[+\-&]" ) ) 
+                if( Regex.IsMatch( b , @"([(].+[)])|[+\-&]" ) ) 
+                {
+                }
+                else
                 {
                     foreach( var b in Regex.Replace( b , @"\s" , "\r\n" ).Split( "\r\n" ) ) 
                     {
                         lqq.AddRange( lq.Where( l => l.Contains( b ) ).Except( lqq ).ToList() ) ; 
-                    }
+                    }   
                 }
-                else 
-                {}
                 lq = lqq ; 
             }
             lq = lq.OrderBy( l => l.LawAbandonNote ).ToList() ; 
@@ -180,70 +181,45 @@ else
         }
     }
     
-    public void Sort( ChangeEventArgs a ) 
+    public void Sort( ChangeEventArgs a )
     {
-        if( a.Value != null ) 
+        if (a.Value == null) return;
+        lq = (string)a.Value switch
         {
-            if( (string)a.Value == "latest" ) 
-            {
-                lq = lq.OrderByDescending( l => l.LawModifiedDate ).ToList() ; 
-            }
-            else if( (string)a.Value == "oldest" ) 
-            {
-                lq = lq.OrderBy( l => l.LawModifiedDate ).ToList() ; 
-            }
-            else if( (string)a.Value == "long" ) 
-            {
-                lq = lq.OrderByDescending( l => l.LawName.Length ).ToList() ; 
-            }
-            else if( (string)a.Value == "short" ) 
-            {
-                lq = lq.OrderBy( l => l.LawName.Length ).ToList() ; 
-            }
-            else if( (string)a.Value == "longPure" ) 
-            {
-                lq = lq.OrderByDescending( l => l.LawName.Replace( "臺中市立臺中第一高級中等學校學生自治聯合會" , "" ).Replace( "臺中第一高級中學" , "" ).Length ).ToList() ; 
-            }
-            else if( (string)a.Value == "shortPure" ) 
-            {
-                lq = lq.OrderBy( l => l.LawName.Replace( "臺中市立臺中第一高級中等學校學生自治聯合會" , "" ).Replace( "臺中第一高級中學" , "" ).Length ).ToList() ; 
-            }
-            else if( (string)a.Value == "AtoZ" ) 
-            {
-                lq = lq.OrderBy( l => l.LawName , StringComparer.Create( new System.Globalization.CultureInfo( "zh-TW" ) , false ) ).ToList() ; 
-            }
-            else if( (string)a.Value == "ZtoA" ) 
-            {
-                lq = lq.OrderByDescending( l => l.LawName , StringComparer.Create( new System.Globalization.CultureInfo( "zh-TW" ) , false ) ).ToList() ; 
-            }
-            else if( (string)a.Value == "" ) 
-            {
-                lq = lqDefault ; 
-            }
-        }
+            "latest" => lq.OrderByDescending(l => l.LawModifiedDate).ToList(),
+            "oldest" => lq.OrderBy(l => l.LawModifiedDate).ToList(),
+            "long" => lq.OrderByDescending(l => l.LawName.Length).ToList(),
+            "short" => lq.OrderBy(l => l.LawName.Length).ToList(),
+            "longPure" => lq.OrderByDescending(l => l.LawName.Replace("臺中市立臺中第一高級中等學校學生自治聯合會", "").Replace("臺中第一高級中學", "").Length).ToList(),
+            "shortPure" => lq.OrderBy(l => l.LawName.Replace("臺中市立臺中第一高級中等學校學生自治聯合會", "").Replace("臺中第一高級中學", "").Length).ToList(),
+            "AtoZ" => lq.OrderBy(l => l.LawName, StringComparer.Create(new System.Globalization.CultureInfo("zh-TW"), false)).ToList(),
+            "ZtoA" => lq.OrderByDescending(l => l.LawName, StringComparer.Create(new System.Globalization.CultureInfo("zh-TW"), false)).ToList(),
+            "" => lqDefault,
+            _ => lq
+        };
     }
 
     public class LawRoot
     {
-        public string UpdateDate { get; set; }
-        public L[] Laws { get; set; }
+        public required string UpdateDate { get; set; }
+        public required L[] Laws { get; set; }
     }
     public class L 
     {
-        public string LawLevel { get; set; }
-        public string LawName { get; set; }
-        public string LawURL { get; set; }
-        public string LawCategory { get; set; }
-        public string LawModifiedDate { get; set; }
+        public required string LawLevel { get; set; }
+        public required string LawName { get; set; }
+        public required string LawURL { get; set; }
+        public required string LawCategory { get; set; }
+        public required string LawModifiedDate { get; set; }
         public string? LawEffectiveDate { get; set; }
         public string? LawEffectiveNote { get; set; }
         public string? LawAbandonNote { get; set; }
-        public string LawHasEngVersion { get; set; }
+        public required string LawHasEngVersion { get; set; }
         public string? EngLawName { get; set; }
         public Attachments[]? LawAttachments { get; set; }
-        public string LawHistories { get; set; }
+        public required string LawHistories { get; set; }
         public string? LawForeword { get; set; }
-        public A[] LawArticles { get; set; }
+        public required A[] LawArticles { get; set; }
         public enum SearchPlace
         {
             art , 
@@ -260,73 +236,45 @@ else
             {
                 return true ; 
             }
-            else if( LawHistories.ToUpper().Contains( a.ToUpper() ) ) 
+            if( LawHistories.ToUpper().Contains( a.ToUpper() ) ) 
             {
                 return true ; 
             }
-            else if( string.IsNullOrEmpty( LawForeword ) ? false : LawForeword.ToUpper().Contains( a.ToUpper() ) ) 
+            if( !string.IsNullOrEmpty( LawForeword ) && LawForeword.ToUpper().Contains( a.ToUpper() ) ) 
             {
                 return true ; 
             }
-            else if( LawHasEngVersion == "Y" ) 
+            if (LawHasEngVersion != "Y") return LawArticles.Any(art => art.ArticleType.ToUpper().Contains(a.ToUpper()) || (!string.IsNullOrEmpty(art.ArticleNo) && art.ArticleNo.ToUpper().Contains(a.ToUpper())) || art.ArticleContent.ToUpper().Contains(a.ToUpper())) || LawAttachments.Any(att => att.FileName.ToUpper().Contains(a.ToUpper()));
+            if( EngLawName.ToUpper().Contains( a.ToUpper() ) ) 
             {
-                if( EngLawName.ToUpper().Contains( a.ToUpper() ) ) 
-                {
-                    return true ; 
-                }
+                return true ; 
             }
-            foreach( var art in LawArticles ) 
-            {
-                if( art.ArticleType.ToUpper().Contains( a.ToUpper() ) || ( string.IsNullOrEmpty( art.ArticleNo ) ? false : art.ArticleNo.ToUpper().Contains( a.ToUpper() ) ) || art.ArticleContent.ToUpper().Contains( a.ToUpper() ) ) 
-                {
-                    return true ; 
-                }
-            }
-            foreach( var att in LawAttachments ) 
-            {
-                if( att.FileName.ToUpper().Contains( a.ToUpper() ) ) 
-                {
-                    return true ; 
-                }
-            }
-            return false ; 
+            return LawArticles.Any(art => art.ArticleType.ToUpper().Contains( a.ToUpper() ) || ( !string.IsNullOrEmpty( art.ArticleNo ) && art.ArticleNo.ToUpper().Contains( a.ToUpper() ) ) || art.ArticleContent.ToUpper().Contains( a.ToUpper() )) || LawAttachments.Any(att => att.FileName.ToUpper().Contains(a.ToUpper()));
         }
         public bool Contains( string a , SearchPlace b ) 
         {
             switch (b)
             {
                 case SearchPlace.art:
-                    foreach( var art in LawArticles ) 
+                    if (LawArticles.Any(art => Regex.Replace( art.ArticleType.ToUpper(), "\\s", "" ).Contains( a.ToUpper() ) || ( !string.IsNullOrEmpty( art.ArticleNo ) && Regex.Replace( art.ArticleNo.ToUpper(), "\\s", "" ).Contains( a.ToUpper() ) ) || Regex.Replace( art.ArticleContent.ToUpper(), "\\s", "" ).Contains( a.ToUpper() )))
                     {
-                        if( Regex.Replace( art.ArticleType.ToUpper(), "\\s", "" ).Contains( a.ToUpper() ) || ( string.IsNullOrEmpty( art.ArticleNo ) ? false : Regex.Replace( art.ArticleNo.ToUpper(), "\\s", "" ).Contains( a.ToUpper() ) ) || Regex.Replace( art.ArticleContent.ToUpper(), "\\s", "" ).Contains( a.ToUpper() ) ) 
-                        {
-                            return true ; 
-                        }
+                        return true ;
                     }
                     break; 
                 case SearchPlace.att:
-                    foreach( var att in LawAttachments ) 
+                    if (LawAttachments.Any(att => att.FileName.ToUpper().Contains( a.ToUpper() )))
                     {
-                        if( att.FileName.ToUpper().Contains( a.ToUpper() ) ) 
-                        {
-                            return true ; 
-                        }
+                        return true ;
                     }
                     break;
                 case SearchPlace.aa:
-                    foreach( var art in LawArticles ) 
+                    if (LawArticles.Any(art => art.ArticleType.ToUpper().Contains( a.ToUpper() ) || ( !string.IsNullOrEmpty( art.ArticleNo ) && art.ArticleNo.ToUpper().Contains( a.ToUpper() ) ) || art.ArticleContent.ToUpper().Contains( a.ToUpper() )))
                     {
-                        if( art.ArticleType.ToUpper().Contains( a.ToUpper() ) || ( string.IsNullOrEmpty( art.ArticleNo ) ? false : art.ArticleNo.ToUpper().Contains( a.ToUpper() ) ) || art.ArticleContent.ToUpper().Contains( a.ToUpper() ) ) 
-                        {
-                            return true ; 
-                        }
+                        return true ;
                     }
-                    foreach( var att in LawAttachments ) 
+                    if (LawAttachments.Any(att => att.FileName.ToUpper().Contains( a.ToUpper() )))
                     {
-                        if( att.FileName.ToUpper().Contains( a.ToUpper() ) ) 
-                        {
-                            return true ; 
-                        }
+                        return true ;
                     }
                     break;
                 case SearchPlace.nme:
@@ -342,7 +290,7 @@ else
                     }
                     break;
                 case SearchPlace.fwd:
-                    if( string.IsNullOrEmpty( LawForeword ) ? false : LawForeword.ToUpper().Contains( a.ToUpper() ) ) 
+                    if( !string.IsNullOrEmpty( LawForeword ) && LawForeword.ToUpper().Contains( a.ToUpper() ) ) 
                     {
                         return true ; 
                     }
@@ -356,6 +304,8 @@ else
                         }
                     }
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(b), b, null);
             }
             return false ; 
         }
@@ -370,20 +320,18 @@ else
                 }
                 else 
                 {
-                    foreach( var a in Regex.Split( aa , @"\s" ) ) 
+                    foreach( var a in Regex.Split( aa , @"\s" ) )
                     {
-                        if( Contains( a , SearchPlace.nme ) ) 
+                        if (!Contains(a, SearchPlace.nme)) continue;
+                        for( int i = 0 ; i < LawName.Split( a ).Length ; i ++ ) 
                         {
-                            for( int i = 0 ; i < LawName.Split( a ).Length ; i ++ ) 
+                            if( i != ( LawName.Split( a ).Length - 1 ) ) 
                             {
-                                if( i != ( LawName.Split( a ).Length - 1 ) ) 
-                                {
-                                    aaa += LawName.Split( a )[i] + "<\\>" + a + "<\\>" ; 
-                                }
-                                else 
-                                {
-                                    aaa += LawName.Split( a )[i] ; 
-                                }
+                                aaa += LawName.Split( a )[i] + "<\\>" + a + "<\\>" ; 
+                            }
+                            else 
+                            {
+                                aaa += LawName.Split( a )[i] ; 
                             }
                         }
                     }
@@ -445,48 +393,43 @@ else
                                 }
                             }
                         }
-                        if( Contains( a , SearchPlace.art ) ) 
+                        if (!Contains(a, SearchPlace.art)) continue;
+                        foreach( var art in LawArticles.Where( l => l.Contains( a ) ).ToArray() ) 
                         {
-                            foreach( var art in LawArticles.Where( l => l.Contains( a ) ).ToArray() ) 
+                            if( art.ArticleNo.ToUpper().Contains( a.ToUpper() ) ) 
                             {
-                                if( art.ArticleNo.ToUpper().Contains( a.ToUpper() ) ) 
+                                for( int i = 0 ; ( i + 1 ) < art.ArticleNo.ToUpper().Split( a.ToUpper() ).Length ; i ++ ) 
                                 {
-                                    for( int i = 0 ; ( i + 1 ) < art.ArticleNo.ToUpper().Split( a.ToUpper() ).Length ; i ++ ) 
-                                    {
-                                        aaa += art.ArticleNo.ToUpper().Split( a.ToUpper() )[i] + "<\\>" + a + "<\\>" + art.ArticleNo.ToUpper().Split( a.ToUpper() )[ i + 1 ] + "…" ; 
-                                    }
+                                    aaa += art.ArticleNo.ToUpper().Split( a.ToUpper() )[i] + "<\\>" + a + "<\\>" + art.ArticleNo.ToUpper().Split( a.ToUpper() )[ i + 1 ] + "…" ; 
                                 }
-                                if( art.ArticleNo.Contains( a ) ) 
-                                {
-                                    for( int i = 0 ; ( i + 1 ) < art.ArticleContent.ToUpper().Split( a.ToUpper() ).Length ; i ++ ) 
-                                    {
-                                        aaa += art.ArticleContent.ToUpper().Split( a.ToUpper() )[i] + "<\\>" + a + "<\\>" + art.ArticleContent.ToUpper().Split( a.ToUpper() )[ i + 1 ] + "…" ; 
-                                    }
-                                }
+                            }
+                            if (!art.ArticleNo.Contains(a)) continue;
+                            for( int i = 0 ; ( i + 1 ) < art.ArticleContent.ToUpper().Split( a.ToUpper() ).Length ; i ++ ) 
+                            {
+                                aaa += art.ArticleContent.ToUpper().Split( a.ToUpper() )[i] + "<\\>" + a + "<\\>" + art.ArticleContent.ToUpper().Split( a.ToUpper() )[ i + 1 ] + "…" ; 
                             }
                         }
                     }
-                    if( string.IsNullOrEmpty( aaa ) ) 
+
+                    if (!string.IsNullOrEmpty(aaa)) return aaa;
+                    if( !string.IsNullOrEmpty( LawForeword ) ) 
                     {
-                        if( !string.IsNullOrEmpty( LawForeword ) ) 
+                        aaa = "前言：" + Regex.Replace( LawForeword , @"\s" , "" ) ; 
+                    }
+                    else 
+                    {
+                        foreach( var art in LawArticles ) 
                         {
-                            aaa = "前言：" + Regex.Replace( LawForeword , @"\s" , "" ) ; 
-                        }
-                        else 
-                        {
-                            foreach( var art in LawArticles ) 
+                            if( art.ArticleType == "C" ) 
                             {
-                                if( art.ArticleType == "C" ) 
-                                {
-                                    aaa += Regex.Replace( art.ArticleContent , @"\s" , "" ) ; 
-                                }
-                                else 
-                                {
-                                    aaa += Regex.Replace( art.ArticleContent , @"\s" , "" ) + "…" ; 
-                                    break ; 
-                                }
+                                aaa += Regex.Replace( art.ArticleContent , @"\s" , "" ) ; 
                             }
-                        }        
+                            else 
+                            {
+                                aaa += Regex.Replace( art.ArticleContent , @"\s" , "" ) + "…" ; 
+                                break ; 
+                            }
+                        }
                     }
                 }
             }
@@ -495,22 +438,22 @@ else
     }
     public class A 
     {
-        public string ArticleType { get; set; }
+        public required string ArticleType { get; set; }
         public string? ArticleNo { get; set; }
-        public string ArticleContent { get; set; }
+        public required string ArticleContent { get; set; }
         public bool Contains( string a ) 
         {
             if( Regex.IsMatch( a , @"([(].+[)])|[+\-&]" ) ) 
             {}
             else if( Regex.IsMatch( a , @"\s" ) ) 
             {
-                foreach( var aa in Regex.Split( a , @"\s" ) ) 
+                foreach( var aa in Regex.Split( a , @"\s" ) )
                 {
-                    if( ( !string.IsNullOrEmpty( ArticleNo ) && ArticleNo.Contains( "【" ) ) ? ArticleNo.Split( "【" )[1].Replace( "】" , "" ).ToUpper().Contains( a.ToUpper() ) : false ) 
+                    if( !string.IsNullOrEmpty( ArticleNo ) && ArticleNo.Contains( "【" ) && ArticleNo.Split( "【" )[1].Replace( "】" , "" ).ToUpper().Contains( aa.ToUpper() ) ) 
                     {
                         return true ; 
                     }
-                    else if( ArticleContent.ToUpper().Contains( a.ToUpper() ) ) 
+                    if( ArticleContent.ToUpper().Contains( aa.ToUpper() ) ) 
                     {
                         return true ; 
                     }
@@ -518,28 +461,22 @@ else
             }
             else 
             {
-                return ( ArticleContent.ToUpper().Contains( a.ToUpper() ) || ( ( !string.IsNullOrEmpty( ArticleNo ) && ArticleNo.Contains( "【" ) ) ? ArticleNo.Split( "【" )[1].Replace( "】" , "" ).ToUpper().Contains( a.ToUpper() ) : false ) ) ; 
+                return ArticleContent.ToUpper().Contains( a.ToUpper() ) || ( !string.IsNullOrEmpty( ArticleNo ) && ArticleNo.Contains( "【" ) && ArticleNo.Split( "【" )[1].Replace( "】" , "" ).ToUpper().Contains( a.ToUpper() ) ) ; 
             }
             return false ; 
         }
     }
     public class Attachments 
     {
-        public string FileName { get; set; }
-        public string FileURL { get; set; }
+        public required string FileName { get; set; }
+        public required string FileURL { get; set; }
         public bool Contains( string a ) 
         {
             if( Regex.IsMatch( a , @"([(].+[)])|[+\-&]" ) ) 
             {}
-            else if( Regex.IsMatch( a , @"\s" ) ) 
+            else if( Regex.IsMatch( a , @"\s" ) )
             {
-                foreach( var aa in Regex.Split( a , @"\s" ) ) 
-                {
-                    if( FileName.ToUpper().Contains( a.ToUpper() ) ) 
-                    {
-                        return true ; 
-                    }
-                }
+                return Regex.Split(a, @"\s").Any(aa => FileName.ToUpper().Contains(aa.ToUpper()));
             }
             else 
             {
