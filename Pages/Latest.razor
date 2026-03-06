@@ -241,7 +241,7 @@ else
         var queryStrings = QueryHelpers.ParseQuery(uri.Query);
         if (queryStrings.TryGetValue("no", out var aaa))
         {
-            a = string.IsNullOrEmpty( aaa ) ? -1 : ( !Regex.IsMatch( aaa , @"([1-9]{1})|([1-9]{1}[0-9]+)" ) ? -1 : Int32.Parse( aaa ) ) ; 
+            a = string.IsNullOrEmpty( aaa ) ? -1 : !Regex.IsMatch( aaa , "([1-9]{1})|([1-9]{1}[0-9]+)" ) ? -1 : int.Parse( aaa ) ; 
         }
     }
 
