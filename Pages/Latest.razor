@@ -32,7 +32,7 @@ else
                 {
                     <dl>
                         <dt>修正法規</dt>
-                        <dd><a href="@c.LawURL&f=@( "ln" + a.ToString() )">@c.LawName</a></dd>
+                        <dd><a href="@c.LawURL&f=@("ln" + a)">@c.LawName</a></dd>
                         <dt></dt>
                         <dd>
                                 <dl>
@@ -249,37 +249,37 @@ else
     public class Latests
     {
         public int No { get; set; } 
-        public string Date { get; set; }
-        public string Title { get; set; } 
+        public required string Date { get; set; }
+        public required string Title { get; set; } 
         public C[]? Content { get; set; } 
         public O[]? Orders { get; set; } 
     }
     public class C 
     {
-        public string LawName { get; set; }
-        public string LawURL { get; set; }
+        public required string LawName { get; set; }
+        public required string LawURL { get; set; }
         public string? LawEffectiveDate { get; set; }
         public string? LawEffectiveNote { get; set; }
         public string? LawAbandonNote { get; set; }
-        public A[] LawArticles { get; set; }
+        public required A[] LawArticles { get; set; }
     }
     public class A
     {
-        public string ArticleType { get; set; }
+        public required string ArticleType { get; set; }
         public string? ArticleNo { get; set; }
         public string? ArticleContent { get; set; }
-        public string Amendment { get; set; } 
+        public required string Amendment { get; set; } 
         public string? Reason { get; set; } 
     }
     public class Attachements 
     {
-        public string FileName { get; set; }
-        public string FileURL { get; set; }
+        public required string FileName { get; set; }
+        public required string FileURL { get; set; }
     }
     public class O 
     {
-        public string FileName { get; set; } 
-        public string Main { get; set; } 
-        public string FileURL { get; set; } 
+        public required string FileName { get; set; } 
+        public required string Main { get; set; } 
+        public required string FileURL { get; set; } 
     }
 }

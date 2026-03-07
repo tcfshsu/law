@@ -1,4 +1,5 @@
 @page "/laws/lawe"
+@using Microsoft.IdentityModel.Tokens
 @inject HttpClient Http 
 @inject NavigationManager N
 <style>
@@ -128,7 +129,7 @@ else
                     else 
                     {
                         <h6 id="@h6[ih6]">
-                            @if (art.ArticleNo.Contains('【') && art.ArticleNo != "" && art.ArticleNo != null )
+                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty() )
                             {
                                 <span>@art.ArticleNo.Split('【')[0]</span>
                                 <span>@Regex.Split(art.ArticleNo, @"條(?=【)")[1]</span>
@@ -238,10 +239,10 @@ else
                     else 
                     {
                         <h6 id="@h6[ih6]">
-                            @if (art.ArticleNo.Contains('【') && art.ArticleNo != "" && art.ArticleNo != null )
+                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty())
                             {
                                 <span>@art.ArticleNo.Split('【')[0]</span>
-                                <span>@Regex.Split(art.ArticleNo, @"條(?=【)")[1]</span>
+                                <span>@Regex.Split(art.ArticleNo, "條(?=【)")[1]</span>
                             }
                             else 
                             {
@@ -348,7 +349,7 @@ else
                     else 
                     {
                         <h6 id="@h6[ih6]">
-                            @if (art.ArticleNo.Contains('【') && art.ArticleNo != "" && art.ArticleNo != null )
+                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty() )
                             {
                                 <span>@art.ArticleNo.Split('【')[0]</span>
                                 <span>@Regex.Split(art.ArticleNo, @"條(?=【)")[1]</span>
@@ -458,7 +459,7 @@ else
                     else 
                     {
                         <h6 id="@h6[ih6]">
-                            @if (art.ArticleNo.Contains('【') && art.ArticleNo != "" && art.ArticleNo != null )
+                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty() )
                             {
                                 <span>@art.ArticleNo.Split('【')[0]</span>
                                 <span>@Regex.Split(art.ArticleNo, @"條(?=【)")[1]</span>
@@ -568,7 +569,7 @@ else
                     else 
                     {
                         <h6 id="@h6[ih6]">
-                            @if (art.ArticleNo.Contains('【') && art.ArticleNo != "" && art.ArticleNo != null )
+                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty() )
                             {
                                 <span>@art.ArticleNo.Split('【')[0]</span>
                                 <span>@Regex.Split(art.ArticleNo, @"條(?=【)")[1]</span>
@@ -730,55 +731,53 @@ else
             }
         }
         ifavalid = !( !Regex.IsMatch( a.ToUpper() , "[CXLJE]{1}[0-9]{9}" ) || int.Parse( Regex.Replace( a.ToUpper() , @"[CXLJE]"  , "" ) ) <= 0 || int.Parse( a.ToUpper().Contains( 'C' ) ? a.ToUpper().Replace( "C"  , "" ) : "-1" ) > ic || int.Parse( a.ToUpper().Contains( 'X' ) ? a.ToUpper().Replace( "X"  , "" ) : "-1" ) > iex || int.Parse( a.ToUpper().Contains( 'L' ) ? a.ToUpper().Replace( "L"  , "" ) : "-1" ) > il || int.Parse( a.ToUpper().Contains( 'J' ) ? a.ToUpper().Replace( "J"  , "" ) : "-1" ) > ij || int.Parse( a.ToUpper().Contains( 'E' ) ? a.ToUpper().Replace( "E"  , "" ) : "-1" ) > iel ) ; 
-        if( a.ToUpper()[0] == 'C' ) 
+        switch (a.ToUpper()[0])
         {
-            foreach( var a in lc[aa].LawArticles) 
-            {
-                if( a.ArticleType == "A" ) 
+            case 'C':
+                foreach( var a in lc[aa].LawArticles) 
                 {
-                    aCount ++ ; 
+                    if( a.ArticleType == "A" ) 
+                    {
+                        aCount ++ ; 
+                    }
                 }
-            }
-        }
-        else if( a.ToUpper()[0] == 'X' ) 
-        {
-            foreach( var a in lex[aa].LawArticles) 
-            {
-                if( a.ArticleType == "A" ) 
+                break;
+            case 'X':
+                foreach( var a in lex[aa].LawArticles) 
                 {
-                    aCount ++ ; 
+                    if( a.ArticleType == "A" ) 
+                    {
+                        aCount ++ ; 
+                    }
                 }
-            }
-        }
-        else if( a.ToUpper()[0] == 'L' ) 
-        {
-            foreach( var a in ll[aa].LawArticles) 
-            {
-                if( a.ArticleType == "A" ) 
+                break;
+            case 'L':
+                foreach( var a in ll[aa].LawArticles) 
                 {
-                    aCount ++ ; 
+                    if( a.ArticleType == "A" ) 
+                    {
+                        aCount ++ ; 
+                    }
                 }
-            }
-        }
-        else if( a.ToUpper()[0] == 'J' ) 
-        {
-            foreach( var a in lj[aa].LawArticles) 
-            {
-                if( a.ArticleType == "A" ) 
+                break;
+            case 'J':
+                foreach( var a in lj[aa].LawArticles) 
                 {
-                    aCount ++ ; 
+                    if( a.ArticleType == "A" ) 
+                    {
+                        aCount ++ ; 
+                    }
                 }
-            }
-        }
-        else if( a.ToUpper()[0] == 'E' ) 
-        {
-            foreach( var a in lel[aa].LawArticles) 
-            {
-                if( a.ArticleType == "A" ) 
+                break;
+            case 'E':
+                foreach( var a in lel[aa].LawArticles) 
                 {
-                    aCount ++ ; 
+                    if( a.ArticleType == "A" ) 
+                    {
+                        aCount ++ ; 
+                    }
                 }
-            }
+                break;
         }
         pCount = new int[aCount] ; 
         showNum = new string[aCount] ; 

@@ -105,11 +105,9 @@ else
         p = await Http.GetFromJsonAsync<Py[]>("json/parties.json");
         for (int iii = 0; iii < p[0].Parties.Length; iii++)
         {
-            if (int.Parse(a) == p[0].Parties[iii].Party)
-            {
-                i = iii;
-                break;
-            }
+            if (int.Parse(a) != p[0].Parties[iii].Party) continue;
+            i = iii;
+            break;
         }
     }
 

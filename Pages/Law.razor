@@ -1,5 +1,4 @@
 @page "/laws/law"
-@using Microsoft.IdentityModel.Tokens
 @inject HttpClient Http 
 @inject NavigationManager N
 <style>
@@ -225,7 +224,7 @@ else if( !string.IsNullOrEmpty( b ) )
                     else 
                     {
                         <h6 id="@h6[ih6]">
-                            @if (art.ArticleNo.Contains('【') && art.ArticleNo != "" && art.ArticleNo != null )
+                            @if (art.ArticleNo.Contains('【') && !string.IsNullOrEmpty(art.ArticleNo))
                             {
                                 <a href="laws/a?a=@a&p=@ia&q=@b&f=@d&l=@e&ab=@f">
                                     <span>@art.ArticleNo.Split('【')[0]</span>
@@ -268,10 +267,10 @@ else if( !string.IsNullOrEmpty( b ) )
                                     ip ++ ; 
                                 }
                             }
-                            @if( art.Cases.Length > 0 || art.Ref.Length > 0 || art.Rel.Length > 0 ) 
+                            @if( art.Cases is { Length: > 0 } || art.Ref is { Length: > 0 } || art.Rel is { Length: > 0 } ) 
                             {
                                 <small>
-                                    @if( art.Cases.Length > 0 ) 
+                                    @if( art.Cases is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_cases")" class="cases">
                                             <span>【判例/解釋】</span>
@@ -287,7 +286,7 @@ else if( !string.IsNullOrEmpty( b ) )
                                             </span>
                                         </div>
                                     }
-                                    @if( art.Rel.Length > 0 ) 
+                                    @if( art.Rel is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_rel")" class="rel">
                                             <span>【相關法規/條文】</span>
@@ -303,7 +302,7 @@ else if( !string.IsNullOrEmpty( b ) )
                                             </span>
                                         </div>
                                     }
-                                    @if( art.Ref.Length > 0 ) 
+                                    @if( art.Ref is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_ref")" class="ref">
                                             <span>【具參考價值】</span>
@@ -467,7 +466,7 @@ else if( !string.IsNullOrEmpty( b ) )
                     else 
                     {
                         <h6 id="@h6[ih6]">
-                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty())
+                            @if (art.ArticleNo.Contains('【') && !string.IsNullOrEmpty(art.ArticleNo))
                             {
                                 <a href="laws/a?a=@a&p=@ia&q=@b&f=@d&l=@e&ab=@f">
                                     <span>@art.ArticleNo.Split('【')[0]</span>
@@ -510,10 +509,10 @@ else if( !string.IsNullOrEmpty( b ) )
                                     ip ++ ; 
                                 }
                             }
-                            @if( art.Cases.Length > 0 || art.Ref.Length > 0 || art.Rel.Length > 0 ) 
+                            @if( art.Cases is { Length: > 0 } || art.Ref is { Length: > 0 } || art.Rel is { Length: > 0 } ) 
                             {
                                 <small>
-                                    @if( art.Cases.Length > 0 ) 
+                                    @if( art.Cases is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_cases")" class="cases">
                                             <span>【判例/解釋】</span>
@@ -529,7 +528,7 @@ else if( !string.IsNullOrEmpty( b ) )
                                             </span>
                                         </div>
                                     }
-                                    @if( art.Rel.Length > 0 ) 
+                                    @if( art.Rel is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_rel")" class="rel">
                                             <span>【相關法規/條文】</span>
@@ -545,7 +544,7 @@ else if( !string.IsNullOrEmpty( b ) )
                                             </span>
                                         </div>
                                     }
-                                    @if( art.Ref.Length > 0 ) 
+                                    @if( art.Ref is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_ref")" class="ref">
                                             <span>【具參考價值】</span>
@@ -709,7 +708,7 @@ else if( !string.IsNullOrEmpty( b ) )
                     else 
                     {
                         <h6 id="@h6[ih6]">
-                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty())
+                            @if (art.ArticleNo.Contains('【') && !string.IsNullOrEmpty(art.ArticleNo))
                             {
                                 <a href="laws/a?a=@a&p=@ia&q=@b&f=@d&l=@e&ab=@f">
                                     <span>@art.ArticleNo.Split('【')[0]</span>
@@ -752,10 +751,10 @@ else if( !string.IsNullOrEmpty( b ) )
                                     ip ++ ; 
                                 }
                             }
-                            @if( art.Cases.Length > 0 || art.Ref.Length > 0 || art.Rel.Length > 0 ) 
+                            @if( art.Cases is { Length: > 0 } || art.Ref is { Length: > 0 } || art.Rel is { Length: > 0 } ) 
                             {
                                 <small>
-                                    @if( art.Cases.Length > 0 ) 
+                                    @if( art.Cases is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_cases")" class="cases">
                                             <span>【判例/解釋】</span>
@@ -771,7 +770,7 @@ else if( !string.IsNullOrEmpty( b ) )
                                             </span>
                                         </div>
                                     }
-                                    @if( art.Rel.Length > 0 ) 
+                                    @if( art.Rel is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_rel")" class="rel">
                                             <span>【相關法規/條文】</span>
@@ -787,7 +786,7 @@ else if( !string.IsNullOrEmpty( b ) )
                                             </span>
                                         </div>
                                     }
-                                    @if( art.Ref.Length > 0 ) 
+                                    @if( art.Ref is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_ref")" class="ref">
                                             <span>【具參考價值】</span>
@@ -951,7 +950,7 @@ else if( !string.IsNullOrEmpty( b ) )
                     else 
                     {
                         <h6 id="@h6[ih6]">
-                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty())
+                            @if (art.ArticleNo.Contains('【') && !string.IsNullOrEmpty(art.ArticleNo))
                             {
                                 <a href="laws/a?a=@a&p=@ia&q=@b&f=@d&l=@e&ab=@f">
                                     <span>@art.ArticleNo.Split('【')[0]</span>
@@ -994,10 +993,10 @@ else if( !string.IsNullOrEmpty( b ) )
                                     ip ++ ; 
                                 }
                             }
-                            @if( art.Cases.Length > 0 || art.Ref.Length > 0 || art.Rel.Length > 0 ) 
+                            @if( art.Cases is { Length: > 0 } || art.Ref is { Length: > 0 } || art.Rel is { Length: > 0 } ) 
                             {
                                 <small>
-                                    @if( art.Cases.Length > 0 ) 
+                                    @if( art.Cases is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_cases")" class="cases">
                                             <span>【判例/解釋】</span>
@@ -1013,7 +1012,7 @@ else if( !string.IsNullOrEmpty( b ) )
                                             </span>
                                         </div>
                                     }
-                                    @if( art.Rel.Length > 0 ) 
+                                    @if( art.Rel is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_rel")" class="rel">
                                             <span>【相關法規/條文】</span>
@@ -1029,7 +1028,7 @@ else if( !string.IsNullOrEmpty( b ) )
                                             </span>
                                         </div>
                                     }
-                                    @if( art.Ref.Length > 0 ) 
+                                    @if( art.Ref is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_ref")" class="ref">
                                             <span>【具參考價值】</span>
@@ -1193,7 +1192,7 @@ else if( !string.IsNullOrEmpty( b ) )
                     else 
                     {
                         <h6 id="@h6[ih6]">
-                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty())
+                            @if (art.ArticleNo.Contains('【') && !string.IsNullOrEmpty(art.ArticleNo))
                             {
                                 <a href="laws/a?a=@a&p=@ia&q=@b&f=@d&l=@e&ab=@f">
                                     <span>@art.ArticleNo.Split('【')[0]</span>
@@ -1236,10 +1235,10 @@ else if( !string.IsNullOrEmpty( b ) )
                                     ip ++ ; 
                                 }
                             }
-                            @if( art.Cases.Length > 0 || art.Ref.Length > 0 || art.Rel.Length > 0 ) 
+                            @if( art.Cases is { Length: > 0 } || art.Ref is { Length: > 0 } || art.Rel is { Length: > 0 } ) 
                             {
                                 <small>
-                                    @if( art.Cases.Length > 0 ) 
+                                    @if( art.Cases is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_cases")" class="cases">
                                             <span>【判例/解釋】</span>
@@ -1255,7 +1254,7 @@ else if( !string.IsNullOrEmpty( b ) )
                                             </span>
                                         </div>
                                     }
-                                    @if( art.Rel.Length > 0 ) 
+                                    @if( art.Rel is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_rel")" class="rel">
                                             <span>【相關法規/條文】</span>
@@ -1271,7 +1270,7 @@ else if( !string.IsNullOrEmpty( b ) )
                                             </span>
                                         </div>
                                     }
-                                    @if( art.Ref.Length > 0 ) 
+                                    @if( art.Ref is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_ref")" class="ref">
                                             <span>【具參考價值】</span>
@@ -1445,7 +1444,7 @@ else
                     else 
                     {
                         <h6 id="@h6[ih6]">
-                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty())
+                            @if (art.ArticleNo.Contains('【') && !string.IsNullOrEmpty(art.ArticleNo))
                             {
                                 <a href="laws/a?a=@a&p=@ia&q=@b&f=@d&l=@e&ab=@f">
                                     <span>@art.ArticleNo.Split('【')[0]</span>
@@ -1488,10 +1487,10 @@ else
                                     ip ++ ; 
                                 }
                             }
-                            @if( art.Cases.Length > 0 || art.Ref.Length > 0 || art.Rel.Length > 0 ) 
+                            @if( art.Cases is { Length: > 0 } || art.Ref is { Length: > 0 } || art.Rel is { Length: > 0 } ) 
                             {
                                 <small>
-                                    @if( art.Cases.Length > 0 ) 
+                                    @if( art.Cases is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_cases")" class="cases">
                                             <span>【判例/解釋】</span>
@@ -1507,7 +1506,7 @@ else
                                             </span>
                                         </div>
                                     }
-                                    @if( art.Rel.Length > 0 ) 
+                                    @if( art.Rel is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_rel")" class="rel">
                                             <span>【相關法規/條文】</span>
@@ -1523,7 +1522,7 @@ else
                                             </span>
                                         </div>
                                     }
-                                    @if( art.Ref.Length > 0 ) 
+                                    @if( art.Ref is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_ref")" class="ref">
                                             <span>【具參考價值】</span>
@@ -1687,7 +1686,7 @@ else
                     else 
                     {
                         <h6 id="@h6[ih6]">
-                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty())
+                            @if (art.ArticleNo.Contains('【') && !string.IsNullOrEmpty(art.ArticleNo))
                             {
                                 <a href="laws/a?a=@a&p=@ia&q=@b&f=@d&l=@e&ab=@f">
                                     <span>@art.ArticleNo.Split('【')[0]</span>
@@ -1730,10 +1729,10 @@ else
                                     ip ++ ; 
                                 }
                             }
-                            @if( art.Cases.Length > 0 || art.Ref.Length > 0 || art.Rel.Length > 0 ) 
+                            @if( art.Cases is { Length: > 0 } || art.Ref is { Length: > 0 } || art.Rel is { Length: > 0 } ) 
                             {
                                 <small>
-                                    @if( art.Cases.Length > 0 ) 
+                                    @if( art.Cases is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_cases")" class="cases">
                                             <span>【判例/解釋】</span>
@@ -1749,7 +1748,7 @@ else
                                             </span>
                                         </div>
                                     }
-                                    @if( art.Rel.Length > 0 ) 
+                                    @if( art.Rel is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_rel")" class="rel">
                                             <span>【相關法規/條文】</span>
@@ -1765,7 +1764,7 @@ else
                                             </span>
                                         </div>
                                     }
-                                    @if( art.Ref.Length > 0 ) 
+                                    @if( art.Ref is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_ref")" class="ref">
                                             <span>【具參考價值】</span>
@@ -1929,7 +1928,7 @@ else
                     else 
                     {
                         <h6 id="@h6[ih6]">
-                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty())
+                            @if (art.ArticleNo.Contains('【') && !string.IsNullOrEmpty(art.ArticleNo))
                             {
                                 <a href="laws/a?a=@a&p=@ia&q=@b&f=@d&l=@e&ab=@f">
                                     <span>@art.ArticleNo.Split('【')[0]</span>
@@ -1972,10 +1971,10 @@ else
                                     ip ++ ; 
                                 }
                             }
-                            @if( art.Cases.Length > 0 || art.Ref.Length > 0 || art.Rel.Length > 0 ) 
+                            @if( art.Cases is { Length: > 0 } || art.Ref is { Length: > 0 } || art.Rel is { Length: > 0 } ) 
                             {
                                 <small>
-                                    @if( art.Cases.Length > 0 ) 
+                                    @if( art.Cases is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_cases")" class="cases">
                                             <span>【判例/解釋】</span>
@@ -1991,7 +1990,7 @@ else
                                             </span>
                                         </div>
                                     }
-                                    @if( art.Rel.Length > 0 ) 
+                                    @if( art.Rel is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_rel")" class="rel">
                                             <span>【相關法規/條文】</span>
@@ -2007,7 +2006,7 @@ else
                                             </span>
                                         </div>
                                     }
-                                    @if( art.Ref.Length > 0 ) 
+                                    @if( art.Ref is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_ref")" class="ref">
                                             <span>【具參考價值】</span>
@@ -2171,7 +2170,7 @@ else
                     else 
                     {
                         <h6 id="@h6[ih6]">
-                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty())
+                            @if (art.ArticleNo.Contains('【') && !string.IsNullOrEmpty(art.ArticleNo))
                             {
                                 <a href="laws/a?a=@a&p=@ia&q=@b&f=@d&l=@e&ab=@f">
                                     <span>@art.ArticleNo.Split('【')[0]</span>
@@ -2214,10 +2213,10 @@ else
                                     ip ++ ; 
                                 }
                             }
-                            @if( art.Cases.Length > 0 || art.Ref.Length > 0 || art.Rel.Length > 0 ) 
+                            @if( art.Cases is { Length: > 0 } || art.Ref is { Length: > 0 } || art.Rel is { Length: > 0 } ) 
                             {
                                 <small>
-                                    @if( art.Cases.Length > 0 ) 
+                                    @if( art.Cases is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_cases")" class="cases">
                                             <span>【判例/解釋】</span>
@@ -2233,7 +2232,7 @@ else
                                             </span>
                                         </div>
                                     }
-                                    @if( art.Rel.Length > 0 ) 
+                                    @if( art.Rel is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_rel")" class="rel">
                                             <span>【相關法規/條文】</span>
@@ -2249,7 +2248,7 @@ else
                                             </span>
                                         </div>
                                     }
-                                    @if( art.Ref.Length > 0 ) 
+                                    @if( art.Ref is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_ref")" class="ref">
                                             <span>【具參考價值】</span>
@@ -2413,7 +2412,7 @@ else
                     else 
                     {
                         <h6 id="@h6[ih6]">
-                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty())
+                            @if (art.ArticleNo.Contains('【') && !string.IsNullOrEmpty(art.ArticleNo))
                             {
                                 <a href="laws/a?a=@a&p=@ia&q=@b&f=@d&l=@e&ab=@f">
                                     <span>@art.ArticleNo.Split('【')[0]</span>
@@ -2456,10 +2455,10 @@ else
                                     ip ++ ; 
                                 }
                             }
-                            @if( art.Cases.Length > 0 || art.Ref.Length > 0 || art.Rel.Length > 0 ) 
+                            @if( art.Cases is { Length: > 0 } || art.Ref is { Length: > 0 } || art.Rel is { Length: > 0 } ) 
                             {
                                 <small>
-                                    @if( art.Cases.Length > 0 ) 
+                                    @if( art.Cases is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_cases")" class="cases">
                                             <span>【判例/解釋】</span>
@@ -2475,7 +2474,7 @@ else
                                             </span>
                                         </div>
                                     }
-                                    @if( art.Rel.Length > 0 ) 
+                                    @if( art.Rel is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_rel")" class="rel">
                                             <span>【相關法規/條文】</span>
@@ -2491,7 +2490,7 @@ else
                                             </span>
                                         </div>
                                     }
-                                    @if( art.Ref.Length > 0 ) 
+                                    @if( art.Ref is { Length: > 0 } ) 
                                     {
                                         <div id="@(h6[ih6]+"_ref")" class="ref">
                                             <span>【具參考價值】</span>
@@ -2523,7 +2522,7 @@ else
 }
 
 <br class="printNoDisplay" />
-<a href="@( string.IsNullOrEmpty( d ) ? $"laws?q={b}&c={c}&l={e}&ab={f}" : ( Regex.IsMatch( d.ToUpper() , @"^([L]{1}[N]{1})" ) ? $"latest?no={d.ToUpper().Replace( "LN" , "" )}" : $"laws?q={b}&c={c}" ) )" class="printNoDisplay">回上一頁</a>
+<a href="@( string.IsNullOrEmpty( d ) ? $"laws?q={b}&c={c}&l={e}&ab={f}" : ( Regex.IsMatch( d.ToUpper() , "^([L]{1}[N]{1})" ) ? $"latest?no={d.ToUpper().Replace( "LN" , "" )}" : $"laws?q={b}&c={c}" ) )" class="printNoDisplay">回上一頁</a>
 
 @code 
 {
@@ -2611,7 +2610,7 @@ else
         {
             f = fff;
         }
-        aa = a.IsNullOrEmpty() ? -1 : int.Parse( Regex.Replace( a.ToUpper() , "[CXLJE]"  , "" ) ) - 1 ; 
+        aa = string.IsNullOrEmpty(a) ? -1 : int.Parse( Regex.Replace( a.ToUpper() , "[CXLJE]"  , "" ) ) - 1 ; 
     }
 
     protected override async Task OnInitializedAsync()
@@ -2650,7 +2649,6 @@ else
             switch (a.ToUpper()[0])
             {
                 case 'C':
-                {
                     foreach( var a in lc[aa].LawArticles) 
                     {
                         if( a.ArticleType == "A" ) 
@@ -2658,11 +2656,8 @@ else
                             aCount ++ ; 
                         }
                     }
-
                     break;
-                }
                 case 'X':
-                {
                     foreach( var a in lex[aa].LawArticles) 
                     {
                         if( a.ArticleType == "A" ) 
@@ -2670,11 +2665,8 @@ else
                             aCount ++ ; 
                         }
                     }
-
                     break;
-                }
                 case 'L':
-                {
                     foreach( var a in ll[aa].LawArticles) 
                     {
                         if( a.ArticleType == "A" ) 
@@ -2682,11 +2674,8 @@ else
                             aCount ++ ; 
                         }
                     }
-
                     break;
-                }
                 case 'J':
-                {
                     foreach( var a in lj[aa].LawArticles) 
                     {
                         if( a.ArticleType == "A" ) 
@@ -2694,11 +2683,8 @@ else
                             aCount ++ ; 
                         }
                     }
-
                     break;
-                }
                 case 'E':
-                {
                     foreach( var a in lel[aa].LawArticles) 
                     {
                         if( a.ArticleType == "A" ) 
@@ -2706,9 +2692,7 @@ else
                             aCount ++ ; 
                         }
                     }
-
                     break;
-                }
             }
             pCount = new int[aCount] ; 
             showNum = new string[aCount] ; 
