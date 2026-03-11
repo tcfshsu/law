@@ -52,7 +52,7 @@
 /* home page */
 .latest h1 
 {
-    font-family : "Noto Sans TC" , sans-serif ; 
+    font-family : "Noto Sans KR" , "Noto Sans TC" , sans-serif ; 
     font-weight : 600 ; 
     font-size : 2rem ; 
 }
