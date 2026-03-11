@@ -52,7 +52,7 @@ td
 }
 .p:not( div[ahhhhaaaahaha] .p ) h1 
 {
-    font-family : "Noto Sans Display" , "Noto Serif KR" , "Noto Serif TC" ; 
+    font-family : "Noto Sans Display" , '標點' , "Noto Serif KR" , "Noto Serif TC" ; 
 }
 .p:not( div[ahhhhaaaahaha] .p ) tr:has( td ) 
 {

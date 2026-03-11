@@ -3,7 +3,7 @@
     .bread ul 
     {
         display : inline-flex ; 
-        font-family : "Noto Serif" , "Noto Serif KR" , "Noto Serif TC" , "Noto Serif JP" , "Noto Serif SC" , sans-serif ; 
+        font-family : "Noto Serif" , '標點' , "Noto Serif KR" , "Noto Serif TC" , "Noto Serif JP" , "Noto Serif SC" , sans-serif ; 
         font-weight : 500 ; 
         flex-wrap : wrap ; 
     }
