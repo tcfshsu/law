@@ -16,24 +16,21 @@
 {
     font-family : 標點 ; 
     font-weight : 300 ; 
-    src : url("data:font/woff2;base64,d09GMgABAAAAAAdEAA8AAAAAEIwAAAbsAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP0ZGVE0cBmAAgnYRCAqBWIFLCw4AATYCJAMUBCAFlxMHRgwHFyQYFBtqD1GUadImCb4qsIkMH7oeplGlWzixyKLMiiG1ju4aV8zeQx") format(woff2) 
-    , url("https://tcfshsu.github.io/law/fonts/NotoSansTC-Light.ttf") format("truetype") ; 
+    src : url("https://tcfshsu.github.io/law/fonts/NotoSansTC-Light.ttf") format("truetype") ; 
     unicode-range : U+3001-3002, U+FF0C ; 
 }
 @font-face 
 {
     font-family : 標點 ; 
-    font-weight : 700 ; 
-    src : url("data:font/woff2;base64,d09GMgABAAAAAAbsAA8AAAAAECQAAAaUAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP0ZGVE0cBmAAgnYRCAqBWIFMCw4AATYCJAMUBCAFlioHRgwHFyQYFBsCD1GUaNLOCH4e2MbUhyZ8M7zKuCsNQ6grB8PYxmgzDb") format(woff2) 
-    , url("https://tcfshsu.github.io/law/fonts/NotoSansTC-Regular.ttf") format("truetype") ; 
+    font-weight : 500 ; 
+    src : url("https://tcfshsu.github.io/law/fonts/NotoSansTC-Regular.ttf") format("truetype") ; 
     unicode-range : U+3001-3002, U+FF0C ; 
 }
 @font-face 
 {
     font-family : 標點 ; 
     font-weight : 900 ; 
-    src : url("data:font/woff2;base64,d09GMgABAAAAAAc8AA8AAAAAEIwAAAbhAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP0ZGVE0cBmAAgnYRCAqBWIFQCw4AATYCJAMUBCAFlxMHRgwHFyQYFBtvD1GUadIYCX4W2I0vB02JNZeFwqgHIRxTFtma0NsBh") format(woff2) 
-    , url("https://tcfshsu.github.io/law/fonts/NotoSansTC-Black.ttf") format("truetype") ;  
+    src : url("https://tcfshsu.github.io/law/fonts/NotoSansTC-Black.ttf") format("truetype") ;  
     unicode-range : U+3001-3002, U+FF0C ; 
 }
 @font-face 
