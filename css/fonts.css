@@ -15,22 +15,64 @@
 @font-face 
 {
     font-family : 標點 ; 
+    font-weight : 100 ; 
+    src : url("https://tcfshsu.github.io/law/fonts/NotoSerifTC-Thin.woff2") format("woff2") ; 
+    unicode-range : U+3001-3002, U+FF0C ; 
+}
+@font-face 
+{
+    font-family : 標點 ; 
+    font-weight : 200 ; 
+    src : url("https://tcfshsu.github.io/law/fonts/NotoSerifTC-ExtraLight.woff2") format("woff2") ; 
+    unicode-range : U+3001-3002, U+FF0C ; 
+}
+@font-face 
+{
+    font-family : 標點 ; 
     font-weight : 300 ; 
-    src : url("https://tcfshsu.github.io/law/fonts/NotoSansTC-Light.ttf") format("truetype") ; 
+    src : url("https://tcfshsu.github.io/law/fonts/NotoSerifTC-Light.woff2") format("woff2") ; 
+    unicode-range : U+3001-3002, U+FF0C ; 
+}
+@font-face 
+{
+    font-family : 標點 ; 
+    font-weight : 400 ; 
+    src : url("https://tcfshsu.github.io/law/fonts/NotoSerifTC-Regular.woff2") format("woff2") ; 
     unicode-range : U+3001-3002, U+FF0C ; 
 }
 @font-face 
 {
     font-family : 標點 ; 
     font-weight : 500 ; 
-    src : url("https://tcfshsu.github.io/law/fonts/NotoSansTC-Regular.ttf") format("truetype") ; 
+    src : url("https://tcfshsu.github.io/law/fonts/NotoSerifTC-Medium.woff2") format("woff2") ;  
+    unicode-range : U+3001-3002, U+FF0C ; 
+}
+@font-face 
+{
+    font-family : 標點 ; 
+    font-weight : 600 ; 
+    src : url("https://tcfshsu.github.io/law/fonts/NotoSerifTC-SemiBold.woff2") format("woff2") ;  
+    unicode-range : U+3001-3002, U+FF0C ; 
+}
+@font-face 
+{
+    font-family : 標點 ; 
+    font-weight : 700 ; 
+    src : url("https://tcfshsu.github.io/law/fonts/NotoSerifTC-Bold.woff2") format("woff2") ;  
+    unicode-range : U+3001-3002, U+FF0C ; 
+}
+@font-face 
+{
+    font-family : 標點 ; 
+    font-weight : 800 ; 
+    src : url("https://tcfshsu.github.io/law/fonts/NotoSerifTC-ExtraBold.woff2") format("woff2") ;  
     unicode-range : U+3001-3002, U+FF0C ; 
 }
 @font-face 
 {
     font-family : 標點 ; 
     font-weight : 900 ; 
-    src : url("https://tcfshsu.github.io/law/fonts/NotoSansTC-Black.ttf") format("truetype") ;  
+    src : url("https://tcfshsu.github.io/law/fonts/NotoSerifTC-Black.woff2") format("woff2") ;  
     unicode-range : U+3001-3002, U+FF0C ; 
 }
 @font-face 
