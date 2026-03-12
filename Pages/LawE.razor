@@ -1,5 +1,4 @@
 @page "/laws/lawe"
-@using Microsoft.IdentityModel.Tokens
 @inject HttpClient Http 
 @inject NavigationManager N
 <style>
@@ -129,7 +128,7 @@ else
                     else 
                     {
                         <h6 id="@h6[ih6]">
-                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty() )
+                            @if (art.ArticleNo.Contains('【') && !string.IsNullOrEmpty(art.ArticleNo) )
                             {
                                 <span>@art.ArticleNo.Split('【')[0]</span>
                                 <span>@Regex.Split(art.ArticleNo, @"條(?=【)")[1]</span>
@@ -239,7 +238,7 @@ else
                     else 
                     {
                         <h6 id="@h6[ih6]">
-                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty())
+                            @if (art.ArticleNo.Contains('【') && !string.IsNullOrEmpty(art.ArticleNo))
                             {
                                 <span>@art.ArticleNo.Split('【')[0]</span>
                                 <span>@Regex.Split(art.ArticleNo, "條(?=【)")[1]</span>
@@ -349,7 +348,7 @@ else
                     else 
                     {
                         <h6 id="@h6[ih6]">
-                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty() )
+                            @if (art.ArticleNo.Contains('【') && !string.IsNullOrEmpty(art.ArticleNo) )
                             {
                                 <span>@art.ArticleNo.Split('【')[0]</span>
                                 <span>@Regex.Split(art.ArticleNo, @"條(?=【)")[1]</span>
@@ -459,7 +458,7 @@ else
                     else 
                     {
                         <h6 id="@h6[ih6]">
-                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty() )
+                            @if (art.ArticleNo.Contains('【') && !string.IsNullOrEmpty(art.ArticleNo) )
                             {
                                 <span>@art.ArticleNo.Split('【')[0]</span>
                                 <span>@Regex.Split(art.ArticleNo, @"條(?=【)")[1]</span>
@@ -569,7 +568,7 @@ else
                     else 
                     {
                         <h6 id="@h6[ih6]">
-                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty() )
+                            @if (art.ArticleNo.Contains('【') && !string.IsNullOrEmpty(art.ArticleNo) )
                             {
                                 <span>@art.ArticleNo.Split('【')[0]</span>
                                 <span>@Regex.Split(art.ArticleNo, @"條(?=【)")[1]</span>

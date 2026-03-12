@@ -1,5 +1,4 @@
 @page "/s"
-@using Microsoft.IdentityModel.Tokens
 @inject HttpClient Http
 
 <style>
@@ -37,7 +36,7 @@
         </tr>
     </thead>
     <tbody style="font-family:'Fira Code', 'Sonti TC' , '標點' , 'Noto Serif KR' , 'Noto Serif TC' , 'Noto Serif JP' , 'Noto Serif SC' , sans-serif;">
-        @if(!r.IsNullOrEmpty())
+        @if(r != null && r.Count > 0)
         {
             @foreach (var x in r.OrderByDescending(r => r.C).ThenBy(r => r.A))
             {
@@ -70,7 +69,7 @@
         </tr>
     </thead>
     <tbody style="font-family:'Fira Code', 'Sonti TC' , '標點' , 'Noto Serif KR' , 'Noto Serif TC' , 'Noto Serif JP' , 'Noto Serif SC' , sans-serif;">
-        @if(!rc.IsNullOrEmpty())
+        @if(rc is not null && rc.Count > 0)
         {
             @foreach (var x in rc.OrderByDescending(r => r.C).ThenBy(r => r.A))
             {

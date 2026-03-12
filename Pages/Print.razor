@@ -1,7 +1,5 @@
 @page "/print"
-@using Microsoft.IdentityModel.Tokens
 @inject HttpClient Http
-@inject IJSRuntime JS
 <PageTitle>法規彙編 - 臺中市立臺中第一高級中等學校學生自治聯合會法規資料庫</PageTitle>
 <div class="bread">
     <span>現在位置：</span>
@@ -188,7 +186,7 @@ else
                     else 
                     {
                         <h6>
-                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty() )
+                            @if (art.ArticleNo.Contains('【') && !string.IsNullOrEmpty(art.ArticleNo) )
                             {
                                 <span>@art.ArticleNo.Split('【')[0]</span>
                                 <span>@Regex.Split(art.ArticleNo, "條(?=【)")[1]</span>
@@ -418,7 +416,7 @@ else
                     else 
                     {
                         <h6>
-                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty() )
+                            @if (art.ArticleNo.Contains('【') && !string.IsNullOrEmpty(art.ArticleNo) )
                             {
                                 <span>@art.ArticleNo.Split('【')[0]</span>
                                 <span>@Regex.Split(art.ArticleNo, "條(?=【)")[1]</span>
@@ -533,7 +531,7 @@ else
                     else 
                     {
                         <h6>
-                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty() )
+                            @if (art.ArticleNo.Contains('【') && !string.IsNullOrEmpty(art.ArticleNo) )
                             {
                                 <span>@art.ArticleNo.Split('【')[0]</span>
                                 <span>@Regex.Split(art.ArticleNo, "條(?=【)")[1]</span>
@@ -648,7 +646,7 @@ else
                     else 
                     {
                         <h6>
-                            @if (art.ArticleNo.Contains('【') && !art.ArticleNo.IsNullOrEmpty() )
+                            @if (art.ArticleNo.Contains('【') && !string.IsNullOrEmpty(art.ArticleNo) )
                             {
                                 <span>@art.ArticleNo.Split('【')[0]</span>
                                 <span>@Regex.Split(art.ArticleNo, "條(?=【)")[1]</span>
