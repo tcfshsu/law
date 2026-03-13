@@ -160,15 +160,15 @@
     private P[]? p;
     private C[]? c;
     public string? a , b , q ; 
-    public string lty ;
-    public string ltm ;
-    public string ltd ;
-    public string pty ;
-    public string ptm ;
-    public string ptd ;
-    public string cty ;
-    public string ctm ;
-    public string ctd ;
+    public required string lty ;
+    public required string ltm ;
+    public required string ltd ;
+    public required string pty ;
+    public required string ptm ;
+    public required string ptd ;
+    public required string cty ;
+    public required string ctm ;
+    public required string ctd ;
     private string? dark ; 
     private string menuBar = "M3 12L21 12M3 6L21 6M3 18L21 18" ; 
     private readonly string X = "M3 3L21 21M3 21L21 3" ; 
@@ -288,16 +288,16 @@
     }
     public class L
     {
-        public string UpdateDate { get; set; }
+        public required string UpdateDate { get; set; }
     }
     public class P
     {
-        public string UpdateDate { get; set; }
+        public required string UpdateDate { get; set; }
     }
 
     public class C
     {
-        public string UpdateDate { get; set; }
+        public required string UpdateDate { get; set; }
     }
     private bool collapseNavMenu = true;
 

@@ -174,13 +174,13 @@ else
 
     public class Casess
     {
-        public string UpdateDate { get; set; }
-        public Case[] Cases { get; set; }
+        public required string UpdateDate { get; set; }
+        public required Case[] Cases { get; set; }
     }
     public class Case 
     {
-        public string No { get; set; }
-        public string Category { get; set; }
+        public required string No { get; set; }
+        public required string Category { get; set; }
         public string? DeliberationDate { get; set; }
         public string? Petitioner { get; set; }
         public string? Plaintiff { get; set; }
@@ -195,13 +195,13 @@ else
     }
     public class R 
     {
-        public string RulingNo { get; set; }
-        public string FullRulingURL { get; set; }
+        public required string RulingNo { get; set; }
+        public required string FullRulingURL { get; set; }
     }
     public class O 
     {
-        public string Type { get; set; }
-        public string Member { get; set; }
-        public string URL { get; set; }
+        public required string Type { get; set; }
+        public required string Member { get; set; }
+        public required string URL { get; set; }
     }
 }
