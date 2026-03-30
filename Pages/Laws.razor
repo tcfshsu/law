@@ -148,7 +148,7 @@ else
         laws = await Http.GetFromJsonAsync<LawRoot[]>("json/laws.json");
         if( laws!= null ) 
         {
-            lq = laws[0].Laws.Where( l => string.IsNullOrEmpty( a ) ? true : ( a.ToUpper() == "EL" ? l.LawCategory.Contains( "選舉法規" ) : ( a.ToUpper() == "C" ? ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "中央法規" ) ) : ( a.ToUpper() == "EX" ? ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "行政法規" ) ) : ( a.ToUpper() == "L" ? ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "立法法規" ) ) : ( a.ToUpper() == "J" ? ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "司法法規" ) ) : true  ) ) ) ) ) ).ToList() ; 
+            lq = laws[0].Laws.Where( l => string.IsNullOrEmpty( a ) || ( a.ToUpper() == "EL" ? l.LawCategory.Contains( "選舉法規" ) : ( a.ToUpper() == "C" ? ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "中央法規" ) ) : ( a.ToUpper() == "EX" ? ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "行政法規" ) ) : ( a.ToUpper() == "L" ? ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "立法法規" ) ) : ( a.ToUpper() != "J" || ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "司法法規" ) )  ) ) ) ) ) ).ToList() ; 
             if( !string.IsNullOrEmpty( d ) && d == "true" ) 
             {
                 lq = lq.Where( l => l.LawAbandonNote == "廢" ).ToList() ; 
@@ -157,7 +157,7 @@ else
             {
                 lq = lq.Where( l => l.LawAbandonNote == "" ).ToList() ; 
             }
-            if( !string.IsNullOrEmpty( c ) && ( c == "章程" || c == "法律" || c == "命令" ) ) 
+            if( !string.IsNullOrEmpty( c ) && c is "章程" or "法律" or "命令" ) 
             {
                 lq = lq.Where( l => l.LawLevel == c ).ToList() ; 
             }
