@@ -202,6 +202,7 @@ header .top > :last-child:hover
 header .top > :last-child:focus 
 {
   color : #fc0 ; 
+  outline : solid #fa8484 ; 
 }
 header .top > :last-child svg 
 {
