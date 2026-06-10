@@ -51,75 +51,75 @@
     <option value="CtoO">位階（高 > 低）</option>
     <option value="OtoC">位階（低 > 高）</option> *@
 </select>
-@if (laws == null)
-{
-    <p style="display:block;width:fit-content;margin:1rem auto;"><em>Loading...</em></p>
-}
-else 
-{
-    @if( lq.Count != 0 ) 
-    {
-        @foreach( var l in lq ) 
+<Virtualize Context="l" Items="lq">
+    <ItemContent>
+        <a class="lawresult" href="@l.LawURL&c=@a&q=@b&l=@c&ab=@d">
+            <div>
+                <span class="abandoned">@l.LawAbandonNote</span>
+                @if (l.SearchResult(b, true).Contains("<\\>"))
+                {
+                    @foreach (var r in l.SearchResult(b, true).Split("<\\>"))
+                    {
+                        @if (r.Contains(b))
+                        {
+                            <span class="matched">@r</span>
+                        }
+                        else
+                        {
+                            @r
+                        }
+                    }
+                }
+                else
+                {
+                    @(l.SearchResult(b, true))
+                }
+            </div>
+            <div class="preview">
+                @if (l.SearchResult(b, false).Contains("<\\>"))
+                {
+                    @foreach (var r in l.SearchResult(b, false).Split("<\\>"))
+                    {
+                        @if (r.Contains(b))
+                        {
+                            <span class="matched">@r</span>
+                        }
+                        else
+                        {
+                            @r
+                        }
+                    }
+                }
+                else
+                {
+                    @(l.SearchResult(b, false))
+                }
+            </div>
+        </a> 
+    </ItemContent>
+    <EmptyContent>
+        @if (laws == null)
         {
-            <a class="lawresult" href="@l.LawURL&c=@a&q=@b&l=@c&ab=@d">
-                <div>
-                    <span class="abandoned">@l.LawAbandonNote</span>
-                    @if( l.SearchResult( b , true ).Contains( "<\\>" ) )
-                    {
-                        @foreach( var r in l.SearchResult( b , true ).Split( "<\\>" ) ) 
-                        {
-                            @if( r.Contains( b ) ) 
-                            {
-                                <span class="matched">@r</span>
-                            }
-                            else 
-                            {
-                                @r
-                            }
-                        }
-                    }
-                    else 
-                    {
-                        @( l.SearchResult( b , true ) ) 
-                    }
-                </div>
-                <div class="preview">
-                    @if( l.SearchResult( b , false ).Contains( "<\\>" ) )
-                    {
-                        @foreach( var r in l.SearchResult( b , false ).Split( "<\\>" ) ) 
-                        {
-                            @if( r.Contains( b ) ) 
-                            {
-                                <span class="matched">@r</span>
-                            }
-                            else 
-                            {
-                                @r
-                            }
-                        }
-                    }
-                    else 
-                    {
-                        @( l.SearchResult( b , false ) ) 
-                    }
-                </div>
-            </a>
+            <p style="display:block;width:fit-content;margin:1rem auto;">
+                <em>Loading...</em>
+            </p>
         }
-    }
-    else 
-    {
-        <div id="lawnoresult">查無資料</div>
-    }
-}
-<br class="printNoDisplay" /><a class="printNoDisplay" href="">回首頁</a>
+        else
+        {
+            <div id="lawnoresult">查無資料</div>
+        }
+    </EmptyContent>
+</Virtualize>
+<br class="printNoDisplay" />
+<a class="printNoDisplay" href="">回首頁</a>
 
 @code {
     private LawRoot[]? laws;
     public string? a;
     public required string b;
     public string? c ; 
-    public string? d ; 
-    public List<L> lq = new List<L>(); 
+    public string? d ;
+    public List<L> lq = [];
     public List<L> lqDefault = new List<L>(); 
     protected override void OnInitialized()
     {
@@ -148,7 +148,7 @@ else
         laws = await Http.GetFromJsonAsync<LawRoot[]>("json/laws.json");
         if( laws!= null ) 
         {
-            lq = laws[0].Laws.Where( l => string.IsNullOrEmpty( a ) || ( a.ToUpper() == "EL" ? l.LawCategory.Contains( "選舉法規" ) : ( a.ToUpper() == "C" ? ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "中央法規" ) ) : ( a.ToUpper() == "EX" ? ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "行政法規" ) ) : ( a.ToUpper() == "L" ? ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "立法法規" ) ) : ( a.ToUpper() != "J" || ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "司法法規" ) )  ) ) ) ) ) ).ToList() ; 
+            lq = laws[0].Laws.Where( l => string.IsNullOrEmpty( a ) || ( a.ToUpper() == "EL" ? l.LawCategory.Contains( "選舉法規" ) : ( a.ToUpper() == "C" ? ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "中央法規" ) ) : ( a.ToUpper() == "EX" ? ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "行政法規" ) ) : ( a.ToUpper() == "L" ? ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "立法法規" ) ) : ( a.ToUpper() != "J" || ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "司法法規" ) ) ) ) ) ) ) ).ToList() ; 
             if( !string.IsNullOrEmpty( d ) && d == "true" ) 
             {
                 lq = lq.Where( l => l.LawAbandonNote == "廢" ).ToList() ; 
