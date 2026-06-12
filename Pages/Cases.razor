@@ -74,12 +74,12 @@ else
                 {
                     @foreach (var rul in cas.Rulings)
                     {
-                        @foreach( var a in Regex.Replace( a , @"\s" , "\r\n" ).Split( "\r\n" ) ) 
+                        @foreach( var aa in Regex.Replace( a , @"\s" , "\r\n" ).Split( "\r\n" ) ) 
                         {
-                            @if ( rul.RulingNo.ToUpper().Contains(a) )
+                            @if ( rul.RulingNo.ToUpper().Contains(aa) )
                             {
                                 <tr>
-                                    <td><a href="cases/detail?case=@cas.No&q=@a" target="_self">@cas.No</a></td>
+                                    <td><a href="cases/detail?case=@cas.No&q=@aa" target="_self">@cas.No</a></td>
                                     <td>@cas.Category</td>
                                     @if (cas.Title != "")
                                     {
@@ -99,12 +99,12 @@ else
                 {
                     @foreach (var o in cas.Opinions)
                     { 
-                        @foreach( var a in Regex.Replace( a , @"\s" , "\r\n" ).Split( "\r\n" ) ) 
+                        @foreach( var aa in Regex.Replace( a , @"\s" , "\r\n" ).Split( "\r\n" ) ) 
                         {
-                            @if ( o.Type.ToUpper().Contains(a) || o.Member.ToUpper().Contains(a) )
+                            @if ( o.Type.ToUpper().Contains(aa) || o.Member.ToUpper().Contains(aa) )
                             {
                                 <tr>
-                                    <td><a href="cases/detail?case=@cas.No&q=@a" target="_self">@cas.No</a></td>
+                                    <td><a href="cases/detail?case=@cas.No&q=@aa" target="_self">@cas.No</a></td>
                                     <td>@cas.Category</td>
                                     @if (cas.Title != "")
                                     {
@@ -120,12 +120,12 @@ else
                         }
                     }
                 }
-                @foreach( var a in Regex.Replace( a , @"\s" , "\r\n" ).Split( "\r\n" ) ) 
+                @foreach( var aa in Regex.Replace( a , @"\s" , "\r\n" ).Split( "\r\n" ) ) 
                 {
-                    @if ( cas.No.ToUpper().Contains(a) || cas.Category.ToUpper().Contains(a) )
+                    @if ( cas.No.ToUpper().Contains(aa) || cas.Category.ToUpper().Contains(aa) )
                     {
                         <tr>
-                            <td><a href="cases/detail?case=@cas.No&q=@a" target="_self">@cas.No</a></td>
+                            <td><a href="cases/detail?case=@cas.No&q=@aa" target="_self">@cas.No</a></td>
                             <td>@cas.Category</td>
                             @if (cas.Title != "")
                             {
@@ -137,10 +137,10 @@ else
                             }
                         </tr>
                     }
-                    else if (cas.DeliberationDate != null && cas.DeliberationDate.ToUpper().Contains(a))
+                    else if (cas.DeliberationDate != null && cas.DeliberationDate.ToUpper().Contains(aa))
                     {
                         <tr>
-                            <td><a href="cases/detail?case=@cas.No&q=@a" target="_self">@cas.No</a></td>
+                            <td><a href="cases/detail?case=@cas.No&q=@aa" target="_self">@cas.No</a></td>
                             <td>@cas.Category</td>
                             @if (cas.Title != "")
                             {
@@ -152,10 +152,10 @@ else
                             }
                         </tr>
                     }
-                    else if (cas.Petitioner != null && cas.Petitioner.ToUpper().Contains(a))
+                    else if (cas.Petitioner != null && cas.Petitioner.ToUpper().Contains(aa))
                     {
                         <tr>
-                            <td><a href="cases/detail?case=@cas.No&q=@a" target="_self">@cas.No</a></td>
+                            <td><a href="cases/detail?case=@cas.No&q=@aa" target="_self">@cas.No</a></td>
                             <td>@cas.Category</td>
                             @if (cas.Title != "")
                             {
@@ -167,10 +167,10 @@ else
                             }
                         </tr>
                     }
-                    else if (cas.Plaintiff != null && cas.Plaintiff.ToUpper().Contains(a))
+                    else if (cas.Plaintiff != null && cas.Plaintiff.ToUpper().Contains(aa))
                     {
                         <tr>
-                            <td><a href="cases/detail?case=@cas.No&q=@a" target="_self">@cas.No</a></td>
+                            <td><a href="cases/detail?case=@cas.No&q=@aa" target="_self">@cas.No</a></td>
                             <td>@cas.Category</td>
                             @if (cas.Title != "")
                             {
@@ -182,10 +182,10 @@ else
                             }
                         </tr>
                     }
-                    else if (cas.Defendant != null && cas.Defendant.ToUpper().Contains(a))
+                    else if (cas.Defendant != null && cas.Defendant.ToUpper().Contains(aa))
                     {
                         <tr>
-                            <td><a href="cases/detail?case=@cas.No&q=@a" target="_self">@cas.No</a></td>
+                            <td><a href="cases/detail?case=@cas.No&q=@aa" target="_self">@cas.No</a></td>
                             <td>@cas.Category</td>
                             @if (cas.Title != "")
                             {
@@ -197,26 +197,26 @@ else
                             }
                         </tr>
                     }
-                    else if (cas.Title != null && cas.Title.ToUpper().Contains(a))
+                    else if (cas.Title != null && cas.Title.ToUpper().Contains(aa))
                     {
                         <tr>
-                            <td><a href="cases/detail?case=@cas.No&q=@a" target="_self">@cas.No</a></td>
+                            <td><a href="cases/detail?case=@cas.No&q=@aa" target="_self">@cas.No</a></td>
                             <td>@cas.Category</td>
                             <td>@cas.Title</td>
                         </tr>
                     }
-                    else if (cas.Cause != null && cas.Cause.ToUpper().Contains(a))
+                    else if (cas.Cause != null && cas.Cause.ToUpper().Contains(aa))
                     {
                         <tr>
-                            <td><a href="cases/detail?case=@cas.No&q=@a" target="_self">@cas.No</a></td>
+                            <td><a href="cases/detail?case=@cas.No&q=@aa" target="_self">@cas.No</a></td>
                             <td>@cas.Category</td>
                             <td>@cas.Cause</td>
                         </tr>
                     }
-                    else if (cas.Syllabus != null && cas.Syllabus.ToUpper().Contains(a))
+                    else if (cas.Syllabus != null && cas.Syllabus.ToUpper().Contains(aa))
                     {
                         <tr>
-                            <td><a href="cases/detail?case=@cas.No&q=@a" target="_self">@cas.No</a></td>
+                            <td><a href="cases/detail?case=@cas.No&q=@aa" target="_self">@cas.No</a></td>
                             <td>@cas.Category</td>
                             @if (cas.Title != "")
                             {
@@ -228,10 +228,10 @@ else
                             }
                         </tr>
                     }
-                    else if (cas.State != null && cas.State.ToUpper().Contains(a))
+                    else if (cas.State != null && cas.State.ToUpper().Contains(aa))
                     {
                         <tr>
-                            <td><a href="cases/detail?case=@cas.No&q=@a" target="_self">@cas.No</a></td>
+                            <td><a href="cases/detail?case=@cas.No&q=@aa" target="_self">@cas.No</a></td>
                             <td>@cas.Category</td>
                             @if (cas.Title != "")
                             {
@@ -255,14 +255,14 @@ else
     private Casess[]? cases;
     public required string a; 
     public string? b ; 
-    private List<Case> cq = new List<Case>(); 
+    private List<Case> cq = []; 
     protected override void OnInitialized()
     {
         var uri = N.ToAbsoluteUri(N.Uri);
         var queryStrings = QueryHelpers.ParseQuery(uri.Query);
         if (queryStrings.TryGetValue("q", out var aaa))
         {
-            a = aaa;
+            a = aaa!;
         }
         if (queryStrings.TryGetValue("c", out var bbb))
         {
@@ -295,17 +295,17 @@ else
     {
         public required string No { get; set; }
         public required string Category { get; set; }
-        public string? DeliberationDate { get; set; }
-        public string? Petitioner { get; set; }
-        public string? Plaintiff { get; set; }
-        public string? Defendant { get; set; }
-        public string? Title { get; set; }
-        public string? Cause { get; set; }
-        public string? Syllabus { get; set; }
-        public string? State { get; set; }
-        public string? FullJudgement { get; set; }
-        public R[]? Rulings { get; set; }
-        public O[]? Opinions { get; set; } 
+        public required string DeliberationDate { get; set; }
+        public required string Petitioner { get; set; }
+        public required string Plaintiff { get; set; }
+        public required string Defendant { get; set; }
+        public required string Title { get; set; }
+        public required string Cause { get; set; }
+        public required string Syllabus { get; set; }
+        public required string State { get; set; }
+        public required string FullJudgement { get; set; }
+        public required R[] Rulings { get; set; }
+        public required O[] Opinions { get; set; } 
     }
     public class R 
     {

@@ -2526,69 +2526,71 @@ else
 
 @code 
 {
-    public LawRoot[]? laws;
-    public int h1c;
-    public int h2c;
-    public int h3c;
-    public int h4c;
-    public int h5c;
-    public int h6c;
-    public int pc;
-    public int subpc;
-    public int itemc;
-    public int ofc;
-    public string[]? h1 ;
-    public string[]? h2 ;
-    public string[]? h3 ;
-    public string[]? h4 ;
-    public string[]? h5 ;
-    public string[]? h6 ;
-    public string[]? lip ;
-    public string[]? lisubp ;
-    public string[]? liitem ;
-    public string[]? liof ;
-    public int ih1;
-    public int ih2;
-    public int ih3;
-    public int ih4;
-    public int ih5;
-    public int iCh1;
-    public int iCh2;
-    public int iCh3;
-    public int iCh4;
-    public int iCh5;
-    public int ih6;
-    public int ip;
-    public int isubp;
-    public int iitem;
-    public int iof;
-    public int aCount;
-    public int[] pCount;
-    public string[]? showNum;
-    public int ic = 0;
-    public int iex = 0;
-    public int il = 0;
-    public int ij = 0;
-    public int iel = 0;
-    public List<L> lc = new List<L>();
-    public List<L> lex = new List<L>();
-    public List<L> ll = new List<L>();
-    public List<L> lj = new List<L>();
-    public List<L> lel = new List<L>();
+    private LawRoot[]? laws;
+    private int h1c;
+    private int h2c;
+    private int h3c;
+    private int h4c;
+    private int h5c;
+    private int h6c;
+    private int pc;
+    private int subpc;
+    private int itemc;
+    private int ofc;
+    private string[]? h1 ;
+    private string[]? h2 ;
+    private string[]? h3 ;
+    private string[]? h4 ;
+    private string[]? h5 ;
+    private string[]? h6 ;
+    private string[]? lip ;
+    private string[]? lisubp ;
+    private string[]? liitem ;
+    private string[]? liof ;
+    private int ih1;
+    private int ih2;
+    private int ih3;
+    private int ih4;
+    private int ih5;
+    private int iCh1;
+    private int iCh2;
+    private int iCh3;
+    private int iCh4;
+    private int iCh5;
+    private int ih6;
+    private int ip;
+    private int isubp;
+    private int iitem;
+    private int iof;
+    private int aCount;
+    private int ic = 0;
+    private int iex = 0;
+    private int il = 0;
+    private int ij = 0;
+    private int iel = 0;
+    private L[] lc = [];
+    private L[] lex = [];
+    private L[] ll = [];
+    private L[] lj = [];
+    private L[] lel;
     public required string a;
-    public string? b;
-    public string? c;
-    public int aa = -1 ; 
-    public string? d;
-    public string? e ; 
-    public string? f ; 
+    private string? b;
+    private string? c;
+    private int aa = -1 ; 
+    private string? d;
+    private string? e ; 
+    private string? f ;
+    private readonly Regex of = new("^([1-9]{1}[0-9]+、|[1-9]{1}、|[１-９]{1}[０-９]+、|[１-９]{1}、|[1-9]{1}[0-9]+\u002E|[1-9]{1}\u002E|[１-９]{1}[０-９]+\u002E|[１-９]{1}\u002E)" );
+    private readonly Regex item = new(@"^(（[一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+）|（[一二三四五六七八九十]{1}）|（[1-9]{1}[0-9]+）|（[1-9]{1}）|（[１-９]{1}[０-９]+）|（[１-９]{1}）)");
+    private readonly Regex subp = new(@"^([一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+、|[一二三四五六七八九十]{1}、)");
+    private bool ifavalid = false ; 
     protected override void OnInitialized()
     {
         var uri = N.ToAbsoluteUri(N.Uri);
         var queryStrings = QueryHelpers.ParseQuery(uri.Query);
         if (queryStrings.TryGetValue("a", out var aaa))
         {
-            a = aaa;
+            a = aaa!;
         }
         if (queryStrings.TryGetValue("q", out var bbb))
         {
@@ -2615,356 +2617,115 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        if( a != "" && a != null ) 
+        if( !string.IsNullOrEmpty(a) ) 
         {
             laws = await Http.GetFromJsonAsync<LawRoot[]>("json/laws.json");
-            foreach (var l in laws[0].Laws)
+            lel = laws![0].Laws.Where(l => l.LawCategory.Contains("選舉法規")).ToArray();
+            iel = lel.Length;
+            lc = laws![0].Laws.Where(l => !l.LawCategory.Contains("選舉法規") && l.LawCategory.Contains("中央法規")).ToArray();
+            ic = lc.Length;
+            lex = laws![0].Laws.Where(l => !l.LawCategory.Contains("選舉法規") && l.LawCategory.Contains("行政法規")).ToArray();
+            iex = lex.Length;
+            ll = laws![0].Laws.Where(l => !l.LawCategory.Contains("選舉法規") && l.LawCategory.Contains("立法法規")).ToArray();
+            il = lel.Length;
+            lj = laws![0].Laws.Where(l => !l.LawCategory.Contains("選舉法規") && l.LawCategory.Contains("司法法規")).ToArray();
+            ij = lj.Length;
+            ifavalid = !( !Regex.IsMatch( a.ToUpper() , "[CXLJE]{1}[0-9]{9}" ) || int.Parse( Regex.Replace( a.ToUpper() , @"[CXLJE]"  , "" ) ) <= 0 || int.Parse( a.ToUpper().Contains( 'C' ) ? a.ToUpper().Replace( "C"  , "" ) : "-1" ) > ic || int.Parse( a.ToUpper().Contains( 'X' ) ? a.ToUpper().Replace( "X"  , "" ) : "-1" ) > iex || int.Parse( a.ToUpper().Contains( 'L' ) ? a.ToUpper().Replace( "L"  , "" ) : "-1" ) > il || int.Parse( a.ToUpper().Contains( 'J' ) ? a.ToUpper().Replace( "J"  , "" ) : "-1" ) > ij || int.Parse( a.ToUpper().Contains( 'E' ) ? a.ToUpper().Replace( "E"  , "" ) : "-1" ) > iel ) ; 
+            aCount = a.ToUpper()[0] switch
             {
-                if (l.LawCategory.Contains("選舉法規"))
-                {
-                    lel.Add(l);
-                    iel++;
-                }
-                else if (l.LawCategory.Contains("中央法規"))
-                {
-                    lc.Add(l);
-                    ic++;
-                }
-                else if (l.LawCategory.Contains("行政法規"))
-                {
-                    lex.Add(l);
-                    iex++;
-                }
-                else if (l.LawCategory.Contains("立法法規"))
-                {
-                    ll.Add(l);
-                    il++;
-                }
-                else if (l.LawCategory.Contains("司法法規"))
-                {
-                    lj.Add(l);
-                    ij++;
-                }
-            }
+                'C' => lc[aa].LawArticles.Count(x => x.ArticleType == "A"),
+                'X' => lex[aa].LawArticles.Count(x => x.ArticleType == "A"),
+                'L' => ll[aa].LawArticles.Count(x => x.ArticleType == "A"),
+                'J' => lj[aa].LawArticles.Count(x => x.ArticleType == "A"),
+                'E' => lel[aa].LawArticles.Count(x => x.ArticleType == "A"),
+                _ => aCount
+            };
             switch (a.ToUpper()[0])
             {
                 case 'C':
-                    foreach( var a in lc[aa].LawArticles) 
-                    {
-                        if( a.ArticleType == "A" ) 
-                        {
-                            aCount ++ ; 
-                        }
-                    }
+                {
+                    var cc = lc[aa].LawArticles.Where(x => x.ArticleType == "C").ToArray();
+                    var aaa = lc[aa].LawArticles.Where(x => x.ArticleType == "A").ToArray();
+                    var p = aaa.SelectMany(x => x.ArticleContent.Split("\r\n")).ToArray();
+                    h1c = cc.Count(x => x.ArticleContent != string.Empty && x.ArticleContent[0] == '第');
+                    h2c = cc.Count(x => x.ArticleContent.Length > 2 && x.ArticleContent[3] == '第');
+                    h3c = cc.Count(x => x.ArticleContent.Length > 5 && x.ArticleContent[6] == '第');
+                    h4c = cc.Count(x => x.ArticleContent.Length > 8 && x.ArticleContent[9] == '第');
+                    h5c = cc.Count(x => x.ArticleContent.Length > 11 && x.ArticleContent[12] == '第');
+                    h6c = aaa.Length;
+                    ofc = p.Count(x => of.IsMatch(x));
+                    itemc = p.Count(x => item.IsMatch(x));
+                    subpc = p.Count(x => subp.IsMatch(x));
+                    pc = p.Count(x => !of.IsMatch(x) && !item.IsMatch(x) && !subp.IsMatch(x));
                     break;
+                }
                 case 'X':
-                    foreach( var a in lex[aa].LawArticles) 
-                    {
-                        if( a.ArticleType == "A" ) 
-                        {
-                            aCount ++ ; 
-                        }
-                    }
+                {
+                    var cc = lex[aa].LawArticles.Where(x => x.ArticleType == "C").ToArray();
+                    var aaa = lex[aa].LawArticles.Where(x => x.ArticleType == "A").ToArray();
+                    var p = aaa.SelectMany(x => x.ArticleContent.Split("\r\n")).ToArray();
+                    h1c = cc.Count(x => x.ArticleContent != string.Empty && x.ArticleContent[0] == '第');
+                    h2c = cc.Count(x => x.ArticleContent.Length > 2 && x.ArticleContent[3] == '第');
+                    h3c = cc.Count(x => x.ArticleContent.Length > 5 && x.ArticleContent[6] == '第');
+                    h4c = cc.Count(x => x.ArticleContent.Length > 8 && x.ArticleContent[9] == '第');
+                    h5c = cc.Count(x => x.ArticleContent.Length > 11 && x.ArticleContent[12] == '第');
+                    h6c = aaa.Length;
+                    ofc = p.Count(x => of.IsMatch(x));
+                    itemc = p.Count(x => item.IsMatch(x));
+                    subpc = p.Count(x => subp.IsMatch(x));
+                    pc = p.Count(x => !of.IsMatch(x) && !item.IsMatch(x) && !subp.IsMatch(x));
                     break;
+                }
                 case 'L':
-                    foreach( var a in ll[aa].LawArticles) 
-                    {
-                        if( a.ArticleType == "A" ) 
-                        {
-                            aCount ++ ; 
-                        }
-                    }
+                {
+                    var cc = ll[aa].LawArticles.Where(x => x.ArticleType == "C").ToArray();
+                    var aaa = ll[aa].LawArticles.Where(x => x.ArticleType == "A").ToArray();
+                    var p = aaa.SelectMany(x => x.ArticleContent.Split("\r\n")).ToArray();
+                    h1c = cc.Count(x => x.ArticleContent != string.Empty && x.ArticleContent[0] == '第');
+                    h2c = cc.Count(x => x.ArticleContent.Length > 2 && x.ArticleContent[3] == '第');
+                    h3c = cc.Count(x => x.ArticleContent.Length > 5 && x.ArticleContent[6] == '第');
+                    h4c = cc.Count(x => x.ArticleContent.Length > 8 && x.ArticleContent[9] == '第');
+                    h5c = cc.Count(x => x.ArticleContent.Length > 11 && x.ArticleContent[12] == '第');
+                    h6c = aaa.Length;
+                    ofc = p.Count(x => of.IsMatch(x));
+                    itemc = p.Count(x => item.IsMatch(x));
+                    subpc = p.Count(x => subp.IsMatch(x));
+                    pc = p.Count(x => !of.IsMatch(x) && !item.IsMatch(x) && !subp.IsMatch(x));
                     break;
+                }
                 case 'J':
-                    foreach( var a in lj[aa].LawArticles) 
-                    {
-                        if( a.ArticleType == "A" ) 
-                        {
-                            aCount ++ ; 
-                        }
-                    }
+                {
+                    var cc = lj[aa].LawArticles.Where(x => x.ArticleType == "C").ToArray();
+                    var aaa = lj[aa].LawArticles.Where(x => x.ArticleType == "A").ToArray();
+                    var p = aaa.SelectMany(x => x.ArticleContent.Split("\r\n")).ToArray();
+                    h1c = cc.Count(x => x.ArticleContent != string.Empty && x.ArticleContent[0] == '第');
+                    h2c = cc.Count(x => x.ArticleContent.Length > 2 && x.ArticleContent[3] == '第');
+                    h3c = cc.Count(x => x.ArticleContent.Length > 5 && x.ArticleContent[6] == '第');
+                    h4c = cc.Count(x => x.ArticleContent.Length > 8 && x.ArticleContent[9] == '第');
+                    h5c = cc.Count(x => x.ArticleContent.Length > 11 && x.ArticleContent[12] == '第');
+                    h6c = aaa.Length;
+                    ofc = p.Count(x => of.IsMatch(x));
+                    itemc = p.Count(x => item.IsMatch(x));
+                    subpc = p.Count(x => subp.IsMatch(x));
+                    pc = p.Count(x => !of.IsMatch(x) && !item.IsMatch(x) && !subp.IsMatch(x));
                     break;
+                }
                 case 'E':
-                    foreach( var a in lel[aa].LawArticles) 
-                    {
-                        if( a.ArticleType == "A" ) 
-                        {
-                            aCount ++ ; 
-                        }
-                    }
+                {
+                    var cc = lel[aa].LawArticles.Where(x => x.ArticleType == "C").ToArray();
+                    var aaa = lel[aa].LawArticles.Where(x => x.ArticleType == "A").ToArray();
+                    var p = aaa.SelectMany(x => x.ArticleContent.Split("\r\n")).ToArray();
+                    h1c = cc.Count(x => x.ArticleContent != string.Empty && x.ArticleContent[0] == '第');
+                    h2c = cc.Count(x => x.ArticleContent.Length > 2 && x.ArticleContent[3] == '第');
+                    h3c = cc.Count(x => x.ArticleContent.Length > 5 && x.ArticleContent[6] == '第');
+                    h4c = cc.Count(x => x.ArticleContent.Length > 8 && x.ArticleContent[9] == '第');
+                    h5c = cc.Count(x => x.ArticleContent.Length > 11 && x.ArticleContent[12] == '第');
+                    h6c = aaa.Length;
+                    ofc = p.Count(x => of.IsMatch(x));
+                    itemc = p.Count(x => item.IsMatch(x));
+                    subpc = p.Count(x => subp.IsMatch(x));
+                    pc = p.Count(x => !of.IsMatch(x) && !item.IsMatch(x) && !subp.IsMatch(x));
                     break;
-            }
-            pCount = new int[aCount] ; 
-            showNum = new string[aCount] ; 
-            int ii = 0 ; 
-            if( a.ToUpper()[0] == 'C' ) 
-            {
-                foreach( var l in lc[aa].LawArticles ) 
-                {                    
-                    if (l.ArticleType == "C")
-                    {
-                        if (l.ArticleContent[0] == '第') @*編*@
-                        {
-                            h1c++;
-                        }
-                        else if (l.ArticleContent[3] == '第') @*章*@
-                        {
-                            h2c++;
-                        }
-                        else if (l.ArticleContent[6] == '第') @*節*@
-                        {
-                            h3c++;
-                        }
-                        else if (l.ArticleContent[9] == '第') @*款*@
-                        {
-                            h4c++;
-                        }
-                        else if (l.ArticleContent[12] == '第') @*目*@
-                        {
-                            h5c++;
-                        }
-                    }
-                    else if( l.ArticleType == "A" ) 
-                    {
-                        h6c ++ ; 
-                        foreach( var p in l.ArticleContent.Split( "\r\n" ) ) 
-                        {
-                            if( Regex.IsMatch( p , @"^([1-9]{1}[0-9]+、|[1-9]{1}、|[１-９]{1}[０-９]+、|[１-９]{1}、|[1-9]{1}[0-9]+\u002E|[1-9]{1}\u002E|[１-９]{1}[０-９]+\u002E|[１-９]{1}\u002E)" ) ) 
-                            {
-                                ofc ++ ; 
-                            }
-                            else if ( Regex.IsMatch( p , @"^(（[一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+）|（[一二三四五六七八九十]{1}）|（[1-9]{1}[0-9]+）|（[1-9]{1}）|（[１-９]{1}[０-９]+）|（[１-９]{1}）)" ) ) 
-                            {
-                                itemc ++ ; 
-                            }
-                            else if ( Regex.IsMatch( p , @"^([一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+、|[一二三四五六七八九十]{1}、)" ) ) 
-                            {
-                                subpc ++ ; 
-                            }
-                            else 
-                            {
-                                pc ++ ; 
-                                pCount[ ii ] ++ ; 
-                            }
-                        }
-                        ii ++ ; 
-                    }
-                }
-            }
-            else if( a.ToUpper()[0] == 'X' ) 
-            {
-                foreach( var l in lex[aa].LawArticles ) 
-                {                    
-                    if (l.ArticleType == "C")
-                    {
-                        if (l.ArticleContent[0] == '第') @*編*@
-                        {
-                            h1c++;
-                        }
-                        else if (l.ArticleContent[3] == '第') @*章*@
-                        {
-                            h2c++;
-                        }
-                        else if (l.ArticleContent[6] == '第') @*節*@
-                        {
-                            h3c++;
-                        }
-                        else if (l.ArticleContent[9] == '第') @*款*@
-                        {
-                            h4c++;
-                        }
-                        else if (l.ArticleContent[12] == '第') @*目*@
-                        {
-                            h5c++;
-                        }
-                    }
-                    else if( l.ArticleType == "A" ) 
-                    {
-                        h6c ++ ; 
-                        foreach( var p in l.ArticleContent.Split( "\r\n" ) ) 
-                        {
-                            if( Regex.IsMatch( p , @"^([1-9]{1}[0-9]+、|[1-9]{1}、|[１-９]{1}[０-９]+、|[１-９]{1}、|[1-9]{1}[0-9]+\u002E|[1-9]{1}\u002E|[１-９]{1}[０-９]+\u002E|[１-９]{1}\u002E)" ) ) 
-                            {
-                                ofc ++ ; 
-                            }
-                            else if (Regex.IsMatch(p, @"^(（[一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+）|（[一二三四五六七八九十]{1}）|（[1-9]{1}[0-9]+）|（[1-9]{1}）|（[１-９]{1}[０-９]+）|（[１-９]{1}）)"))
-                            {
-                                itemc ++ ; 
-                            }
-                            else if (Regex.IsMatch(p, @"^([一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+、|[一二三四五六七八九十]{1}、)"))
-                            {
-                                subpc ++ ; 
-                            }
-                            else 
-                            {
-                                pc ++ ; 
-                                pCount[ ii ] ++ ; 
-                            }
-                        }
-                        ii ++ ; 
-                    }
-                }
-            }
-            else if( a.ToUpper()[0] == 'L' ) 
-            {
-                foreach( var l in ll[aa].LawArticles ) 
-                {                    
-                    if (l.ArticleType == "C")
-                    {
-                        if (l.ArticleContent[0] == '第') @*編*@
-                        {
-                            h1c++;
-                        }
-                        else if (l.ArticleContent[3] == '第') @*章*@
-                        {
-                            h2c++;
-                        }
-                        else if (l.ArticleContent[6] == '第') @*節*@
-                        {
-                            h3c++;
-                        }
-                        else if (l.ArticleContent[9] == '第') @*款*@
-                        {
-                            h4c++;
-                        }
-                        else if (l.ArticleContent[12] == '第') @*目*@
-                        {
-                            h5c++;
-                        }
-                    }
-                    else if( l.ArticleType == "A" ) 
-                    {
-                        h6c ++ ; 
-                        foreach( var p in l.ArticleContent.Split( "\r\n" ) ) 
-                        {
-                            if( Regex.IsMatch( p , @"^([1-9]{1}[0-9]+、|[1-9]{1}、|[１-９]{1}[０-９]+、|[１-９]{1}、|[1-9]{1}[0-9]+\u002E|[1-9]{1}\u002E|[１-９]{1}[０-９]+\u002E|[１-９]{1}\u002E)" ) ) 
-                            {
-                                ofc ++ ; 
-                            }
-                            else if (Regex.IsMatch(p, @"^(（[一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+）|（[一二三四五六七八九十]{1}）|（[1-9]{1}[0-9]+）|（[1-9]{1}）|（[１-９]{1}[０-９]+）|（[１-９]{1}）)"))
-                            {
-                                itemc ++ ; 
-                            }
-                            else if (Regex.IsMatch(p, @"^([一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+、|[一二三四五六七八九十]{1}、)"))
-                            {
-                                subpc ++ ; 
-                            }
-                            else 
-                            {
-                                pc ++ ; 
-                                pCount[ ii ] ++ ; 
-                            }
-                        }
-                        ii ++ ; 
-                    }
-                }
-            }
-            else if( a.ToUpper()[0] == 'J' ) 
-            {
-                foreach( var l in lj[aa].LawArticles ) 
-                {                    
-                    if (l.ArticleType == "C")
-                    {
-                        if (l.ArticleContent[0] == '第') @*編*@
-                        {
-                            h1c++;
-                        }
-                        else if (l.ArticleContent[3] == '第') @*章*@
-                        {
-                            h2c++;
-                        }
-                        else if (l.ArticleContent[6] == '第') @*節*@
-                        {
-                            h3c++;
-                        }
-                        else if (l.ArticleContent[9] == '第') @*款*@
-                        {
-                            h4c++;
-                        }
-                        else if (l.ArticleContent[12] == '第') @*目*@
-                        {
-                            h5c++;
-                        }
-                    }
-                    else if( l.ArticleType == "A" ) 
-                    {
-                        h6c ++ ; 
-                        foreach( var p in l.ArticleContent.Split( "\r\n" ) ) 
-                        {
-                            if( Regex.IsMatch( p , @"^([1-9]{1}[0-9]+、|[1-9]{1}、|[１-９]{1}[０-９]+、|[１-９]{1}、|[1-9]{1}[0-9]+\u002E|[1-9]{1}\u002E|[１-９]{1}[０-９]+\u002E|[１-９]{1}\u002E)" ) ) 
-                            {
-                                ofc ++ ; 
-                            }
-                            else if (Regex.IsMatch(p, @"^(（[一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+）|（[一二三四五六七八九十]{1}）|（[1-9]{1}[0-9]+）|（[1-9]{1}）|（[１-９]{1}[０-９]+）|（[１-９]{1}）)"))
-                            {
-                                itemc ++ ; 
-                            }
-                            else if (Regex.IsMatch(p, @"^([一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+、|[一二三四五六七八九十]{1}、)"))
-                            {
-                                subpc ++ ; 
-                            }
-                            else 
-                            {
-                                pc ++ ; 
-                                pCount[ ii ] ++ ; 
-                            }
-                        }
-                        ii ++ ; 
-                    }
-                }
-            }
-            else if( a.ToUpper()[0] == 'E' ) 
-            {
-                foreach( var l in lel[aa].LawArticles ) 
-                {                    
-                    if (l.ArticleType == "C")
-                    {
-                        if (l.ArticleContent[0] == '第') @*編*@
-                        {
-                            h1c++;
-                        }
-                        else if (l.ArticleContent[3] == '第') @*章*@
-                        {
-                            h2c++;
-                        }
-                        else if (l.ArticleContent[6] == '第') @*節*@
-                        {
-                            h3c++;
-                        }
-                        else if (l.ArticleContent[9] == '第') @*款*@
-                        {
-                            h4c++;
-                        }
-                        else if (l.ArticleContent[12] == '第') @*目*@
-                        {
-                            h5c++;
-                        }
-                    }
-                    else if( l.ArticleType == "A" ) 
-                    {
-                        h6c ++ ; 
-                        foreach( var p in l.ArticleContent.Split( "\r\n" ) ) 
-                        {
-                            if( Regex.IsMatch( p , @"^([1-9]{1}[0-9]+、|[1-9]{1}、|[１-９]{1}[０-９]+、|[１-９]{1}、|[1-9]{1}[0-9]+\u002E|[1-9]{1}\u002E|[１-９]{1}[０-９]+\u002E|[１-９]{1}\u002E)" ) ) 
-                            {
-                                ofc ++ ; 
-                            }
-                            else if (Regex.IsMatch(p, @"^(（[一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+）|（[一二三四五六七八九十]{1}）|（[1-9]{1}[0-9]+）|（[1-9]{1}）|（[１-９]{1}[０-９]+）|（[１-９]{1}）)"))
-                            {
-                                itemc ++ ; 
-                            }
-                            else if (Regex.IsMatch(p, @"^([一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+、|[一二三四五六七八九十]{1}、)"))
-                            {
-                                subpc ++ ; 
-                            }
-                            else 
-                            {
-                                pc ++ ; 
-                                pCount[ ii ] ++ ; 
-                            }
-                        }
-                        ii ++ ; 
-                    }
                 }
             }
             h1 = new string[ h1c ] ; 
@@ -3432,10 +3193,6 @@ else
                     }
                 }
             }
-            for( int pc = 0 ; pc < aCount ; pc ++ ) 
-            {
-                showNum[pc] = pCount[pc] > 1 ? "showNum" : null ; 
-            }
         }
     }
     
@@ -3469,14 +3226,14 @@ else
         public required string LawURL { get; set; }
         public required string LawCategory { get; set; }
         public required string LawModifiedDate { get; set; }
-        public string? LawEffectiveDate { get; set; }
-        public string? LawEffectiveNote { get; set; }
-        public string? LawAbandonNote { get; set; }
+        public required string LawEffectiveDate { get; set; }
+        public required string LawEffectiveNote { get; set; }
+        public required string LawAbandonNote { get; set; }
         public required string LawHasEngVersion { get; set; }
-        public string? EngLawName { get; set; }
-        public Attachments[]? LawAttachments { get; set; }
+        public required string EngLawName { get; set; }
+        public required Attachments[] LawAttachments { get; set; }
         public required string LawHistories { get; set; }
-        public string? LawForeword { get; set; }
+        public required string LawForeword { get; set; }
         public required A[] LawArticles { get; set; }
         public bool HaveC()
         {
@@ -3486,7 +3243,7 @@ else
     public class A
     {
         public required string ArticleType { get; set; }
-        public string? ArticleNo { get; set; }
+        public required string ArticleNo { get; set; }
         public required string ArticleContent { get; set; }
         public Cases[]? Cases { get; set; } 
         public Rel[]? Rel { get; set; } 
