@@ -716,7 +716,8 @@ else
             il = lel.Length;
             lj = laws![0].Laws.Where(l => !l.LawCategory.Contains("選舉法規") && l.LawCategory.Contains("司法法規")).ToArray();
             ij = lj.Length;
-            ifavalid = !( !Regex.IsMatch( a.ToUpper() , "[CXLJE]{1}[0-9]{9}" ) || int.Parse( Regex.Replace( a.ToUpper() , @"[CXLJE]"  , "" ) ) <= 0 || int.Parse( a.ToUpper().Contains( 'C' ) ? a.ToUpper().Replace( "C"  , "" ) : "-1" ) > ic || int.Parse( a.ToUpper().Contains( 'X' ) ? a.ToUpper().Replace( "X"  , "" ) : "-1" ) > iex || int.Parse( a.ToUpper().Contains( 'L' ) ? a.ToUpper().Replace( "L"  , "" ) : "-1" ) > il || int.Parse( a.ToUpper().Contains( 'J' ) ? a.ToUpper().Replace( "J"  , "" ) : "-1" ) > ij || int.Parse( a.ToUpper().Contains( 'E' ) ? a.ToUpper().Replace( "E"  , "" ) : "-1" ) > iel ) ; 
+            ifavalid = !(!Regex.IsMatch(a.ToUpper(), "[CXLJE]{1}[0-9]{9}") || int.Parse(Regex.Replace(a.ToUpper(), @"[CXLJE]", "")) <= 0 || int.Parse(a.ToUpper().Contains('C') ? a.ToUpper().Replace("C", "") : "-1") > ic || int.Parse(a.ToUpper().Contains('X') ? a.ToUpper().Replace("X", "") : "-1") > iex || int.Parse(a.ToUpper().Contains('L') ? a.ToUpper().Replace("L", "") : "-1") > il || int.Parse(a.ToUpper().Contains('J') ? a.ToUpper().Replace("J", "") : "-1") > ij || int.Parse(a.ToUpper().Contains('E') ? a.ToUpper().Replace("E", "") : "-1") > iel);
+            if (!ifavalid) return;
             aCount = a.ToUpper()[0] switch
             {
                 'C' => lc[aa].LawArticles.Count(x => x.ArticleType == "A"),
