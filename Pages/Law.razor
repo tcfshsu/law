@@ -59,7 +59,7 @@
     </ul>
 </div>
 
-@if( !string.IsNullOrEmpty( a ) ) 
+@if( ifavalid ) 
 {
     <a href="laws/lawe?a=@a&c=@c&q=@b&l=@e&ab=@f" class="printNoDisplay">簡讀版</a>
 }
@@ -72,7 +72,7 @@ else if ( string.IsNullOrEmpty( a ) )
 {
     <Laws />
 }
-else if( !Regex.IsMatch( a.ToUpper() , "[CXLJE]{1}[0-9]{9}" ) || int.Parse( Regex.Replace( a.ToUpper() , "[CXLJE]"  , "" ) ) <= 0 || int.Parse( a.ToUpper().Contains( 'C' ) ? a.ToUpper().Replace( "C"  , "" ) : "-1" ) > ic || int.Parse( a.ToUpper().Contains( 'X' ) ? a.ToUpper().Replace( "X"  , "" ) : "-1" ) > iex || int.Parse( a.ToUpper().Contains( 'L' ) ? a.ToUpper().Replace( "L"  , "" ) : "-1" ) > il || int.Parse( a.ToUpper().Contains( 'J' ) ? a.ToUpper().Replace( "J"  , "" ) : "-1" ) > ij || int.Parse( a.ToUpper().Contains( 'E' ) ? a.ToUpper().Replace( "E"  , "" ) : "-1" ) > iel ) 
+else if (!ifavalid)
 {
     <PageTitle>錯誤 - 臺中市立臺中第一高級中等學校學生自治聯合會法規資料庫</PageTitle>
     <h1 style="color:red;font-weight:900;font-family:'Noto Sans Mono','Noto Sans TC';">!!!錯誤!!!<br />請重試！</h1>
