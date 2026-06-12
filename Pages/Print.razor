@@ -187,7 +187,6 @@ else
                     else 
                     {
                         <h6>
-                            @if (art.ArticleNo.Contains('【') && !string.IsNullOrEmpty(art.ArticleNo) )
                             {
                                 <span>@art.ArticleNo.Split('【')[0]</span>
                                 <span>@Regex.Split(art.ArticleNo, "條(?=【)")[1]</span>
@@ -197,7 +196,7 @@ else
                                 <span>@art.ArticleNo</span>
                             }
                         </h6>
-                        <article class="@showNum[iSN]">
+                        <article class="@art.ShowNum()">
                             @foreach( var p in art.ArticleContent.Split( "\r\n" ) ) 
                             {
                                 @if( Regex.IsMatch( p , @"^([1-9]{1}[0-9]+、|[1-9]{1}、|[１-９]{1}[０-９]+、|[１-９]{1}、)" ) ) 
@@ -223,7 +222,6 @@ else
                             }
                         </article>
                         <br/>
-                        iSN ++ ; 
                     }
                 }
             </div>
@@ -312,7 +310,7 @@ else
                                 <span>@art.ArticleNo</span>
                             }
                         </h6>
-                        <article class="@showNum[iSN]">
+                        <article class="@art.ShowNum()">
                             @foreach( var p in art.ArticleContent.Split( "\r\n" ) ) 
                             {
                                 @if( Regex.IsMatch( p , @"^([1-9]{1}[0-9]+、|[1-9]{1}、|[１-９]{1}[０-９]+、|[１-９]{1}、)" ) ) 
@@ -338,7 +336,6 @@ else
                             }
                         </article>
                         <br/>
-                        iSN ++ ; 
                     }
                 }
             </div>
@@ -417,7 +414,6 @@ else
                     else 
                     {
                         <h6>
-                            @if (art.ArticleNo.Contains('【') && !string.IsNullOrEmpty(art.ArticleNo) )
                             {
                                 <span>@art.ArticleNo.Split('【')[0]</span>
                                 <span>@Regex.Split(art.ArticleNo, "條(?=【)")[1]</span>
@@ -427,7 +423,7 @@ else
                                 <span>@art.ArticleNo</span>
                             }
                         </h6>
-                        <article class="@showNum[iSN]">
+                        <article class="@art.ShowNum()">
                             @foreach( var p in art.ArticleContent.Split( "\r\n" ) ) 
                             {
                                 @if( Regex.IsMatch( p , @"^([1-9]{1}[0-9]+、|[1-9]{1}、|[１-９]{1}[０-９]+、|[１-９]{1}、)" ) ) 
@@ -453,7 +449,6 @@ else
                             }
                         </article>
                         <br/>
-                        iSN ++ ; 
                     }
                 }
             </div>
@@ -532,7 +527,6 @@ else
                     else 
                     {
                         <h6>
-                            @if (art.ArticleNo.Contains('【') && !string.IsNullOrEmpty(art.ArticleNo) )
                             {
                                 <span>@art.ArticleNo.Split('【')[0]</span>
                                 <span>@Regex.Split(art.ArticleNo, "條(?=【)")[1]</span>
@@ -542,7 +536,7 @@ else
                                 <span>@art.ArticleNo</span>
                             }
                         </h6>
-                        <article class="@showNum[iSN]">
+                        <article class="@art.ShowNum()">
                             @foreach( var p in art.ArticleContent.Split( "\r\n" ) ) 
                             {
                                 @if( Regex.IsMatch( p , @"^([1-9]{1}[0-9]+、|[1-9]{1}、|[１-９]{1}[０-９]+、|[１-９]{1}、)" ) ) 
@@ -568,7 +562,6 @@ else
                             }
                         </article>
                         <br/>
-                        iSN ++ ; 
                     }
                 }
             </div>
@@ -647,7 +640,6 @@ else
                     else 
                     {
                         <h6>
-                            @if (art.ArticleNo.Contains('【') && !string.IsNullOrEmpty(art.ArticleNo) )
                             {
                                 <span>@art.ArticleNo.Split('【')[0]</span>
                                 <span>@Regex.Split(art.ArticleNo, "條(?=【)")[1]</span>
@@ -657,7 +649,7 @@ else
                                 <span>@art.ArticleNo</span>
                             }
                         </h6>
-                        <article class="@showNum[iSN]">
+                        <article class="@art.ShowNum()">
                             @foreach( var p in art.ArticleContent.Split( "\r\n" ) ) 
                             {
                                 @if( Regex.IsMatch( p , @"^([1-9]{1}[0-9]+、|[1-9]{1}、|[１-９]{1}[０-９]+、|[１-９]{1}、)" ) ) 
@@ -683,7 +675,6 @@ else
                             }
                         </article>
                         <br/>
-                        iSN ++ ; 
                     }
                 }
             </div>
@@ -742,17 +733,16 @@ else
     private int aCount ; 
     private int[] pCount ; 
     private string[]? showNum ; 
-    private int iSN = 0 ; 
     private int ic = 0;
     private int iex = 0;
     private int il = 0;
     private int ij = 0;
     private int iel = 0; 
-    public List<L> lc = new List<L>();
-    public List<L> lex = new List<L>();
-    public List<L> ll = new List<L>();
-    public List<L> lj = new List<L>();
-    public List<L> lel = new List<L>();
+    public List<L> lc = [];
+    public List<L> lex = [];
+    public List<L> ll = [];
+    public List<L> lj = [];
+    public List<L> lel = [];
     private string 發行人 = "黃宣方" ; 
     private string[] 編輯 = ["黃宣方" , "卓祐宸" , "陳寬澂" , "王宸翼"]; 
     protected override async Task OnInitializedAsync()
@@ -884,10 +874,6 @@ else
                 }
             }
         }
-        for( int pc = 0 ; pc < aCount ; pc ++ ) 
-        {
-            showNum[pc] = pCount[pc] > 1 ? "showNum" : null ; 
-        }
     }
 
     public class LawRoot
@@ -917,6 +903,11 @@ else
         public required string ArticleType { get; set; }
         public string? ArticleNo { get; set; }
         public required string ArticleContent { get; set; }
+        public string ShowNum() 
+        {
+            int i = ArticleContent.Split("\r\n").Count(a => !Regex.IsMatch(a, @"^([1-9]{1}[0-9]+、|[1-9]{1}、|[１-９]{1}[０-９]+、|[１-９]{1}、|[1-9]{1}[0-9]+\u002E|[1-9]{1}\u002E|[１-９]{1}[０-９]+\u002E|[１-９]{1}\u002E|（[一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+）|（[一二三四五六七八九十]{1}）|（[1-9]{1}[0-9]+）|（[1-9]{1}）|（[１-９]{1}[０-９]+）|（[１-９]{1}）|[一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+、|[一二三四五六七八九十]{1}、)"));
+            return i > 1 ? "showNum" : "" ; 
+        }
     }
     public class Attachments
     {
