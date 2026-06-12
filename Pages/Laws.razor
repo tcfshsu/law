@@ -46,10 +46,12 @@
     <option value="short">全名長度（短 > 長）</option>
     <option value="longPure">名稱長度（長 > 短）</option>
     <option value="shortPure">名稱長度（短 > 長）</option>
-    @* <option value="AtoZ">筆劃（少 > 多）</option>
+    <option value="AtoZ">筆劃（少 > 多）</option>
     <option value="ZtoA">筆劃（多 > 少）</option>
+    @* <option value="Ph">注音</option>
+    <option value="Ph_R">注音</option> *@
     <option value="CtoO">位階（高 > 低）</option>
-    <option value="OtoC">位階（低 > 高）</option> *@
+    <option value="OtoC">位階（低 > 高）</option>
 </select>
 <Virtualize Context="l" Items="lq">
     <ItemContent>
@@ -120,7 +122,7 @@
     public string? c ; 
     public string? d ;
     public List<L> lq = [];
-    public List<L> lqDefault = new List<L>(); 
+    public List<L> lqDefault = []; 
     protected override void OnInitialized()
     {
         var uri = N.ToAbsoluteUri(N.Uri);
@@ -131,7 +133,7 @@
         }
         if (queryStrings.TryGetValue("q", out var bbb))
         {
-            b = bbb;
+            b = bbb!;
         }
         if (queryStrings.TryGetValue("l", out var ccc))
         {
@@ -148,15 +150,12 @@
         laws = await Http.GetFromJsonAsync<LawRoot[]>("json/laws.json");
         if( laws!= null ) 
         {
-            lq = laws[0].Laws.Where( l => string.IsNullOrEmpty( a ) || ( a.ToUpper() == "EL" ? l.LawCategory.Contains( "選舉法規" ) : ( a.ToUpper() == "C" ? ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "中央法規" ) ) : ( a.ToUpper() == "EX" ? ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "行政法規" ) ) : ( a.ToUpper() == "L" ? ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "立法法規" ) ) : ( a.ToUpper() != "J" || ( !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "司法法規" ) ) ) ) ) ) ) ).ToList() ; 
-            if( !string.IsNullOrEmpty( d ) && d == "true" ) 
+            lq = string.IsNullOrEmpty(d) switch
             {
-                lq = lq.Where( l => l.LawAbandonNote == "廢" ).ToList() ; 
-            }
-            else if( !string.IsNullOrEmpty( d ) && d == "false" ) 
-            {
-                lq = lq.Where( l => l.LawAbandonNote == "" ).ToList() ; 
-            }
+                false when d == "true" => lq.Where(l => l.LawAbandonNote == "廢").ToList(),
+                false when d == "false" => lq.Where(l => l.LawAbandonNote == "").ToList(),
+                _ => laws[0].Laws.Where(l => string.IsNullOrEmpty(a) || (a.ToUpper() == "EL" ? l.LawCategory.Contains("選舉法規") : (a.ToUpper() == "C" ? (!l.LawCategory.Contains("選舉法規") && l.LawCategory.Contains("中央法規")) : (a.ToUpper() == "EX" ? (!l.LawCategory.Contains("選舉法規") && l.LawCategory.Contains("行政法規")) : (a.ToUpper() == "L" ? (!l.LawCategory.Contains("選舉法規") && l.LawCategory.Contains("立法法規")) : (a.ToUpper() != "J" || (!l.LawCategory.Contains("選舉法規") && l.LawCategory.Contains("司法法規")))))))).ToList()
+            };
             if( !string.IsNullOrEmpty( c ) && c is "章程" or "法律" or "命令" ) 
             {
                 lq = lq.Where( l => l.LawLevel == c ).ToList() ; 
@@ -169,9 +168,9 @@
                 }
                 else
                 {
-                    foreach( var b in Regex.Replace( b , @"\s" , "\r\n" ).Split( "\r\n" ) ) 
+                    foreach( var bb in Regex.Replace( b , @"\s" , "\r\n" ).Split( "\r\n" ) ) 
                     {
-                        lqq.AddRange( lq.Where( l => l.Contains( b ) ).Except( lqq ).ToList() ) ; 
+                        lqq.AddRange( lq.Where( l => l.Contains( bb ) ).Except( lqq ).ToList() ) ; 
                     }   
                 }
                 lq = lqq ; 
@@ -181,22 +180,51 @@
         }
     }
     
-    public void Sort( ChangeEventArgs a )
+    public void Sort( ChangeEventArgs cea )
     {
-        if (a.Value == null) return;
-        lq = (string)a.Value switch
+        if (cea.Value == null) return;
+        Regex title = new("^臺中市立臺中第一高級中等學校學生自治聯合會|^臺中第一高級中學");
+        SortByLawLevel sbll = new();
+        lq = (string)cea.Value switch
         {
             "latest" => lq.OrderByDescending(l => l.LawModifiedDate).ToList(),
             "oldest" => lq.OrderBy(l => l.LawModifiedDate).ToList(),
             "long" => lq.OrderByDescending(l => l.LawName.Length).ToList(),
             "short" => lq.OrderBy(l => l.LawName.Length).ToList(),
-            "longPure" => lq.OrderByDescending(l => l.LawName.Replace("臺中市立臺中第一高級中等學校學生自治聯合會", "").Replace("臺中第一高級中學", "").Length).ToList(),
-            "shortPure" => lq.OrderBy(l => l.LawName.Replace("臺中市立臺中第一高級中等學校學生自治聯合會", "").Replace("臺中第一高級中學", "").Length).ToList(),
+            "longPure" => lq.OrderByDescending(l => title.Replace(l.LawName, "").Length).ToList(),
+            "shortPure" => lq.OrderBy(l => title.Replace(l.LawName, "").Length).ToList(),
+            "CtoO" => lq.OrderBy(l => l.LawLevel, sbll).ToList(),
+            "OtoC" => lq.OrderByDescending(l => l.LawLevel, sbll).ToList(),
             "AtoZ" => lq.OrderBy(l => l.LawName, StringComparer.Create(new System.Globalization.CultureInfo("zh-TW"), false)).ToList(),
             "ZtoA" => lq.OrderByDescending(l => l.LawName, StringComparer.Create(new System.Globalization.CultureInfo("zh-TW"), false)).ToList(),
+            "Ph" => lq.OrderBy(l => l.LawName, StringComparer.Create(new(0x00030404), false)).ToList(),
+            "Ph_R" => lq.OrderByDescending(l => l.LawName, StringComparer.Create(new(0x00030404), false)).ToList(),
             "" => lqDefault,
             _ => lq
         };
+        foreach (var llaal in lq.Select(l=>l.LawModifiedDate))
+        {
+            Console.WriteLine(llaal);
+        }
+    }
+
+    private class SortByLawLevel : Comparer<string>
+    {
+        public override int Compare(string x, string y)
+        {
+            if (x == y) return 0;
+            return x switch
+            {
+                "章程" => -1,
+                "命令" => 1,
+                _ => y switch
+                {
+                    "章程" => 1,
+                    "命令" => -1,
+                    _ => 0
+                }
+            };
+        }
     }
 
     public class LawRoot
@@ -211,14 +239,14 @@
         public required string LawURL { get; set; }
         public required string LawCategory { get; set; }
         public required string LawModifiedDate { get; set; }
-        public string? LawEffectiveDate { get; set; }
-        public string? LawEffectiveNote { get; set; }
-        public string? LawAbandonNote { get; set; }
+        public required string LawEffectiveDate { get; set; }
+        public required string LawEffectiveNote { get; set; }
+        public required string LawAbandonNote { get; set; }
         public required string LawHasEngVersion { get; set; }
-        public string? EngLawName { get; set; }
-        public Attachments[]? LawAttachments { get; set; }
+        public required string EngLawName { get; set; }
+        public required Attachments[] LawAttachments { get; set; }
         public required string LawHistories { get; set; }
-        public string? LawForeword { get; set; }
+        public required string LawForeword { get; set; }
         public required A[] LawArticles { get; set; }
         public enum SearchPlace
         {
@@ -439,7 +467,7 @@
     public class A 
     {
         public required string ArticleType { get; set; }
-        public string? ArticleNo { get; set; }
+        public required string ArticleNo { get; set; }
         public required string ArticleContent { get; set; }
         public bool Contains( string a ) 
         {
