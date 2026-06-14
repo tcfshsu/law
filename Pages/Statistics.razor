@@ -37,9 +37,9 @@
         </tr>
     </thead>
     <tbody style="font-family:'Fira Code', 'Sonti TC' , '標點' , 'Noto Serif KR' , 'Noto Serif TC' , 'Noto Serif JP' , 'Noto Serif SC' , sans-serif;">
-        @if(r != null && r.Count > 0)
+        @if(r.Count > 0)
         {
-            @foreach (var x in r.OrderByDescending(r => r.C).ThenBy(r => r.A))
+            @foreach (var x in r.OrderByDescending(x => x.C).ThenBy(x => x.A))
             {
                 int xa = x.A;
                 decimal xc = x.C * 1000;
@@ -70,9 +70,9 @@
         </tr>
     </thead>
     <tbody style="font-family:'Fira Code', 'Sonti TC' , '標點' , 'Noto Serif KR' , 'Noto Serif TC' , 'Noto Serif JP' , 'Noto Serif SC' , sans-serif;">
-        @if(rc is not null && rc.Count > 0)
+        @if(rc.Count > 0)
         {
-            @foreach (var x in rc.OrderByDescending(r => r.C).ThenBy(r => r.A))
+            @foreach (var x in rc.OrderByDescending(x => x.C).ThenBy(x => x.A))
             {
                 int xa = x.A;
 
@@ -92,48 +92,27 @@
 
 @code 
 {
-    public class Result
+    public class Result(char a, int c)
     {
-        public char A { get; set; }
-        public int C { get; set; }
+        public char A { get; init; } = a;
+        public int C { get; init; } = c;
     }
-    List<Result> r = new();
-    List<Result> rc = new();
-    @* List<Result> rl = new(); *@
+    List<Result> r = [];
+    List<Result> rc = [];
     int wc;
-    string l = "", ljson = "", cjson = "";
+    string ljson = "", cjson = "";
     protected override async Task OnInitializedAsync()
     {
-        @* l = await Http.GetStringAsync("json/laws.json"); *@
         ljson = await Http.GetStringAsync("json/laws.json");
         cjson = await Http.GetStringAsync("json/cases.json");
-        @* l = Regex.Replace(l,@"[^!-⬍⿰-㏿ﬓ-�]","");
-        for (int i = 0; i < l.Length; i++)
-        {
-            int ii = l.Where(j => j == l[0]).ToArray().Length;
-            rl.Add(new Result
-            {
-                A = l[0],
-                C = ii
-            });
-            l = l.Replace(l[0].ToString(), "");
-            if (string.IsNullOrEmpty(l))
-            {
-                break;
-            }
-        } *@
         ljson = Regex.Replace(ljson, @"[!-⬍⿰-㏿ﬓ-�\s]", "");
         cjson = Regex.Replace(cjson, @"[!-⬍⿰-㏿ﬓ-�\s]", "");
-        for (int i = 0; i < ljson.Length; i++)
+        for (int i = 0; i < ljson.Length; ++i)
         {
-            int ii = ljson.Where(j => j == ljson[0]).ToArray().Length;
-            r.Add(new Result
-            {
-                A = ljson[0],
-                C = ii
-            });
+            int ii = ljson.Count(j => j == ljson[0]);
+            r.Add(new(ljson[0], ii));
             ljson = ljson.Replace(ljson[0].ToString(), "");
-            if (string.IsNullOrEmpty(ljson))
+            if (ljson == string.Empty)
             {
                 break;
             }
@@ -142,16 +121,12 @@
         {
             wc += x.C;
         }
-        for (int i = 0; i < cjson.Length; i++)
+        for (int i = 0; i < cjson.Length; ++i)
         {
             int ii = cjson.Where(j => j == cjson[0]).ToArray().Length;
-            rc.Add(new Result
-            {
-                A = cjson[0],
-                C = ii
-            });
+            rc.Add(new(cjson[0], ii));
             cjson = cjson.Replace(cjson[0].ToString(), "");
-            if (string.IsNullOrEmpty(cjson))
+            if (cjson == string.Empty)
             {
                 break;
             }
