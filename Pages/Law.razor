@@ -2527,54 +2527,21 @@ else
 @code 
 {
     LawRoot[]? laws;
-    int h1c, h2c, h3c, h4c, h5c, h6c, pc, subpc, itemc, ofc;
-    string[] h1 = [] ;
-    string[] h2 = [] ;
-    string[] h3 = [] ;
-    string[] h4 = [] ;
-    string[] h5 = [] ;
-    string[] h6 = [] ;
-    string[] lip = [] ;
-    string[] lisubp = [] ;
-    string[] liitem = [] ;
-    string[] liof = [] ;
-    int ih1;
-    int ih2;
-    int ih3;
-    int ih4;
-    int ih5;
-    int iCh1;
-    int iCh2;
-    int iCh3;
-    int iCh4;
-    int iCh5;
-    int ih6;
-    int ip;
-    int isubp;
-    int iitem;
-    int iof;
-    int aCount;
-    int ic = 0;
-    int iex = 0;
-    int il = 0;
-    int ij = 0;
-    int iel = 0;
-    L[] lc = [];
-    L[] lex = [];
-    L[] ll = [];
-    L[] lj = [];
-    L[] lel = [];
     public required string a;
-    string? b;
-    string? c;
+    string? b, c, d, e, f;
+    int h1c, h2c, h3c, h4c, h5c, h6c, pc, subpc, itemc, ofc;
+    string[] h1 = [], h2 = [], h3 = [], h4 = [], h5 = [], h6 = [];
+    string[] lip = [], lisubp = [], liitem = [], liof = [];
+    int ih1, ih2, ih3, ih4, ih5;
+    int iCh1, iCh2, iCh3, iCh4, iCh5;
+    int ih6, ip, isubp, iitem, iof;
+    int aCount, ic, iex, il, ij, iel;
+    L[] lc = [], lex = [], ll = [], lj = [], lel = [];
     int aa = -1 ; 
-    string? d;
-    string? e ; 
-    string? f ;
     readonly Regex of = new("^([1-9]{1}[0-9]+、|[1-9]{1}、|[１-９]{1}[０-９]+、|[１-９]{1}、|[1-9]{1}[0-9]+\u002E|[1-9]{1}\u002E|[１-９]{1}[０-９]+\u002E|[１-９]{1}\u002E)" );
     readonly Regex item = new(@"^(（[一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+）|（[一二三四五六七八九十]{1}）|（[1-9]{1}[0-9]+）|（[1-9]{1}）|（[１-９]{1}[０-９]+）|（[１-９]{1}）)");
     readonly Regex subp = new(@"^([一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+、|[一二三四五六七八九十]{1}、)");
-    bool ifavalid = false ; 
+    bool ifavalid; 
     protected override void OnInitialized()
     {
         var uri = N.ToAbsoluteUri(N.Uri);
@@ -3187,23 +3154,51 @@ else
             }
         }
     }
-    
-    public int X(string s)
+
+    public class ChNumConverter
     {
-        if( s == "" ) 
+        private const string ChNumT = " 一二三四五六七八九";
+        private const string ChCapNumT = " 壹貳參肆伍陸柒捌玖";
+        private const char Zero = '○', One = '一', Ten = '十', Hundred = '百';
+        private const char ZeroCap = '零', OneCap = '壹', TenCap = '拾', HundredCap = '佰';
+        public static int ToInt(string s)
         {
-            return 0 ; 
+            if (s == string.Empty)
+            {
+                return 0;
+            }
+
+            if (s[0] == Zero || s[0] == ZeroCap)
+            {
+                s = s[1..];
+            }
+
+            if (s[0] == Ten)
+            {
+                s = One + s;
+            }
+
+            return s.Length < 2 ? ChNumT.IndexOf(s[0]) : ChNumT.IndexOf(s[0]) * (s[1] == Hundred ? 100 : 10) + ToInt(s[2..]);
         }
-        if( s[0] == '零' ) 
+        public static int CapToInt(string s)
         {
-            s = s[1..] ; 
+            if (s == string.Empty)
+            {
+                return 0;
+            }
+
+            if (s[0] == ZeroCap)
+            {
+                s = s[1..];
+            }
+
+            if (s[0] == TenCap)
+            {
+                s = OneCap + s;
+            }
+
+            return s.Length < 2 ? ChCapNumT.IndexOf(s[0]) : ChCapNumT.IndexOf(s[0]) * (s[1] == HundredCap ? 100 : 10) + CapToInt(s[2..]);
         }
-        if( s[0] == '十' )
-        {
-            s = "一" + s ; 
-        }
-        const string t = " 一二三四五六七八九" ; 
-        return s.Length < 2 ? t.IndexOf( s[0] ) : ( t.IndexOf( s[0] ) * ( s[1] == '百' ? 100 : 10) + X( s[2..] ) ) ; 
     }
 
     public class LawRoot

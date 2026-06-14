@@ -46,9 +46,9 @@
     <option value="short">全名長度（短 > 長）</option>
     <option value="longPure">名稱長度（長 > 短）</option>
     <option value="shortPure">名稱長度（短 > 長）</option>
-    <option value="AtoZ">筆劃（少 > 多）</option>
+    @* <option value="AtoZ">筆劃（少 > 多）</option>
     <option value="ZtoA">筆劃（多 > 少）</option>
-    @* <option value="Ph">注音</option>
+    <option value="Ph">注音</option>
     <option value="Ph_R">注音</option> *@
     <option value="CtoO">位階（高 > 低）</option>
     <option value="OtoC">位階（低 > 高）</option>
@@ -116,13 +116,10 @@
 <a class="printNoDisplay" href="">回首頁</a>
 
 @code {
-    private LawRoot[]? laws;
-    public string? a;
+    LawRoot[]? laws;
+    string? a, c, d;
     public required string b;
-    public string? c ; 
-    public string? d ;
-    public List<L> lq = [];
-    public List<L> lqDefault = []; 
+    List<L> lq = [], lqDefault = [];
     protected override void OnInitialized()
     {
         var uri = N.ToAbsoluteUri(N.Uri);
@@ -180,7 +177,7 @@
         }
     }
     
-    public void Sort( ChangeEventArgs cea )
+    void Sort( ChangeEventArgs cea )
     {
         if (cea.Value == null) return;
         Regex title = new("^臺中市立臺中第一高級中等學校學生自治聯合會|^臺中第一高級中學");
@@ -195,10 +192,11 @@
             "shortPure" => lq.OrderBy(l => title.Replace(l.LawName, "").Length).ToList(),
             "CtoO" => lq.OrderBy(l => l.LawLevel, sbll).ToList(),
             "OtoC" => lq.OrderByDescending(l => l.LawLevel, sbll).ToList(),
-            "AtoZ" => lq.OrderBy(l => l.LawName, StringComparer.Create(new System.Globalization.CultureInfo("zh-TW"), false)).ToList(),
-            "ZtoA" => lq.OrderByDescending(l => l.LawName, StringComparer.Create(new System.Globalization.CultureInfo("zh-TW"), false)).ToList(),
-            "Ph" => lq.OrderBy(l => l.LawName, StringComparer.Create(new(0x00030404), false)).ToList(),
-            "Ph_R" => lq.OrderByDescending(l => l.LawName, StringComparer.Create(new(0x00030404), false)).ToList(),
+            // Not working due to limitation of blazor wasm about file size
+            // "AtoZ" => lq.OrderBy(l => l.LawName, StringComparer.Create(new System.Globalization.CultureInfo("zh-Hant-TW"), false)).ToList(),
+            // "ZtoA" => lq.OrderByDescending(l => l.LawName, StringComparer.Create(new System.Globalization.CultureInfo("zh-TW"), false)).ToList(),
+            // "Ph" => lq.OrderBy(l => l.LawName, StringComparer.Create(new(0x00030404), false)).ToList(),
+            // "Ph_R" => lq.OrderByDescending(l => l.LawName, StringComparer.Create(new(0x00030404), false)).ToList(),
             "" => lqDefault,
             _ => lq
         };
@@ -210,7 +208,7 @@
 
     private class SortByLawLevel : Comparer<string>
     {
-        public override int Compare(string x, string y)
+        public override int Compare(string? x, string? y)
         {
             if (x == y) return 0;
             return x switch

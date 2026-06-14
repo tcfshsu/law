@@ -50,7 +50,7 @@ else
     else if( !Regex.IsMatch( a.ToUpper() , @"[CXLJE]{1}[0-9]{9}" ) || int.Parse( Regex.Replace( a.ToUpper() , @"[CXLJE]"  , "" ) ) <= 0 || int.Parse( a.ToUpper().Contains( 'C' ) ? a.ToUpper().Replace( "C"  , "" ) : "-1" ) > ic || int.Parse( a.ToUpper().Contains( 'X' ) ? a.ToUpper().Replace( "X"  , "" ) : "-1" ) > iex || int.Parse( a.ToUpper().Contains( 'L' ) ? a.ToUpper().Replace( "L"  , "" ) : "-1" ) > il || int.Parse( a.ToUpper().Contains( 'J' ) ? a.ToUpper().Replace( "J"  , "" ) : "-1" ) > ij || int.Parse( a.ToUpper().Contains( 'E' ) ? a.ToUpper().Replace( "E"  , "" ) : "-1" ) > iel ) 
     {
         <PageTitle>錯誤 - 臺中市立臺中第一高級中等學校學生自治聯合會法規資料庫</PageTitle>
-        <h1 style="color:red;font-weight:900;font-family:'Noto Sans Mono','Noto Sans TC';">!!!錯誤!!!<br />請重試！</h1>
+        <h1 style="color:red;font-weight:900;font-family:'Noto Sans Mono','Noto Sans TC',monospace;">!!!錯誤!!!<br />請重試！</h1>
     }
     else if ( string.IsNullOrEmpty(a) ) 
     {}
@@ -178,10 +178,10 @@ else
                                 <div id="cases" class="cases">
                                     <span>【判例/解釋】</span>
                                     <span>
-                                        @for( int c = 0 ; c < art.Cases.Length ; c ++ ) 
+                                        @for( int cc = 0 ; cc < art.Cases.Length ; cc ++ ) 
                                         {
-                                            <a href="@art.Cases[c].CaseUrl">@art.Cases[c].CaseNo</a>
-                                            @if( c < art.Cases.Length - 1 ) 
+                                            <a href="@art.Cases[cc].CaseUrl">@art.Cases[cc].CaseNo</a>
+                                            @if( cc < art.Cases.Length - 1 ) 
                                             {
                                                 <span>,</span>
                                             }
@@ -231,50 +231,20 @@ else
     <a class="printNoDisplay" href="laws/law@(c == "e" ? c : "")?a=@a&q=@d&c=@e&f=@f&l=@g&ab=@h">回上一頁</a>
 }
 
-@code {
+@code 
+{
     private LawRoot[]? laws;
-    private int h1c;
-    private int h2c;
-    private int h3c;
-    private int h4c;
-    private int h5c;
-    private int h6c;
-    private int pc;
-    private int subpc;
-    private int itemc;
-    private int ofc;
-    private string[]? h1 ;
-    private string[]? h2 ;
-    private string[]? h3 ;
-    private string[]? h4 ;
-    private string[]? h5 ;
-    private string[]? h6 ;
-    private string[]? lip ;
-    private string[]? lisubp ;
-    private string[]? liitem ;
-    private string[]? liof ;
-    private int aCount;
-    private int ic = 0;
-    private int iex = 0;
-    private int il = 0;
-    private int ij = 0;
-    private int iel = 0;
-    public L[] lc = [];
-    public L[] lex = [];
-    public L[] ll = [];
-    public L[] lj = [];
-    public L[] lel = [];
     public required string a;
-    public int b; 
+    public required int b;
+    string? c, d, e, f, g, h;
+    int h1c, h2c, h3c, h4c, h5c, h6c, pc, subpc, itemc, ofc;
+    string[] h1 = [], h2 = [], h3 = [], h4 = [], h5 = [], h6 = [];
+    string[] lip = [], lisubp = [], liitem = [], liof = [];
+    int aCount, ic, iex, il, ij, iel;
+    L[] lc = [], lex = [], ll = [], lj = [], lel = [];
     private A[] artarray = []; 
     private A art;
-    public int aa = -1 ; 
-    private string? c ; 
-    private string? d;
-    private string? e ; 
-    private string? f ; 
-    private string? g ; 
-    private string? h ; 
+    int aa = -1 ; 
     protected override void OnInitialized()
     {
         var uri = N.ToAbsoluteUri(N.Uri);
@@ -285,7 +255,7 @@ else
         }
         if (queryStrings.TryGetValue("p", out var bbb))
         {
-            b = ( bbb == "" || bbb == (string?)null ) ? -1 : ( int.Parse( bbb ) - 1 ) ; 
+            b = ( bbb == "" || bbb == (string?)null ) ? -1 : ( int.Parse( bbb! ) - 1 ) ; 
         }
         if (queryStrings.TryGetValue("from", out var ccc))
         {
@@ -1093,24 +1063,6 @@ else
                 }
             }
         }
-    }
-    
-    public int x(string s)
-    {
-        if( s == "" ) 
-        {
-            return 0 ; 
-        }
-        if( s[0] == '零' ) 
-        {
-            s = s[1..] ; 
-        }
-        if( s[0] == '十' )
-        {
-            s = "一" + s ; 
-        }
-        const string t = " 一二三四五六七八九" ; 
-        return s.Length < 2 ? t.IndexOf( s[0] ) : ( t.IndexOf( s[0] ) * ( s[1] == '百' ? 100 : 10) + x( s[2..] ) ) ; 
     }
 
     public class LawRoot
