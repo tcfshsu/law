@@ -2522,7 +2522,7 @@ else
 }
 
 <br class="printNoDisplay" />
-<a href="@( string.IsNullOrEmpty( d ) ? $"laws?q={b}&c={c}&l={e}&ab={f}" : ( Regex.IsMatch( d.ToUpper() , "^([L]{1}[N]{1})" ) ? $"latest?no={d.ToUpper().Replace( "LN" , "" )}" : $"laws?q={b}&c={c}" ) )" class="printNoDisplay">回上一頁</a>
+<a href="@( string.IsNullOrEmpty( d ) ? $"laws?q={b}&c={c}&l={e}&ab={f}" : ( Regex.IsMatch( d.ToUpper() , "^(L{1}N{1})" ) ? $"latest?no={d.ToUpper().Replace( "LN" , "" )}" : $"laws?q={b}&c={c}" ) )" class="printNoDisplay">回上一頁</a>
 
 @code 
 {

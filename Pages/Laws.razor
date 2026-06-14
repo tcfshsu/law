@@ -117,29 +117,72 @@
 
 @code {
     LawRoot[]? laws;
-    string? a, c, d;
+    string? _sort_method;
+    readonly Regex title = new("^臺中市立臺中第一高級中等學校學生自治聯合會|^臺中第一高級中學");
+    readonly SortByLawLevel sbll = new();
     public required string b;
     List<L> lq = [], lqDefault = [];
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "c")]
+    public string? a { get; set; }
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "l")]
+    public string? c { get; set; }
+    [Parameter]
+    [SupplyParameterFromQuery(Name = "ab")]
+    public string? d { get; set; }
     protected override void OnInitialized()
     {
         var uri = N.ToAbsoluteUri(N.Uri);
         var queryStrings = QueryHelpers.ParseQuery(uri.Query);
-        if (queryStrings.TryGetValue("c", out var aaa))
-        {
-            a = aaa;
-        }
         if (queryStrings.TryGetValue("q", out var bbb))
         {
             b = bbb!;
         }
-        if (queryStrings.TryGetValue("l", out var ccc))
+    }
+    
+    private void UpdateLaws()
+    {
+        if (laws == null) return;
+        lq = string.IsNullOrEmpty(d) switch
         {
-            c = ccc;
-        }
-        if (queryStrings.TryGetValue("ab", out var ddd))
+            false when d == "true" => lq.Where(l => l.LawAbandonNote == "廢").ToList(),
+            false when d == "false" => lq.Where(l => l.LawAbandonNote == "").ToList(),
+            _ => laws[0].Laws.Where(l => string.IsNullOrEmpty(a) || (a.ToUpper() == "EL" ? l.LawCategory.Contains("選舉法規") : (a.ToUpper() == "C" ? (!l.LawCategory.Contains("選舉法規") && l.LawCategory.Contains("中央法規")) : (a.ToUpper() == "EX" ? (!l.LawCategory.Contains("選舉法規") && l.LawCategory.Contains("行政法規")) : (a.ToUpper() == "L" ? (!l.LawCategory.Contains("選舉法規") && l.LawCategory.Contains("立法法規")) : (a.ToUpper() != "J" || (!l.LawCategory.Contains("選舉法規") && l.LawCategory.Contains("司法法規")))))))).ToList()
+        };
+        if( !string.IsNullOrEmpty( c ) && c is "章程" or "法律" or "命令" ) 
         {
-            d = ddd;
+            lq = lq.Where( l => l.LawLevel == c ).ToList() ; 
         }
+        if( !string.IsNullOrEmpty( b ) ) 
+        {
+            var lqq = new List<L>() ; 
+            if( Regex.IsMatch( b , @"([(].+[)])|[+\-&]" ) ) 
+            {
+            }
+            else
+            {
+                foreach( var bb in Regex.Replace( b , @"\s" , "\r\n" ).Split( "\r\n" ) ) 
+                {
+                    lqq.AddRange( lq.Where( l => l.Contains( bb ) ).Except( lqq ).ToList() ) ; 
+                }   
+            }
+            lq = lqq ; 
+        }
+        lq = lq.OrderBy( l => l.LawAbandonNote ).ToList() ;
+        lqDefault = lq;
+        lq = _sort_method switch
+        {
+            "latest" => lq.OrderByDescending(l => l.LawModifiedDate).ToList(),
+            "oldest" => lq.OrderBy(l => l.LawModifiedDate).ToList(),
+            "long" => lq.OrderByDescending(l => l.LawName.Length).ToList(),
+            "short" => lq.OrderBy(l => l.LawName.Length).ToList(),
+            "longPure" => lq.OrderByDescending(l => title.Replace(l.LawName, "").Length).ToList(),
+            "shortPure" => lq.OrderBy(l => title.Replace(l.LawName, "").Length).ToList(),
+            "CtoO" => lq.OrderBy(l => l.LawLevel, sbll).ToList(),
+            "OtoC" => lq.OrderByDescending(l => l.LawLevel, sbll).ToList(),
+            _ => lq
+        };
     }
 
     protected override async Task OnInitializedAsync()
@@ -147,41 +190,19 @@
         laws = await Http.GetFromJsonAsync<LawRoot[]>("json/laws.json");
         if( laws!= null ) 
         {
-            lq = string.IsNullOrEmpty(d) switch
-            {
-                false when d == "true" => lq.Where(l => l.LawAbandonNote == "廢").ToList(),
-                false when d == "false" => lq.Where(l => l.LawAbandonNote == "").ToList(),
-                _ => laws[0].Laws.Where(l => string.IsNullOrEmpty(a) || (a.ToUpper() == "EL" ? l.LawCategory.Contains("選舉法規") : (a.ToUpper() == "C" ? (!l.LawCategory.Contains("選舉法規") && l.LawCategory.Contains("中央法規")) : (a.ToUpper() == "EX" ? (!l.LawCategory.Contains("選舉法規") && l.LawCategory.Contains("行政法規")) : (a.ToUpper() == "L" ? (!l.LawCategory.Contains("選舉法規") && l.LawCategory.Contains("立法法規")) : (a.ToUpper() != "J" || (!l.LawCategory.Contains("選舉法規") && l.LawCategory.Contains("司法法規")))))))).ToList()
-            };
-            if( !string.IsNullOrEmpty( c ) && c is "章程" or "法律" or "命令" ) 
-            {
-                lq = lq.Where( l => l.LawLevel == c ).ToList() ; 
-            }
-            if( !string.IsNullOrEmpty( b ) ) 
-            {
-                var lqq = new List<L>() ; 
-                if( Regex.IsMatch( b , @"([(].+[)])|[+\-&]" ) ) 
-                {
-                }
-                else
-                {
-                    foreach( var bb in Regex.Replace( b , @"\s" , "\r\n" ).Split( "\r\n" ) ) 
-                    {
-                        lqq.AddRange( lq.Where( l => l.Contains( bb ) ).Except( lqq ).ToList() ) ; 
-                    }   
-                }
-                lq = lqq ; 
-            }
-            lq = lq.OrderBy( l => l.LawAbandonNote ).ToList() ; 
-            lqDefault = lq ; 
+            UpdateLaws();
         }
+    }
+
+    protected override void OnParametersSet()
+    {
+        UpdateLaws();
     }
     
     void Sort( ChangeEventArgs cea )
     {
+        _sort_method = (string?)cea.Value;
         if (cea.Value == null) return;
-        Regex title = new("^臺中市立臺中第一高級中等學校學生自治聯合會|^臺中第一高級中學");
-        SortByLawLevel sbll = new();
         lq = (string)cea.Value switch
         {
             "latest" => lq.OrderByDescending(l => l.LawModifiedDate).ToList(),
@@ -200,10 +221,6 @@
             "" => lqDefault,
             _ => lq
         };
-        foreach (var llaal in lq.Select(l=>l.LawModifiedDate))
-        {
-            Console.WriteLine(llaal);
-        }
     }
 
     private class SortByLawLevel : Comparer<string>

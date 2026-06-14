@@ -1,4 +1,4 @@
-@page "/laws/s" 
+@* @page "/laws/s"  *@
 @inject HttpClient Http 
 @inject NavigationManager N 
 
@@ -12,23 +12,23 @@
 </div>
 
 <br class="printNoDisplay" />
-<a class="printNoDisplay" href="">回上頁</a>
+<a class="printNoDisplay" href="@( string.IsNullOrEmpty( d ) ? $"laws?q={b}&c={c}&l={e}&ab={f}" : ( Regex.IsMatch( d.ToUpper() , "^(L{1}N{1})" ) ? $"latest?no={d.ToUpper().Replace( "LN" , "" )}" : $"laws?q={b}&c={c}" ) )">回上頁</a>
 
 @code 
 {
-    private LawRoot[]? laws ; 
-    public string? a , b , c , d , e , f , g ; 
-    public int aa = 0 ; 
-    public int[]? artNo ; 
-    public L l = new L() ; 
-    public List<A> aq = new List<A>() ; 
+    LawRoot[]? laws ;
+    string? a, b, c, d, e, f, g, h;
+    int aa = 0;
+    int[]? artNo;
+    L? l;
+    List<A> aq = [];
     protected override void OnInitialized()
     {
         var uri = N.ToAbsoluteUri(N.Uri);
         var queryStrings = QueryHelpers.ParseQuery(uri.Query);
         if (queryStrings.TryGetValue("a", out var aaa))
         {
-            a = aaa;
+            a = aaa!;
         }
         if (queryStrings.TryGetValue("q", out var bbb))
         {
@@ -38,42 +38,46 @@
         {
             c = ccc;
         }
-        if (queryStrings.TryGetValue("l", out var ddd))
+        if (queryStrings.TryGetValue("f", out var ddd))
         {
             d = ddd;
         }
-        if (queryStrings.TryGetValue("ab", out var eee))
+        if (queryStrings.TryGetValue("l", out var eee))
         {
             e = eee;
         }
-        if (queryStrings.TryGetValue("v", out var fff))
+        if (queryStrings.TryGetValue("ab", out var fff))
         {
             f = fff;
         }
-        if (queryStrings.TryGetValue("string", out var ggg))
+        if (queryStrings.TryGetValue("v", out var ggg))
         {
             g = ggg;
         }
-        aa = int.Parse( Regex.Replace( a.ToUpper() , "[CXLJE]"  , "" ) ) - 1 ; 
+        if (queryStrings.TryGetValue("string", out var hhh))
+        {
+            h = hhh;
+        }
+        aa = string.IsNullOrEmpty(a) ? -1 : int.Parse( Regex.Replace( a.ToUpper() , "[CXLJE]"  , "" ) ) - 1 ; 
     }
     protected override async Task OnInitializedAsync()
     {
         laws = await Http.GetFromJsonAsync<LawRoot[]>("json/laws.json");
         if( laws != null ) 
         {
-            l = laws[0].Laws.Where( l => !string.IsNullOrEmpty( a ) && ( Regex.Replace( a.ToUpper() , "[^CXLJE]"  , "" ).ToUpper() == "E" ? l.LawCategory.Contains( "選舉法規" ) : Regex.Replace( a.ToUpper() , "[^CXLJE]"  , "" ).ToUpper() == "C" ? !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "中央法規" ) : Regex.Replace( a.ToUpper() , "[^CXLJE]"  , "" ).ToUpper() == "X" ? !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "行政法規" ) : Regex.Replace( a.ToUpper() , "[^CXLJE]"  , "" ).ToUpper() == "L" ? !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "立法法規" ) : Regex.Replace( a.ToUpper() , "[^CXLJE]"  , "" ).ToUpper() == "J" && !l.LawCategory.Contains( "選舉法規" ) && l.LawCategory.Contains( "司法法規" ) ) ).ToArray()[aa] ; 
+            l = laws[0].Laws.Where( x => !string.IsNullOrEmpty( a ) && ( Regex.Replace( a.ToUpper() , "[^CXLJE]"  , "" ).ToUpper() == "E" ? x.LawCategory.Contains( "選舉法規" ) : Regex.Replace( a.ToUpper() , "[^CXLJE]"  , "" ).ToUpper() == "C" ? !x.LawCategory.Contains( "選舉法規" ) && x.LawCategory.Contains( "中央法規" ) : Regex.Replace( a.ToUpper() , "[^CXLJE]"  , "" ).ToUpper() == "X" ? !x.LawCategory.Contains( "選舉法規" ) && x.LawCategory.Contains( "行政法規" ) : Regex.Replace( a.ToUpper() , "[^CXLJE]"  , "" ).ToUpper() == "L" ? !x.LawCategory.Contains( "選舉法規" ) && x.LawCategory.Contains( "立法法規" ) : Regex.Replace( a.ToUpper() , "[^CXLJE]"  , "" ).ToUpper() == "J" && !x.LawCategory.Contains( "選舉法規" ) && x.LawCategory.Contains( "司法法規" ) ) ).ToArray()[aa] ; 
         }
     }
 
     public class LawRoot
     {
-        public L[] Laws { get; set; }
+        public required L[] Laws { get; set; }
     }
     public class L
     {
-        public string LawCategory { get; set; }
-        public string? LawForeword { get; set; }
-        public A[] LawArticles { get; set; }
+        public required string LawCategory { get; set; }
+        public required string LawForeword { get; set; }
+        public required A[] LawArticles { get; set; }
         public bool Contains( string a ) 
         {
             if( !string.IsNullOrEmpty( LawForeword ) && LawForeword.ToUpper().Contains( a ) ) 
@@ -85,9 +89,9 @@
     }
     public class A
     {
-        public string ArticleType { get; set; }
-        public string? ArticleNo { get; set; }
-        public string ArticleContent { get; set; }
+        public required string ArticleType { get; set; }
+        public required string ArticleNo { get; set; }
+        public required string ArticleContent { get; set; }
         public string ShowNum() 
         {
             return ArticleContent.Split("\r\n").Count(a => !Regex.IsMatch(a, @"^([1-9]{1}[0-9]+、|[1-9]{1}、|[１-９]{1}[０-９]+、|[１-９]{1}、|[1-9]{1}[0-9]+\u002E|[1-9]{1}\u002E|[１-９]{1}[０-９]+\u002E|[１-９]{1}\u002E|（[一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+）|（[一二三四五六七八九十]{1}）|（[1-9]{1}[0-9]+）|（[1-9]{1}）|（[１-９]{1}[０-９]+）|（[１-９]{1}）|[一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+、|[一二三四五六七八九十]{1}、)")) > 1 ? "showNum" : "" ; 

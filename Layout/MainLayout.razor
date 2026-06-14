@@ -197,9 +197,9 @@
         l = await Http.GetFromJsonAsync<L[]>("json/laws.json");
         p = await Http.GetFromJsonAsync<P[]>("json/parties.json");
         c = await Http.GetFromJsonAsync<C[]>("json/cases.json");
-        lty = ( Int32.Parse(l[0].UpdateDate.Split('/')[0]) - 1911 ).ToString();
-        pty = ( Int32.Parse(p[0].UpdateDate.Split('/')[0]) - 1911 ).ToString();
-        cty = ( Int32.Parse(c[0].UpdateDate.Split('/')[0]) - 1911 ).ToString();
+        lty = ( int.Parse(l![0].UpdateDate.Split('/')[0]) - 1911 ).ToString();
+        pty = ( int.Parse(p![0].UpdateDate.Split('/')[0]) - 1911 ).ToString();
+        cty = ( int.Parse(c![0].UpdateDate.Split('/')[0]) - 1911 ).ToString();
         ltm = l[0].UpdateDate.Split('/')[1];
         ptm = p[0].UpdateDate.Split('/')[1];
         ctm = c[0].UpdateDate.Split('/')[1];
@@ -213,49 +213,45 @@
     }
     void ToLC()
     { 
-        N.NavigateTo("laws?c=c",true);
+        N.NavigateTo("laws?c=c",false);
     }
     void ToLEx()
     {
-        N.NavigateTo("laws?c=ex", true);
+        N.NavigateTo("laws?c=ex", false);
     }
     void ToLL()
     {
-        N.NavigateTo("laws?c=l", true);
+        N.NavigateTo("laws?c=l", false);
     }
     void ToLJ()
     {
-        N.NavigateTo("laws?c=j", true);
+        N.NavigateTo("laws?c=j", false);
     }
     void ToLEl()
     {
-        N.NavigateTo("laws?c=el", true);
+        N.NavigateTo("laws?c=el", false);
     }
     void ToC()
     {
-        N.NavigateTo("cases", true);
+        N.NavigateTo("cases", false);
     }
     void ToP()
     {
-        N.NavigateTo("parties", true);
+        N.NavigateTo("parties", false);
     }
     void ToRel()
     {
-        N.NavigateTo("rel", true);
+        N.NavigateTo("rel", false);
     }
     void ToPrint()
     {
-        N.NavigateTo("print", true);
+        N.NavigateTo("print", false);
     }
     void ToO()
     {
-        N.NavigateTo("open", true);
+        N.NavigateTo("open", false);
     }
-    void ToPriv()
-    {
-        N.NavigateTo("privacy", true);
-    }
-    private string z;
+    private string z = "100%";
     private bool sIsActivated = false; 
     private bool mIsActivated = true; 
     private bool lIsActivated = false; 
