@@ -1283,24 +1283,6 @@ else
         }
     }
     
-    public int x(string s)
-    {
-        if( s == "" ) 
-        {
-            return 0 ; 
-        }
-        if( s[0] == '零' ) 
-        {
-            s = s[1..] ; 
-        }
-        if( s[0] == '十' )
-        {
-            s = "一" + s ; 
-        }
-        const string t = " 一二三四五六七八九" ; 
-        return s.Length < 2 ? t.IndexOf( s[0] ) : ( t.IndexOf( s[0] ) * ( s[1] == '百' ? 100 : 10) + x( s[2..] ) ) ; 
-    }
-
     public class LawRoot
     {
         public required string UpdateDate { get; set; }

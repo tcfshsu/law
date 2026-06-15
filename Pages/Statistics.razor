@@ -97,8 +97,8 @@
         public char A { get; init; } = a;
         public int C { get; init; } = c;
     }
-    List<Result> r = [];
-    List<Result> rc = [];
+    readonly List<Result> r = [];
+    readonly List<Result> rc = [];
     int wc;
     string ljson = "", cjson = "";
     protected override async Task OnInitializedAsync()

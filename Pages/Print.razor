@@ -698,19 +698,7 @@ else
                 </li>
                 <li>
                     <span>編輯：</span>
-                    <span>
-                        @foreach( var x in 編輯 ) 
-                        {
-                            @if( x != 編輯.Last() ) 
-                            {
-                                @( x + "、" ) 
-                            }
-                            else 
-                            {
-                                @x
-                            }
-                        }
-                    </span>
+                    <span>@string.Join( '、' , 編輯 )</span>
                 </li>
                 <li>
                     <span>網站：</span>
@@ -729,153 +717,31 @@ else
     </div>
 }
 
-<br class="printNoDisplay" /><a class="printNoDisplay" href="">回首頁</a>
+<br class="printNoDisplay" />
+<a class="printNoDisplay" href="">回首頁</a>
 
 @code {
 
     private LawRoot[]? laws;
-    private int aCount ; 
-    private int[] pCount = [] ; 
-    private int ic = 0;
-    private int iex = 0;
-    private int il = 0;
-    private int ij = 0;
-    private int iel = 0; 
-    public List<L> lc = [];
-    public List<L> lex = [];
-    public List<L> ll = [];
-    public List<L> lj = [];
-    public List<L> lel = [];
-    private string 發行人 = "黃宣方" ; 
-    private string[] 編輯 = ["黃宣方" , "卓祐宸" , "陳寬澂" , "王宸翼"]; 
+    private int aCount; 
+    private int ic, iex, il, ij, iel; 
+    private L[] lc = [], lex = [], ll = [], lj = [], lel = [];
+    private readonly string 發行人 = "黃宣方" ; 
+    private readonly string[] 編輯 = ["黃宣方" , "卓祐宸" , "陳寬澂" , "王宸翼"]; 
     protected override async Task OnInitializedAsync()
     {
         laws = await Http.GetFromJsonAsync<LawRoot[]>("json/laws.json");
-        foreach( var l in laws![0].Laws ) 
-        {
-            foreach( var a in l.LawArticles) 
-            {
-                if( a.ArticleType == "A" ) 
-                {
-                    aCount ++ ; 
-                }
-            }
-        }
-        pCount = new int[aCount] ; 
-        foreach (var l in laws[0].Laws)
-        {
-            if (l.LawCategory.Contains("選舉法規"))
-            {
-                lel.Add(l);
-                iel++;
-            }
-            else if(l.LawCategory.Contains( "中央法規" ))
-            {
-                lc.Add(l);
-                ic++;
-            }
-            else if (l.LawCategory.Contains("行政法規"))
-            {
-                lex.Add(l);
-                iex++;
-            }
-            else if (l.LawCategory.Contains("立法法規"))
-            {
-                ll.Add(l);
-                il++;
-            }
-            else if (l.LawCategory.Contains("司法法規"))
-            {
-                lj.Add(l);
-                ij++;
-            }
-        }
-        int ii = 0 ; 
-        foreach( var l in lc ) 
-        {
-            foreach( var a in l.LawArticles) 
-            {
-                if( a.ArticleType == "A" ) 
-                {
-                    foreach( var p in a.ArticleContent.Split( "\r\n" ) ) 
-                    {
-                        if( Regex.IsMatch( p , @"^([1-9]{1}[0-9]+、|[1-9]{1}、|[１-９]{1}[０-９]+、|[１-９]{1}、|[1-9]{1}[0-9]+\u002E|[1-9]{1}\u002E|[１-９]{1}[０-９]+\u002E|[１-９]{1}\u002E)" ) ) {}else if (Regex.IsMatch( p , @"^(（[一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+）|（[一二三四五六七八九十]{1}）|（[1-9]{1}[0-9]+）|（[1-9]{1}）|（[１-９]{1}[０-９]+）|（[１-９]{1}）)")){}else if (Regex.IsMatch( p , @"^([一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+、|[一二三四五六七八九十]{1}、)")){}else 
-                        {
-                            pCount[ ii ] ++ ; 
-                        }
-                    }
-                    ii ++ ; 
-                }
-            }
-        }
-        foreach( var l in lex ) 
-        {
-            foreach( var a in l.LawArticles) 
-            {
-                if( a.ArticleType == "A" ) 
-                {
-                    foreach( var p in a.ArticleContent.Split( "\r\n" ) ) 
-                    {
-                        if( Regex.IsMatch( p , @"^([1-9]{1}[0-9]+、|[1-9]{1}、|[１-９]{1}[０-９]+、|[１-９]{1}、|[1-9]{1}[0-9]+\u002E|[1-9]{1}\u002E|[１-９]{1}[０-９]+\u002E|[１-９]{1}\u002E)" ) ) {}else if (Regex.IsMatch( p , @"^(（[一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+）|（[一二三四五六七八九十]{1}）|（[1-9]{1}[0-9]+）|（[1-9]{1}）|（[１-９]{1}[０-９]+）|（[１-９]{1}）)")){}else if (Regex.IsMatch( p , @"^([一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+、|[一二三四五六七八九十]{1}、)")){}else 
-                        {
-                            pCount[ ii ] ++ ; 
-                        }
-                    }
-                    ii ++ ; 
-                }
-            }
-        }
-        foreach( var l in ll ) 
-        {
-            foreach( var a in l.LawArticles) 
-            {
-                if( a.ArticleType == "A" ) 
-                {
-                    foreach( var p in a.ArticleContent.Split( "\r\n" ) ) 
-                    {
-                        if( Regex.IsMatch( p , @"^([1-9]{1}[0-9]+、|[1-9]{1}、|[１-９]{1}[０-９]+、|[１-９]{1}、|[1-9]{1}[0-9]+\u002E|[1-9]{1}\u002E|[１-９]{1}[０-９]+\u002E|[１-９]{1}\u002E)" ) ) {}else if (Regex.IsMatch( p , @"^(（[一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+）|（[一二三四五六七八九十]{1}）|（[1-9]{1}[0-9]+）|（[1-9]{1}）|（[１-９]{1}[０-９]+）|（[１-９]{1}）)")){}else if (Regex.IsMatch( p , @"^([一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+、|[一二三四五六七八九十]{1}、)")){}else 
-                        {
-                            pCount[ ii ] ++ ; 
-                        }
-                    }
-                    ii ++ ; 
-                }
-            }
-        }
-        foreach( var l in lj ) 
-        {
-            foreach( var a in l.LawArticles) 
-            {
-                if( a.ArticleType == "A" ) 
-                {
-                    foreach( var p in a.ArticleContent.Split( "\r\n" ) ) 
-                    {
-                        if( Regex.IsMatch( p , @"^([1-9]{1}[0-9]+、|[1-9]{1}、|[１-９]{1}[０-９]+、|[１-９]{1}、|[1-9]{1}[0-9]+\u002E|[1-9]{1}\u002E|[１-９]{1}[０-９]+\u002E|[１-９]{1}\u002E)" ) ) {}else if (Regex.IsMatch( p , @"^(（[一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+）|（[一二三四五六七八九十]{1}）|（[1-9]{1}[0-9]+）|（[1-9]{1}）|（[１-９]{1}[０-９]+）|（[１-９]{1}）)")){}else if (Regex.IsMatch( p , @"^([一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+、|[一二三四五六七八九十]{1}、)")){}else 
-                        {
-                            pCount[ ii ] ++ ; 
-                        }
-                    }
-                    ii ++ ; 
-                }
-            }
-        }
-        foreach( var l in lel ) 
-        {
-            foreach( var a in l.LawArticles) 
-            {
-                if( a.ArticleType == "A" ) 
-                {
-                    foreach( var p in a.ArticleContent.Split( "\r\n" ) ) 
-                    {
-                        if( Regex.IsMatch( p , @"^([1-9]{1}[0-9]+、|[1-9]{1}、|[１-９]{1}[０-９]+、|[１-９]{1}、|[1-9]{1}[0-9]+\u002E|[1-9]{1}\u002E|[１-９]{1}[０-９]+\u002E|[１-９]{1}\u002E)" ) ) {}else if (Regex.IsMatch( p , @"^(（[一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+）|（[一二三四五六七八九十]{1}）|（[1-9]{1}[0-9]+）|（[1-9]{1}）|（[１-９]{1}[０-９]+）|（[１-９]{1}）)")){}else if (Regex.IsMatch( p , @"^([一二三四五六七八九十]{1}[一二三四五六七八九○零十百]+、|[一二三四五六七八九十]{1}、)")){}else 
-                        {
-                            pCount[ ii ] ++ ; 
-                        }
-                    }
-                    ii ++ ; 
-                }
-            }
-        }
+        aCount = laws![0].Laws.SelectMany(x => x.LawArticles).Count(x => x.ArticleType == "A");
+        lel = laws[0].Laws.Where(x => x.LawCategory.Contains("選舉法規")).ToArray();
+        iel = lel.Length;
+        lc = laws![0].Laws.Where(l => !l.LawCategory.Contains("選舉法規") && l.LawCategory.Contains("中央法規")).ToArray();
+        ic = lc.Length;
+        lex = laws![0].Laws.Where(l => !l.LawCategory.Contains("選舉法規") && l.LawCategory.Contains("行政法規")).ToArray();
+        iex = lex.Length;
+        ll = laws![0].Laws.Where(l => !l.LawCategory.Contains("選舉法規") && l.LawCategory.Contains("立法法規")).ToArray();
+        il = ll.Length;
+        lj = laws![0].Laws.Where(l => !l.LawCategory.Contains("選舉法規") && l.LawCategory.Contains("司法法規")).ToArray();
+        ij = lj.Length;
     }
 
     public class LawRoot
