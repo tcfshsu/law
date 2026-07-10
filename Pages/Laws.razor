@@ -146,8 +146,8 @@
         if (laws == null) return;
         lq = string.IsNullOrEmpty(d) switch
         {
-            false when d == "true" => lq.Where(l => l.LawAbandonNote == "廢").ToList(),
-            false when d == "false" => lq.Where(l => l.LawAbandonNote == "").ToList(),
+            false when d == "true" => laws[0].Laws.Where(l => l.LawAbandonNote == "廢").ToList(),
+            false when d == "false" => laws[0].Laws.Where(l => l.LawAbandonNote == "").ToList(),
             _ => laws[0].Laws.Where(l => string.IsNullOrEmpty(a) || (a.ToUpper() == "EL" ? l.LawCategory.Contains("選舉法規") : (a.ToUpper() == "C" ? (!l.LawCategory.Contains("選舉法規") && l.LawCategory.Contains("中央法規")) : (a.ToUpper() == "EX" ? (!l.LawCategory.Contains("選舉法規") && l.LawCategory.Contains("行政法規")) : (a.ToUpper() == "L" ? (!l.LawCategory.Contains("選舉法規") && l.LawCategory.Contains("立法法規")) : (a.ToUpper() != "J" || (!l.LawCategory.Contains("選舉法規") && l.LawCategory.Contains("司法法規")))))))).ToList()
         };
         if( !string.IsNullOrEmpty( c ) && c is "章程" or "法律" or "命令" ) 
