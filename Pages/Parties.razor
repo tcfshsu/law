@@ -59,7 +59,7 @@ else
 
 @code {
     private Py[]? p;
-    private string a;
+    private string a = "";
     private string? b;
     private bool ifbvalid = false ; 
     public List<P> pq = new List<P>() ; 
@@ -69,7 +69,7 @@ else
         var queryStrings = QueryHelpers.ParseQuery(uri.Query);
         if (queryStrings.TryGetValue("q", out var aaa))
         {
-            a = aaa;
+            a = aaa!;
         }
         if (queryStrings.TryGetValue("s", out var bbb))
         {
@@ -85,23 +85,23 @@ else
         {
             foreach( var a in Regex.Replace( a , @"\s" , "\r\n" ).Split( "\r\n" ) ) 
             {
-                pq.AddRange( p[0].Parties.Where( p => p.PartyState == b ).Where( p => p.PartyName.ToUpper().Contains( a.ToUpper() ) || ( !string.IsNullOrEmpty( p.PartyAbbreviation ) && p.PartyAbbreviation.ToUpper().Contains( a.ToUpper() ) ) || p.Chairman.ToUpper().Contains( a.ToUpper() ) ).ToList() ) ; 
+                pq.AddRange( p[0].Parties!.Where( p => p.PartyState == b ).Where( p => p.PartyName.ToUpper().Contains( a.ToUpper() ) || ( !string.IsNullOrEmpty( p.PartyAbbreviation ) && p.PartyAbbreviation.ToUpper().Contains( a.ToUpper() ) ) || p.Chairman.ToUpper().Contains( a.ToUpper() ) ).ToList() ) ; 
             }
         }
         else if( p != null && !string.IsNullOrEmpty( a ) ) 
         {
             foreach( var a in Regex.Replace( a , @"\s" , "\r\n" ).Split( "\r\n" ) ) 
             {
-                pq.AddRange( p[0].Parties.Where( p => p.PartyName.ToUpper().Contains( a.ToUpper() ) || ( !string.IsNullOrEmpty( p.PartyAbbreviation ) && p.PartyAbbreviation.ToUpper().Contains( a.ToUpper() ) ) || p.Chairman.ToUpper().Contains( a.ToUpper() ) ).ToList() ) ; 
+                pq.AddRange( p[0].Parties!.Where( p => p.PartyName.ToUpper().Contains( a.ToUpper() ) || ( !string.IsNullOrEmpty( p.PartyAbbreviation ) && p.PartyAbbreviation.ToUpper().Contains( a.ToUpper() ) ) || p.Chairman.ToUpper().Contains( a.ToUpper() ) ).ToList() ) ; 
             }
         }
         else if( p!= null && ifbvalid ) 
         {
-            pq = p[0].Parties.Where( p => p.PartyState == b ).ToList() ; 
+            pq = p[0].Parties!.Where( p => p.PartyState == b ).ToList() ; 
         }
         else if( p != null ) 
         {
-            pq = p[0].Parties.ToList() ; 
+            pq = p[0].Parties!.ToList() ; 
         }
     }
 

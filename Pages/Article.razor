@@ -240,10 +240,10 @@ else
     int h1c, h2c, h3c, h4c, h5c, h6c, pc, subpc, itemc, ofc;
     string[] h1 = [], h2 = [], h3 = [], h4 = [], h5 = [], h6 = [];
     string[] lip = [], lisubp = [], liitem = [], liof = [];
-    int aCount, ic, iex, il, ij, iel;
+    int ic, iex, il, ij, iel;
     L[] lc = [], lex = [], ll = [], lj = [], lel = [];
     private A[] artarray = []; 
-    private A art;
+    public required A art;
     int aa = -1 ; 
     protected override void OnInitialized()
     {
@@ -304,35 +304,30 @@ else
                 case 'C':
                 {
                     artarray = lc[aa].LawArticles.Where(x => x.ArticleType == "A").ToArray();
-                    aCount = artarray.Length;
                     art = artarray[b] ;
                     break;
                 }
                 case 'X':
                 {
                     artarray = lex[aa].LawArticles.Where(x => x.ArticleType == "A").ToArray();
-                    aCount = artarray.Length;
                     art = artarray[b] ;
                     break;
                 }
                 case 'L':
                 {
                     artarray = ll[aa].LawArticles.Where(x => x.ArticleType == "A").ToArray();
-                    aCount = artarray.Length;
                     art = artarray[b] ;
                     break;
                 }
                 case 'J':
                 {
                     artarray = lj[aa].LawArticles.Where(x => x.ArticleType == "A").ToArray();
-                    aCount = artarray.Length;
                     art = artarray[b] ;
                     break;
                 }
                 case 'E':
                 {
                     artarray = lel[aa].LawArticles.Where(x => x.ArticleType == "A").ToArray();
-                    aCount = artarray.Length;
                     art = artarray[b] ;
                     break;
                 }

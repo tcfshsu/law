@@ -80,7 +80,7 @@ else
     private Py[]? p;
     private string a = "";
     int i;
-    private string b;
+    private string b = "";
     private string? c;
     protected override void OnInitialized()
     {
@@ -88,11 +88,11 @@ else
         var queryStrings = QueryHelpers.ParseQuery(uri.Query);
         if (queryStrings.TryGetValue("party", out var aaa))
         {
-            a = aaa; 
+            a = aaa!; 
         }
         if (queryStrings.TryGetValue("q", out var bbb))
         {
-            b = bbb;
+            b = bbb!;
         }
         if (queryStrings.TryGetValue("s", out var ccc))
         {
@@ -103,7 +103,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         p = await Http.GetFromJsonAsync<Py[]>("json/parties.json");
-        for (int iii = 0; iii < p[0].Parties.Length; iii++)
+        for (int iii = 0; iii < p![0].Parties.Length; iii++)
         {
             if (int.Parse(a) != p[0].Parties[iii].Party) continue;
             i = iii;

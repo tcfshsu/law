@@ -18,9 +18,9 @@ else
     <script>
         function Pprint () 
         { 
-            var newWin = window.open( '' , '列印視窗' ) ; 
+            const newWin = window.open( '' , '列印視窗' ) ; 
             newWin.document.open() ; 
-            newWin.document.write('\u{003C}html>\u{003C}head>\u{003C}link rel="preconnect" href="https://fonts.googleapis.com">\u{003C}link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\u{003C}link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Noto+Sans+JP:wght@100..900&family=Noto+Sans+SC:wght@100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&family=Noto+Serif+JP:wght@200..900&family=Noto+Serif+SC:wght@200..900&family=Noto+Sans:wght@700&family=Noto+Serif+TC:wght@200..900&display=swap">\u{003C}link rel="stylesheet" href="css/print.css">\u{003C}link rel="stylesheet" href="css/fonts.css" />\u{003C}link rel="stylesheet" href="css/color.css" />\u{003C}link rel="stylesheet" href="css/site.css" />\u{003C}link rel="stylesheet" href="css/p.css" />\u{003C}link rel="stylesheet" href="css/home.css" />\u{003C}link rel="stylesheet" href="css/breadcrumb.css" />\u{003C}link rel="stylesheet" href="css/app.css" />\u{003C}link rel="stylesheet" href="lwa.styles.css" />\u{003C}link rel="stylesheet" href="css/law.css" />\u{003C}script src="js/print.js">\u{003C}/script>\u{003C}/head>\u{003C}body>\u{003C}main>\u{003C}/main>\u{003C}/body>\u{003C}/html>' ) ;
+            newWin.document.innerHTML('\u{003C}html>\u{003C}head>\u{003C}link rel="preconnect" href="https://fonts.googleapis.com">\u{003C}link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\u{003C}link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Noto+Sans+JP:wght@100..900&family=Noto+Sans+SC:wght@100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans+Display:ital,wght@0,100..900;1,100..900&family=Noto+Serif+JP:wght@200..900&family=Noto+Serif+SC:wght@200..900&family=Noto+Sans:wght@700&family=Noto+Serif+TC:wght@200..900&display=swap">\u{003C}link rel="stylesheet" href="css/print.css">\u{003C}link rel="stylesheet" href="css/fonts.css" />\u{003C}link rel="stylesheet" href="css/color.css" />\u{003C}link rel="stylesheet" href="css/site.css" />\u{003C}link rel="stylesheet" href="css/p.css" />\u{003C}link rel="stylesheet" href="css/home.css" />\u{003C}link rel="stylesheet" href="css/breadcrumb.css" />\u{003C}link rel="stylesheet" href="css/app.css" />\u{003C}link rel="stylesheet" href="lwa.styles.css" />\u{003C}link rel="stylesheet" href="css/law.css" />\u{003C}script src="js/print.js">\u{003C}/script>\u{003C}/head>\u{003C}body>\u{003C}main>\u{003C}/main>\u{003C}/body>\u{003C}/html>' ) ;
             newWin.document.close() ; 
         } 
     </script>
@@ -132,7 +132,7 @@ else
                         <li>@his</li>
                     }
                 </ol>
-                @if( lc[i].LawAttachments.Length != 0 && lc[i].LawAttachments != null ) 
+                @if( lc[i].LawAttachments.Length != 0 ) 
                 {
                     <li>
                         <span>附件：</span>
@@ -250,7 +250,7 @@ else
                         <li>@his</li>
                     }
                 </ol>
-                @if( lex[i].LawAttachments.Length != 0 && lex[i].LawAttachments != null ) 
+                @if( lex[i].LawAttachments.Length != 0 ) 
                 {
                     <li>
                         <span>附件：</span>
@@ -301,7 +301,7 @@ else
                     else 
                     {
                         <h6>
-                            @if (art.ArticleNo.Contains('【') && art.ArticleNo != "" && art.ArticleNo != null )
+                            @if (art.ArticleNo.Contains('【') && art.ArticleNo != "" )
                             {
                                 <span>@art.ArticleNo.Split('【')[0]</span>
                                 <span>@Regex.Split(art.ArticleNo, @"條(?=【)")[1]</span>
@@ -364,7 +364,7 @@ else
                         <li>@his</li>
                     }
                 </ol>
-                @if( ll[i].LawAttachments.Length != 0 && ll[i].LawAttachments != null ) 
+                @if( ll[i].LawAttachments.Length != 0 ) 
                 {
                     <li>
                         <span>附件：</span>
@@ -478,7 +478,7 @@ else
                         <li>@his</li>
                     }
                 </ol>
-                @if( lj[i].LawAttachments.Length != 0 && lj[i].LawAttachments != null ) 
+                @if( lj[i].LawAttachments.Length != 0 ) 
                 {
                     <li>
                         <span>附件：</span>
@@ -592,7 +592,7 @@ else
                         <li>@his</li>
                     }
                 </ol>
-                @if( lel[i].LawAttachments.Length != 0 && lel[i].LawAttachments != null ) 
+                @if( lel[i].LawAttachments.Length != 0 ) 
                 {
                     <li>
                         <span>附件：</span>
@@ -735,8 +735,7 @@ else
 
     private LawRoot[]? laws;
     private int aCount ; 
-    private int[] pCount ; 
-    private string[]? showNum ; 
+    private int[] pCount = [] ; 
     private int ic = 0;
     private int iex = 0;
     private int il = 0;
@@ -752,7 +751,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         laws = await Http.GetFromJsonAsync<LawRoot[]>("json/laws.json");
-        foreach( var l in laws[0].Laws ) 
+        foreach( var l in laws![0].Laws ) 
         {
             foreach( var a in l.LawArticles) 
             {
@@ -763,7 +762,6 @@ else
             }
         }
         pCount = new int[aCount] ; 
-        showNum = new string[aCount] ; 
         foreach (var l in laws[0].Laws)
         {
             if (l.LawCategory.Contains("選舉法規"))
@@ -892,20 +890,20 @@ else
         public required string LawURL { get; set; }
         public required string LawCategory { get; set; }
         public required string LawModifiedDate { get; set; }
-        public string? LawEffectiveDate { get; set; }
-        public string? LawEffectiveNote { get; set; }
-        public string? LawAbandonNote { get; set; }
+        public required string LawEffectiveDate { get; set; }
+        public required string LawEffectiveNote { get; set; }
+        public required string LawAbandonNote { get; set; }
         public required string LawHasEngVersion { get; set; }
-        public string? EngLawName { get; set; }
-        public Attachments[]? LawAttachments { get; set; }
+        public required string EngLawName { get; set; }
+        public required Attachments[] LawAttachments { get; set; }
         public required string LawHistories { get; set; }
-        public string? LawForeword { get; set; }
+        public required string LawForeword { get; set; }
         public required A[] LawArticles { get; set; }
     }
     public class A
     {
         public required string ArticleType { get; set; }
-        public string? ArticleNo { get; set; }
+        public required string ArticleNo { get; set; }
         public required string ArticleContent { get; set; }
         public string ShowNum() 
         {

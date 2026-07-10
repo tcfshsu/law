@@ -83,11 +83,11 @@ else
                     </h4>
                 </dt>
             }
-            @if (@cases[0].Cases[i].Rulings.Length != 0)
+            @if (@cases[0].Cases[i].Rulings!.Length != 0)
             {
                 <dt><h4>裁定</h4></dt>
                 <div class="cd r">
-                    @foreach (var cassr in @cases[0].Cases[i].Rulings)
+                    @foreach (var cassr in @cases[0].Cases[i].Rulings!)
                     {
                         <dl>
                             <dt><h5>裁定字號</h5></dt>
@@ -108,11 +108,11 @@ else
                     }
                 </div>
             }
-            @if (@cases[0].Cases[i].Opinions.Length != 0)
+            @if (@cases[0].Cases[i].Opinions!.Length != 0)
             {
                 <dt><h4>意見書</h4></dt>
                 <div class="cd o">
-                    @foreach (var casso in @cases[0].Cases[i].Opinions)
+                    @foreach (var casso in @cases[0].Cases[i].Opinions!)
                     {
                         <dl>
                             <dt><h5>類型</h5></dt>
@@ -142,27 +142,27 @@ else
 
 @code {
     private Casess[]? cases;
-    private string a;
+    private string a = "";
     int i ; 
-    private string b ; 
+    private string b = "" ; 
     protected override void OnInitialized()
     {
         var uri = NavManager.ToAbsoluteUri(NavManager.Uri);
         var queryStrings = QueryHelpers.ParseQuery(uri.Query);
         if(queryStrings.TryGetValue("case", out var aaa))
         {
-            a = aaa;
+            a = aaa!;
         }
         if(queryStrings.TryGetValue("q", out var bbb))
         {
-            b = bbb;
+            b = bbb!;
         }
     }
 
     protected override async Task OnInitializedAsync()
     {
         cases = await Http.GetFromJsonAsync<Casess[]>("json/cases.json");
-        for (int iii = 0; iii < cases[0].Cases.Length; iii++)
+        for (int iii = 0; iii < cases![0].Cases.Length; iii++)
         {
             if (a == cases[0].Cases[iii].No)
             {
